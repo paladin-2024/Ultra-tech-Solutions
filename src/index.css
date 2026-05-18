@@ -267,6 +267,13 @@
   }
   .marquee-track:hover { animation-play-state: paused; }
 
+  /* ── Hero scroll indicator bounce ──────────────────────────────── */
+  @keyframes scrollBounce {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(6px); }
+  }
+  .hero-scroll-bounce { animation: scrollBounce 1.8s ease-in-out infinite; }
+
   /* ── Shimmer animation ──────────────────────────────────────────── */
   @keyframes shimmer {
     0%   { background-position: 0% 50%; }
