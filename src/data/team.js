@@ -48,7 +48,7 @@ const rawTestimonials = [
   {
     id: 2,
     name: 'Responsable Académique',
-    company: 'ESCO Goma',
+    company: 'ITIG Goma',
     text: "La formation en robotique dispensée par UTS a ouvert de nouveaux horizons pour nos étudiants. Qualité pédagogique exceptionnelle.",
     rating: 5,
     avatar: '/images/team-elie.jpg',

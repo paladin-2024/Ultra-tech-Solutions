@@ -4,7 +4,7 @@ import { Star, Quote } from 'lucide-react'
 const REVIEWS = [
   {
     name: 'Emmanuel Rutabingwa',
-    role: 'Directeur, ESCO Goma',
+    role: 'Directeur, ITIG Goma',
     avatar: '/images/team-gedeon.jpg',
     rating: 5,
     text: "UTS a transformé notre infrastructure électrique en un temps record. Professionnels, ponctuels, et le travail est irréprochable. Je recommande sans hésitation.",

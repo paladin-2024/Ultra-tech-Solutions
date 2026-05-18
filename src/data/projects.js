@@ -14,13 +14,13 @@ const raw = [
   },
   {
     id: 2,
-    title: 'Formation Robotique – ESCO Goma',
+    title: 'Formation Robotique – ITIG Goma',
     category: 'Formation',
     image: '/images/arduino-training.jpg',
     description:
-      "Programme de formation intensive en robotique pour 60 étudiants de l'École Supérieure du Congo à Goma. Fabrication et programmation de robots éducatifs.",
+      "Programme de formation intensive en robotique pour 60 étudiants de l'ITIG à Goma. Fabrication et programmation de robots éducatifs.",
     year: 2024,
-    client: 'ESCO Goma',
+    client: 'ITIG Goma',
     tags: ['Robotique', 'Formation'],
   },
   {
