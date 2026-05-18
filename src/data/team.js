@@ -32,6 +32,7 @@ const rawTeam = [
     image: '/images/team-dorcas.jpg',
     bio: "Coordinatrice administrative et ressources humaines d'UTS. Assure le bon fonctionnement interne et le suivi des équipes.",
     specialties: ['Administration', 'RH', 'Communication'],
+    objectPosition: 'center 25%',
   },
 ]
 

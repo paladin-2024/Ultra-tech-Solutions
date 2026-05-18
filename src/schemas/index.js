@@ -75,6 +75,7 @@ export const TeamMemberSchema = z.object({
   image: z.string().min(1),
   bio: z.string().min(10),
   specialties: z.array(z.string().min(1)).min(1).max(5),
+  objectPosition: z.string().optional(),
 })
 
 export const TestimonialSchema = z.object({

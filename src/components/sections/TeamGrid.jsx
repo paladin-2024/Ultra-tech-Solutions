@@ -40,7 +40,7 @@ export default function TeamGrid() {
                   src={member.image}
                   alt={member.name}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-600"
-                  style={{ objectPosition: 'center top' }}
+                  style={{ objectPosition: member.objectPosition ?? 'center top' }}
                   loading="lazy"
                 />
               </div>
