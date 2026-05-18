@@ -23,11 +23,11 @@ function BentoCard({ project, featured, onClick }) {
     <motion.div
       className={cn('relative rounded-2xl overflow-hidden cursor-pointer group',
         featured ? 'lg:col-span-2 lg:row-span-2' : '')}
-      style={{ minHeight: featured ? '440px' : '220px' }}
-      initial={{ clipPath: 'inset(0 0 100% 0)' }}
-      whileInView={{ clipPath: 'inset(0 0 0% 0)' }}
-      viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      style={{ minHeight: featured ? '320px' : '200px' }}
+      initial={{ y: 20 }}
+      whileInView={{ y: 0 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
     >
       <motion.div
         className="relative w-full h-full"
@@ -304,8 +304,7 @@ export default function ProjectsGallery({ limit, showFilter = true, title = 'Pro
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.18 }}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4"
-              style={{ gridAutoRows: '220px' }}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 lg:[grid-auto-rows:220px]"
             >
               {displayed.map((proj, i) => (
                 <BentoCard
