@@ -59,7 +59,7 @@ export default function SplashScreen() {
               </p>
               <p className="font-mono text-[10px] uppercase tracking-[0.28em]"
                 style={{ color: 'rgba(255,255,255,0.38)' }}>
-                Goma · RDC · Since 2019
+                Goma · RDC · Depuis 2019
               </p>
             </motion.div>
 

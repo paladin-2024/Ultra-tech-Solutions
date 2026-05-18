@@ -257,7 +257,7 @@ export default function Navbar() {
               <Link to="/contact"
                 className={cn('hidden lg:inline-flex btn-primary text-[13px] py-2.5 px-5 gap-2 transition-all duration-300',
                   isTransparent && 'shadow-none')}>
-                Get a quote
+                Obtenir un devis
                 <ArrowRight size={13} />
               </Link>
               <button onClick={() => setMobileOpen(v => !v)} className="lg:hidden btn-icon" aria-label="Menu">
@@ -324,7 +324,7 @@ export default function Navbar() {
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.28 }}
               className="px-5 pb-8 pt-4 border-t border-black/5">
               <Link to="/contact" onClick={() => setMobileOpen(false)} className="btn-primary w-full justify-center py-4 text-base gap-3">
-                Get a quote
+                Obtenir un devis
                 <ArrowRight size={17} />
               </Link>
               <p className="text-center text-muted text-xs font-mono mt-3.5 tracking-wide">
