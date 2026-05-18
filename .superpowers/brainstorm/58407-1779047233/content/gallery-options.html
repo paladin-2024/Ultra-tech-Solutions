@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery Design — UTS 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700;800;900&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0D0D0D;
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+  }
+
+  /* ── Page header ── */
+  .page-header {
+    padding: 2.5rem 2rem 1rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .page-header .label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .22em;
+    color: #8B1A1A;
+    margin-bottom: 8px;
+  }
+  .page-header h1 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 900;
+    letter-spacing: -.03em;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .page-header p {
+    color: rgba(255,255,255,.45);
+    font-size: 13px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* ── Options container ── */
+  .options-wrap {
+    padding: 2.5rem 2rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  /* ── Option block ── */
+  .option-block {
+    cursor: pointer;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 2px solid rgba(255,255,255,0.07);
+    transition: border-color .25s, transform .25s;
+  }
+  .option-block:hover { border-color: rgba(139,26,26,0.6); transform: translateY(-3px); }
+  .option-block.selected { border-color: #8B1A1A; box-shadow: 0 0 0 1px #8B1A1A, 0 20px 60px rgba(139,26,26,0.2); }
+
+  .option-label-bar {
+    padding: 1rem 1.5rem;
+    background: rgba(255,255,255,0.04);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .option-letter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    background: #8B1A1A;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+  .option-title {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: -.02em;
+    color: #fff;
+  }
+  .option-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: .18em;
+    color: rgba(255,255,255,.3);
+    background: rgba(255,255,255,.06);
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+  .option-desc {
+    font-size: 12px;
+    color: rgba(255,255,255,.4);
+    line-height: 1.5;
+    padding: 0.6rem 1.5rem 1rem;
+    max-width: 600px;
+  }
+
+  /* ────────────────────────────────────────────
+     OPTION A — BENTO MOSAIC
+  ─────────────────────────────────────────────*/
+  .bento-preview {
+    padding: 1.5rem;
+    background: #111;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 200px 180px;
+    gap: 8px;
+  }
+  .bento-card {
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+    background: #1a1a1a;
+  }
+  .bento-card img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.85) saturate(0.9);
+    transition: transform .6s cubic-bezier(.16,1,.3,1), filter .4s;
+  }
+  .bento-card:hover img { transform: scale(1.06); filter: brightness(0.95) saturate(1.1); }
+  .bento-card .overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,.75) 0%, rgba(0,0,0,.1) 50%, transparent 100%);
+    transition: opacity .3s;
+  }
+  .bento-card:hover .overlay { opacity: 0.85; }
+
+  .bento-card .num {
+    position: absolute;
+    top: 10px; right: 12px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(255,255,255,.3);
+    letter-spacing: .15em;
+  }
+  .bento-card .cat {
+    position: absolute;
+    top: 10px; left: 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    text-transform: uppercase;
+    letter-spacing: .15em;
+    background: rgba(139,26,26,.85);
+    color: #fff;
+    padding: 3px 8px;
+    border-radius: 20px;
+  }
+  .bento-card .info {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 12px 14px;
+    transform: translateY(4px);
+    transition: transform .3s cubic-bezier(.16,1,.3,1);
+  }
+  .bento-card:hover .info { transform: translateY(0); }
+  .bento-card .info h4 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: -.02em;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  .bento-card .info .client {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(255,255,255,.45);
+    letter-spacing: .12em;
+  }
+  .bento-card .tilt-border {
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: #8B1A1A;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .35s cubic-bezier(.16,1,.3,1);
+  }
+  .bento-card:hover .tilt-border { transform: scaleX(1); }
+
+  .bento-featured { grid-row: span 2; }
+
+  /* ────────────────────────────────────────────
+     OPTION B — EDITORIAL FILMSTRIP
+  ─────────────────────────────────────────────*/
+  .strip-preview {
+    padding: 1.5rem;
+    background: #fff;
+  }
+  .strip-filter {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .strip-filter .pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: .18em;
+    padding: 5px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .strip-filter .pill.active {
+    background: #8B1A1A;
+    color: #fff;
+  }
+  .strip-filter .pill:not(.active) {
+    background: #F4F5F7;
+    color: #6B7280;
+  }
+
+  .strip-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: #E5E7EB;
+    border: 1px solid #E5E7EB;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .strip-item {
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .strip-item img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+    transition: transform .5s cubic-bezier(.16,1,.3,1);
+    filter: grayscale(0.15);
+  }
+  .strip-item:hover img { transform: scale(1.05); filter: grayscale(0); }
+  .strip-item .strip-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(10,10,10,.8) 0%, rgba(0,0,0,.15) 50%, transparent 100%);
+    opacity: 0;
+    transition: opacity .3s;
+  }
+  .strip-item:hover .strip-overlay { opacity: 1; }
+  .strip-item .strip-info {
+    padding: 12px;
+    border-top: 1px solid #F3F4F6;
+  }
+  .strip-item .strip-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    color: #8B1A1A;
+    letter-spacing: .15em;
+    margin-bottom: 4px;
+  }
+  .strip-item .strip-title {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: -.015em;
+    color: #0F0F0F;
+    line-height: 1.25;
+    margin-bottom: 4px;
+  }
+  .strip-item .strip-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    background: rgba(139,26,26,.08);
+    color: #8B1A1A;
+    padding: 2px 7px;
+    border-radius: 20px;
+    letter-spacing: .1em;
+  }
+  .strip-cta {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .strip-cta .count {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: #9CA3AF;
+    letter-spacing: .12em;
+  }
+  .strip-cta .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #8B1A1A;
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 8px 18px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: all .2s;
+  }
+  .strip-cta .btn:hover { background: #6B1212; }
+
+  /* ────────────────────────────────────────────
+     OPTION C — NUMBERED EDITORIAL ROWS
+  ─────────────────────────────────────────────*/
+  .editorial-preview {
+    padding: 1.5rem;
+    background: #FAFBFC;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .ed-row {
+    display: grid;
+    grid-template-columns: 60px 1fr 1fr;
+    align-items: center;
+    gap: 0;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(0,0,0,.07);
+    position: relative;
+    cursor: pointer;
+    transition: background .2s;
+    border-radius: 8px;
+    padding-left: 8px; padding-right: 8px;
+  }
+  .ed-row:hover { background: rgba(139,26,26,.04); }
+  .ed-row:last-child { border-bottom: none; }
+
+  .ed-num {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: rgba(139,26,26,.15);
+    letter-spacing: -.04em;
+    line-height: 1;
+    transition: color .25s;
+  }
+  .ed-row:hover .ed-num { color: rgba(139,26,26,.4); }
+
+  .ed-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 0 12px;
+  }
+  .ed-cat {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    text-transform: uppercase;
+    letter-spacing: .18em;
+    color: #8B1A1A;
+  }
+  .ed-title {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: -.02em;
+    color: #0F0F0F;
+    line-height: 1.25;
+  }
+  .ed-client {
+    font-size: 11px;
+    color: #9CA3AF;
+  }
+
+  .ed-thumb {
+    width: 80px; height: 60px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    margin-left: auto;
+    flex-shrink: 0;
+    transition: transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s;
+  }
+  .ed-row:hover .ed-thumb { transform: scale(1.06) rotate(-1deg); box-shadow: 0 8px 24px rgba(0,0,0,.18); }
+  .ed-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+  .ed-arrow {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity .2s, transform .2s;
+    font-size: 16px;
+    color: #8B1A1A;
+  }
+  .ed-row:hover .ed-arrow { opacity: 1; transform: translateY(-50%) translateX(2px); }
+
+  /* ── Selected indicator ── */
+  .sel-check {
+    display: none;
+    position: absolute;
+    top: 10px; right: 10px;
+    width: 22px; height: 22px;
+    background: #8B1A1A;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    z-index: 10;
+  }
+  .option-block.selected .sel-check { display: flex; }
+</style>
+</head>
+<body>
+  <div class="page-header">
+    <p class="label">UTS · Galerie 2026</p>
+    <h1>Quel style de galerie ?</h1>
+    <p>Trois directions distinctes. Cliquez sur celle qui correspond à votre vision.</p>
+  </div>
+
+  <div class="options-wrap">
+
+    <!-- ── OPTION A: BENTO MOSAIC ── -->
+    <div class="option-block" data-choice="a" onclick="select(this)">
+      <div class="sel-check">✓</div>
+      <div class="option-label-bar">
+        <div style="display:flex;align-items:center">
+          <span class="option-letter">A</span>
+          <span class="option-title">Bento Mosaic Sombre</span>
+        </div>
+        <span class="option-tag">Photos full-bleed · 3D Tilt · Clip-path reveal</span>
+      </div>
+      <p class="option-desc">Grille asymétrique sur fond très sombre. Les photos prennent toute la place. Sur hover : inclinaison 3D magnétique vers le curseur + une ligne rouge s'anime sur le dessus. Entrée en vue : les cartes se révèlent avec un essuie-glace (clip-path). Très cinématographique.</p>
+
+      <div class="bento-preview">
+        <!-- Featured card -->
+        <div class="bento-card bento-featured">
+          <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&q=80" alt="">
+          <div class="tilt-border"></div>
+          <div class="overlay"></div>
+          <span class="cat">Installation</span>
+          <span class="num">01/08</span>
+          <div class="info">
+            <h4>Système Solaire — Hôtel Gorille</h4>
+            <span class="client">HÔTEL GORILLE · 2024</span>
+          </div>
+        </div>
+        <!-- Small cards -->
+        <div class="bento-card">
+          <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&q=80" alt="">
+          <div class="tilt-border"></div>
+          <div class="overlay"></div>
+          <span class="cat">Formation</span>
+          <span class="num">02/08</span>
+          <div class="info">
+            <h4>Formation Robotique — ESCO</h4>
+            <span class="client">ESCO GOMA · 2024</span>
+          </div>
+        </div>
+        <div class="bento-card">
+          <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&q=80" alt="">
+          <div class="tilt-border"></div>
+          <div class="overlay"></div>
+          <span class="cat">Réseau</span>
+          <span class="num">03/08</span>
+          <div class="info">
+            <h4>Infrastructure Réseau — ONG</h4>
+            <span class="client">ONG INTERNATIONALE · 2023</span>
+          </div>
+        </div>
+        <div class="bento-card">
+          <img src="https://images.unsplash.com/photo-1558002038-1055907df827?w=400&q=80" alt="">
+          <div class="tilt-border"></div>
+          <div class="overlay"></div>
+          <span class="cat">Domotique</span>
+          <span class="num">04/08</span>
+          <div class="info">
+            <h4>Domotique — Résidence Privée</h4>
+            <span class="client">CLIENT PRIVÉ · 2023</span>
+          </div>
+        </div>
+        <div class="bento-card">
+          <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=400&q=80" alt="">
+          <div class="tilt-border"></div>
+          <div class="overlay"></div>
+          <span class="cat">Robotique</span>
+          <span class="num">05/08</span>
+          <div class="info">
+            <h4>Robots Éducatifs — Lycée</h4>
+            <span class="client">LYCÉE DE GOMA · 2024</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── OPTION B: EDITORIAL GRID ON WHITE ── -->
+    <div class="option-block" data-choice="b" onclick="select(this)">
+      <div class="sel-check">✓</div>
+      <div class="option-label-bar">
+        <div style="display:flex;align-items:center">
+          <span class="option-letter">B</span>
+          <span class="option-title">Editorial Grid — Fond Blanc</span>
+        </div>
+        <span class="option-tag">Grille propre · Filtre morphing · Hover slide-up</span>
+      </div>
+      <p class="option-desc">Grille 3 colonnes sur blanc, séparées par des lignes fines. Les images sont en couleur atténuée au repos, éclatantes au hover. Le titre et la catégorie glissent vers le haut. Les filtres changent avec une animation de morphing (pas de flash). Très pro, très lisible.</p>
+
+      <div class="strip-preview">
+        <div class="strip-filter">
+          <span class="pill active">Tous</span>
+          <span class="pill">Installation</span>
+          <span class="pill">Formation</span>
+          <span class="pill">Robotique</span>
+          <span class="pill">Domotique</span>
+        </div>
+        <div class="strip-grid">
+          <div class="strip-item">
+            <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=400&q=80" alt="">
+            <div class="strip-overlay"></div>
+            <div class="strip-info">
+              <div class="strip-num">01 · 2024</div>
+              <div class="strip-title">Système Solaire — Hôtel Gorille</div>
+              <span class="strip-tag">Installation</span>
+            </div>
+          </div>
+          <div class="strip-item">
+            <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&q=80" alt="">
+            <div class="strip-overlay"></div>
+            <div class="strip-info">
+              <div class="strip-num">02 · 2024</div>
+              <div class="strip-title">Formation Robotique — ESCO</div>
+              <span class="strip-tag">Formation</span>
+            </div>
+          </div>
+          <div class="strip-item">
+            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&q=80" alt="">
+            <div class="strip-overlay"></div>
+            <div class="strip-info">
+              <div class="strip-num">03 · 2023</div>
+              <div class="strip-title">Infrastructure Réseau — ONG Int.</div>
+              <span class="strip-tag">Réseau</span>
+            </div>
+          </div>
+        </div>
+        <div class="strip-cta">
+          <span class="count">AFFICHAGE 3 SUR 8 PROJETS</span>
+          <a href="#" class="btn">Voir tout → </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── OPTION C: NUMBERED EDITORIAL ROWS ── -->
+    <div class="option-block" data-choice="c" onclick="select(this)">
+      <div class="sel-check">✓</div>
+      <div class="option-label-bar">
+        <div style="display:flex;align-items:center">
+          <span class="option-letter">C</span>
+          <span class="option-title">Lignes Éditorial Numérotées</span>
+        </div>
+        <span class="option-tag">Unique · Numéros géants · Thumbnail reveal</span>
+      </div>
+      <p class="option-desc">Chaque projet est une ligne. Un grand numéro rouge en transparence à gauche. Le titre, catégorie, client au centre. Une vignette compacte à droite qui tourne légèrement au hover. Concept unique — on ne voit presque jamais ça sur un site de prestataire tech. Signature totale.</p>
+
+      <div class="editorial-preview">
+        <div class="ed-row">
+          <span class="ed-num">01</span>
+          <div class="ed-meta" style="padding-left:16px">
+            <span class="ed-cat">Installation · 2024</span>
+            <span class="ed-title">Système Solaire — Hôtel Gorille</span>
+            <span class="ed-client">Hôtel Gorille, Goma</span>
+          </div>
+          <div class="ed-thumb">
+            <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=200&q=80" alt="">
+          </div>
+          <span class="ed-arrow">→</span>
+        </div>
+        <div class="ed-row">
+          <span class="ed-num">02</span>
+          <div class="ed-meta" style="padding-left:16px">
+            <span class="ed-cat">Formation · 2024</span>
+            <span class="ed-title">Formation Robotique — ESCO Goma</span>
+            <span class="ed-client">ESCO Goma</span>
+          </div>
+          <div class="ed-thumb">
+            <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=200&q=80" alt="">
+          </div>
+          <span class="ed-arrow">→</span>
+        </div>
+        <div class="ed-row">
+          <span class="ed-num">03</span>
+          <div class="ed-meta" style="padding-left:16px">
+            <span class="ed-cat">Installation · 2023</span>
+            <span class="ed-title">Infrastructure Réseau — ONG Int.</span>
+            <span class="ed-client">ONG Internationale, Goma</span>
+          </div>
+          <div class="ed-thumb">
+            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=200&q=80" alt="">
+          </div>
+          <span class="ed-arrow">→</span>
+        </div>
+        <div class="ed-row">
+          <span class="ed-num">04</span>
+          <div class="ed-meta" style="padding-left:16px">
+            <span class="ed-cat">Domotique · 2023</span>
+            <span class="ed-title">Domotique — Résidence Privée</span>
+            <span class="ed-client">Client Privé, Goma</span>
+          </div>
+          <div class="ed-thumb">
+            <img src="https://images.unsplash.com/photo-1558002038-1055907df827?w=200&q=80" alt="">
+          </div>
+          <span class="ed-arrow">→</span>
+        </div>
+        <div class="ed-row">
+          <span class="ed-num">05</span>
+          <div class="ed-meta" style="padding-left:16px">
+            <span class="ed-cat">Maintenance · 2024</span>
+            <span class="ed-title">Maintenance Parc IT — Institution</span>
+            <span class="ed-client">Institution Financière, Goma</span>
+          </div>
+          <div class="ed-thumb">
+            <img src="https://images.unsplash.com/photo-1601132359864-c974e79890ac?w=200&q=80" alt="">
+          </div>
+          <span class="ed-arrow">→</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function select(el) {
+      document.querySelectorAll('.option-block').forEach(b => b.classList.remove('selected'));
+      el.classList.add('selected');
+      // record selection
+      const choice = el.dataset.choice;
+      const text = el.querySelector('.option-title').textContent;
+      if (window.__recordChoice) window.__recordChoice(choice, text);
+    }
+  </script>
+</body>
+</html>

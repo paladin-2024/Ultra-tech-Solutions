@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>UTS — Design Options 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700;800;900&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#070707;color:#fff;font-family:'DM Sans',sans-serif;padding-bottom:100px}
+/* ── Page header ── */
+.ph{padding:2rem 2rem 1.5rem;text-align:center;border-bottom:1px solid rgba(255,255,255,.06)}
+.ph .sub{font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.24em;color:#8B1A1A;margin-bottom:8px}
+.ph h1{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:900;letter-spacing:-.04em;color:#fff;margin-bottom:6px}
+.ph p{color:rgba(255,255,255,.35);font-size:12px;max-width:520px;margin:0 auto}
+/* ── Category block ── */
+.cat{max-width:1100px;margin:0 auto;padding:2rem 1.5rem 0}
+.cat-header{display:flex;align-items:center;gap:10px;margin-bottom:1.2rem;padding-bottom:.8rem;border-bottom:1px solid rgba(255,255,255,.07)}
+.cat-num{font-family:'DM Mono',monospace;font-size:10px;color:#8B1A1A;letter-spacing:.18em}
+.cat-title{font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:900;letter-spacing:-.03em;color:#fff}
+.cat-page{margin-left:auto;font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.16em;color:rgba(255,255,255,.2);background:rgba(255,255,255,.05);padding:3px 10px;border-radius:20px}
+/* ── Options row ── */
+.opts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:2.5rem}
+@media(max-width:700px){.opts{grid-template-columns:1fr}}
+.opt{border-radius:14px;overflow:hidden;border:2px solid rgba(255,255,255,.07);cursor:pointer;transition:border-color .2s,transform .2s;position:relative}
+.opt:hover{border-color:rgba(139,26,26,.5);transform:translateY(-3px)}
+.opt.selected{border-color:#8B1A1A;box-shadow:0 0 0 1px #8B1A1A,0 12px 40px rgba(139,26,26,.18)}
+.opt-label{padding:8px 12px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between}
+.opt-letter{width:22px;height:22px;background:#8B1A1A;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:9px;font-weight:700;color:#fff;flex-shrink:0}
+.opt-name{font-family:'Bricolage Grotesque',sans-serif;font-size:12px;font-weight:800;letter-spacing:-.015em;color:#fff;margin-left:7px;flex:1}
+.opt-check{width:16px;height:16px;border-radius:50%;border:1.5px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:8px;transition:all .2s}
+.opt.selected .opt-check{background:#8B1A1A;border-color:#8B1A1A;color:#fff}
+.opt-body{padding:10px}
+.opt-desc{font-size:10px;color:rgba(255,255,255,.35);line-height:1.55;margin-top:7px}
+
+/* ═══════════════ HERO MOCKUPS ═══════════════ */
+.hero-a{background:#fff;border-radius:8px;display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px;align-items:center;min-height:120px}
+.ha-txt .h-lbl{font-family:'DM Mono',monospace;font-size:7px;text-transform:uppercase;letter-spacing:.2em;color:#8B1A1A;margin-bottom:4px}
+.ha-txt .h-h1{font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:900;letter-spacing:-.04em;color:#0F0F0F;line-height:1.05;margin-bottom:5px}
+.ha-txt .h-p{font-size:8px;color:#9CA3AF;line-height:1.5;margin-bottom:8px}
+.ha-txt .h-btn{display:inline-flex;align-items:center;gap:4px;background:#8B1A1A;color:#fff;font-size:8px;font-weight:700;padding:5px 10px;border-radius:20px}
+.ha-img{border-radius:8px;overflow:hidden;aspect-ratio:4/5;background:#E5E7EB}
+.ha-img img{width:100%;height:100%;object-fit:cover}
+
+.hero-b{border-radius:8px;overflow:hidden;position:relative;min-height:130px}
+.hb-bg{position:absolute;inset:0}
+.hb-bg img{width:100%;height:100%;object-fit:cover;filter:brightness(.45)}
+.hb-ov{position:absolute;inset:0;background:linear-gradient(110deg,rgba(0,0,0,.88) 0%,rgba(0,0,0,.3) 60%,transparent 100%)}
+.hb-cnt{position:relative;z-index:1;padding:16px}
+.hb-cnt .h-lbl{font-family:'DM Mono',monospace;font-size:7px;text-transform:uppercase;letter-spacing:.2em;color:rgba(255,255,255,.4);margin-bottom:4px}
+.hb-cnt .h-h1{font-family:'Bricolage Grotesque',sans-serif;font-size:20px;font-weight:900;letter-spacing:-.045em;color:#fff;line-height:1.0;margin-bottom:6px;max-width:200px}
+.hb-cnt .h-p{font-size:8px;color:rgba(255,255,255,.45);line-height:1.5;margin-bottom:8px;max-width:160px}
+.hb-cnt .h-btns{display:flex;gap:5px}
+.hb-cnt .h-btn-p{background:#8B1A1A;color:#fff;font-size:8px;font-weight:700;padding:5px 10px;border-radius:20px;box-shadow:0 3px 12px rgba(139,26,26,.5)}
+.hb-cnt .h-btn-s{border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.6);font-size:8px;padding:5px 10px;border-radius:20px}
+.hb-stat{position:absolute;bottom:10px;right:10px;background:rgba(255,255,255,.08);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:6px 10px}
+.hb-stat-n{font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:900;color:#fff;letter-spacing:-.04em;line-height:1}
+.hb-stat-l{font-family:'DM Mono',monospace;font-size:6px;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.3);margin-top:1px}
+
+.hero-c{border-radius:8px;overflow:hidden;position:relative;min-height:130px;background:#0A0A0A;display:flex;align-items:center;justify-content:center}
+.hc-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(139,26,26,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(139,26,26,.06) 1px,transparent 1px);background-size:24px 24px}
+.hc-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:200px;height:200px;background:radial-gradient(circle,rgba(139,26,26,.2) 0%,transparent 70%)}
+.hc-cnt{position:relative;z-index:1;text-align:center;padding:16px}
+.hc-cnt .h-lbl{font-family:'DM Mono',monospace;font-size:7px;text-transform:uppercase;letter-spacing:.22em;color:rgba(139,26,26,.8);margin-bottom:6px}
+.hc-h1{font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:900;letter-spacing:-.045em;line-height:1.0;margin-bottom:6px}
+.hc-h1 .red{color:#8B1A1A}
+.hc-h1 .wh{color:#fff}
+.hc-p{font-size:8px;color:rgba(255,255,255,.35);max-width:200px;margin:0 auto 10px;line-height:1.5}
+.hc-btns{display:flex;gap:6px;justify-content:center}
+.hc-btn-p{background:#8B1A1A;color:#fff;font-size:8px;font-weight:700;padding:5px 12px;border-radius:20px;box-shadow:0 3px 14px rgba(139,26,26,.5)}
+.hc-btn-s{border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);font-size:8px;padding:5px 12px;border-radius:20px}
+.hc-badges{display:flex;gap:6px;justify-content:center;margin-top:8px}
+.hc-badge{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:3px 8px;font-family:'DM Mono',monospace;font-size:7px;color:rgba(255,255,255,.3);letter-spacing:.1em}
+
+/* ═══════════════ NAVBAR MOCKUPS ═══════════════ */
+.nav-mock{background:#fff;border-radius:8px;padding:0 12px;height:36px;display:flex;align-items:center;justify-content:space-between;position:relative;overflow:hidden}
+.nm-logo{display:flex;align-items:center;gap:5px}
+.nm-logo .logo-box{width:20px;height:20px;background:#8B1A1A;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:6px;color:#fff;font-weight:900}
+.nm-logo .logo-text{font-family:'Bricolage Grotesque',sans-serif;font-size:10px;font-weight:800;color:#0F0F0F;letter-spacing:-.02em}
+.nm-links{display:flex;gap:10px}
+.nm-link{font-size:9px;color:#6B7280}
+.nm-link.active{color:#8B1A1A;font-weight:700}
+.nm-cta{background:#8B1A1A;color:#fff;font-size:8px;font-weight:700;padding:4px 9px;border-radius:20px}
+/* Progress bar */
+.nm-prog{position:absolute;top:0;left:0;height:2px;background:linear-gradient(90deg,#8B1A1A,rgba(139,26,26,.3));border-radius:0 2px 2px 0}
+/* Transparent scrolled */
+.nav-trans{background:transparent;border-bottom:none}
+.nav-trans .nm-logo .logo-text{color:#fff}
+.nav-trans .nm-link{color:rgba(255,255,255,.5)}
+.nav-trans .nm-link.active{color:#fff}
+.nav-trans-wrap{background:#1a1a1a;border-radius:8px;padding:4px;margin-bottom:4px}
+/* Pill navbar */
+.nav-pill-wrap{padding:8px;display:flex;justify-content:center}
+.nav-pill{background:rgba(255,255,255,.06);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:4px 8px 4px 5px;display:flex;align-items:center;gap:8px}
+.npl-logo{width:18px;height:18px;background:#8B1A1A;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:6px;color:#fff;font-weight:900}
+.npl-links{display:flex;gap:0}
+.npl-link{font-size:8px;color:rgba(255,255,255,.4);padding:3px 7px;border-radius:14px}
+.npl-link.active{background:rgba(255,255,255,.12);color:#fff}
+.npl-cta{background:#8B1A1A;color:#fff;font-size:7px;font-weight:700;padding:3px 8px;border-radius:14px;margin-left:3px}
+
+/* ═══════════════ FOOTER MOCKUPS ═══════════════ */
+.foot-a{background:#060606;border-radius:8px;padding:14px;position:relative;overflow:hidden}
+.fa-wm{position:absolute;bottom:-5px;right:-5px;font-family:'Bricolage Grotesque',sans-serif;font-size:4rem;font-weight:900;color:rgba(255,255,255,.025);letter-spacing:-.05em;pointer-events:none;line-height:1}
+.fa-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;margin-bottom:10px}
+.fa-brand{font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:900;letter-spacing:-.04em;color:#fff;margin-bottom:4px}
+.fa-tag{font-size:9px;color:rgba(255,255,255,.3);line-height:1.5}
+.fa-col h4{font-family:'DM Mono',monospace;font-size:7px;text-transform:uppercase;letter-spacing:.18em;color:rgba(255,255,255,.2);margin-bottom:6px}
+.fa-col a{font-size:9px;color:rgba(255,255,255,.35);display:block;margin-bottom:3px}
+.fa-div{height:1px;background:linear-gradient(90deg,rgba(139,26,26,.4),rgba(255,255,255,.04),transparent);margin:10px 0 8px}
+.fa-coords{font-family:'DM Mono',monospace;font-size:7px;color:rgba(255,255,255,.18);letter-spacing:.14em;margin-bottom:7px}
+.fa-bot{display:flex;justify-content:space-between;align-items:center}
+.fa-copy{font-family:'DM Mono',monospace;font-size:7px;color:rgba(255,255,255,.15)}
+
+.foot-b{border-radius:8px;overflow:hidden;position:relative;min-height:120px}
+.fb-photo{position:absolute;inset:0}
+.fb-photo img{width:100%;height:100%;object-fit:cover;filter:brightness(.2) saturate(.5)}
+.fb-ov{position:absolute;inset:0;background:linear-gradient(to right,rgba(5,5,5,.97) 0%,rgba(5,5,5,.8) 60%,rgba(5,5,5,.6) 100%)}
+.fb-cnt{position:relative;z-index:1;padding:14px}
+.fb-big{font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:900;letter-spacing:-.04em;color:#fff;margin-bottom:4px}
+.fb-big span{color:#8B1A1A}
+.fb-sub{font-size:8px;color:rgba(255,255,255,.3);margin-bottom:10px;max-width:180px;line-height:1.5}
+.fb-links{display:flex;flex-wrap:wrap;gap:4px}
+.fb-link{font-size:8px;color:rgba(255,255,255,.3);padding:2px 6px;border-radius:10px;border:1px solid rgba(255,255,255,.08)}
+.fb-redline{position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#8B1A1A,rgba(139,26,26,.2),transparent)}
+
+.foot-c{background:#0A0A0A;border-radius:8px;padding:14px}
+.fc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px}
+.fc-logo-big{font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:900;letter-spacing:-.06em;line-height:1}
+.fc-logo-big .r{color:#8B1A1A}
+.fc-logo-big .w{color:#fff}
+.fc-nav{display:flex;flex-direction:column;gap:4px;align-items:flex-end}
+.fc-nav a{font-size:9px;color:rgba(255,255,255,.3)}
+.fc-div{height:1px;background:rgba(255,255,255,.06);margin:8px 0}
+.fc-bot{display:flex;justify-content:space-between;align-items:center}
+.fc-city{display:flex;align-items:center;gap:5px}
+.fc-dot{width:5px;height:5px;border-radius:50%;background:#8B1A1A;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.fc-city-text{font-family:'DM Mono',monospace;font-size:7px;color:rgba(255,255,255,.2);letter-spacing:.14em}
+
+/* ═══════════════ TESTIMONIALS MOCKUPS ═══════════════ */
+.testi-a{background:#0A0A0A;border-radius:8px;padding:16px;position:relative;overflow:hidden}
+.ta-qq{position:absolute;top:-8px;left:10px;font-family:'Bricolage Grotesque',sans-serif;font-size:5rem;font-weight:900;color:rgba(139,26,26,.15);line-height:1;pointer-events:none}
+.ta-q{font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:600;letter-spacing:-.015em;color:#fff;font-style:italic;line-height:1.5;margin-bottom:12px;position:relative;z-index:1;padding-top:28px}
+.ta-auth{display:flex;align-items:center;gap:8px;position:relative;z-index:1}
+.ta-av{width:30px;height:30px;border-radius:50%;overflow:hidden;border:1.5px solid rgba(139,26,26,.4)}
+.ta-av img{width:100%;height:100%;object-fit:cover}
+.ta-name{font-family:'Bricolage Grotesque',sans-serif;font-size:11px;font-weight:800;letter-spacing:-.015em;color:#fff}
+.ta-co{font-family:'DM Mono',monospace;font-size:7px;color:#8B1A1A;letter-spacing:.1em;margin-top:1px}
+.ta-nav{display:flex;gap:5px;margin-top:10px;position:relative;z-index:1}
+.ta-nb{width:22px;height:22px;border-radius:50%;border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:8px;color:rgba(255,255,255,.3)}
+
+.testi-b{background:#F7F9FC;border-radius:8px;padding:10px;overflow:hidden}
+.tb-scroll{display:flex;gap:7px;overflow:hidden}
+.tb-card{background:#fff;border-radius:8px;padding:10px;border:1px solid #E5E7EB;flex-shrink:0;width:120px}
+.tb-stars{display:flex;gap:1px;margin-bottom:5px}
+.tb-star{color:#F59E0B;font-size:8px}
+.tb-text{font-size:8px;color:#6B7280;line-height:1.5;font-style:italic;margin-bottom:7px}
+.tb-auth{display:flex;align-items:center;gap:5px;padding-top:5px;border-top:1px solid #F3F4F6}
+.tb-aav{width:16px;height:16px;border-radius:50%;overflow:hidden;background:#E5E7EB}
+.tb-aav img{width:100%;height:100%;object-fit:cover}
+.tb-an{font-family:'Bricolage Grotesque',sans-serif;font-size:8px;font-weight:800;color:#0F0F0F}
+.tb-marquee-hint{font-family:'DM Mono',monospace;font-size:7px;color:rgba(0,0,0,.3);letter-spacing:.12em;text-align:center;margin-top:6px}
+
+.testi-c{background:linear-gradient(135deg,#0A0A0A 0%,#1a0a0a 100%);border-radius:8px;padding:14px;display:grid;grid-template-columns:1fr 80px;gap:10px;align-items:center}
+.tc-main .tc-stars{display:flex;gap:2px;margin-bottom:6px}
+.tc-main .tc-star{color:#F59E0B;font-size:9px}
+.tc-main .tc-q{font-family:'Bricolage Grotesque',sans-serif;font-size:12px;font-weight:700;color:#fff;letter-spacing:-.015em;font-style:italic;line-height:1.4;margin-bottom:8px}
+.tc-main .tc-auth{display:flex;align-items:center;gap:6px}
+.tc-main .tc-av{width:24px;height:24px;border-radius:50%;overflow:hidden;border:1.5px solid rgba(139,26,26,.5)}
+.tc-main .tc-av img{width:100%;height:100%;object-fit:cover}
+.tc-main .tc-name{font-family:'Bricolage Grotesque',sans-serif;font-size:9px;font-weight:800;color:#fff}
+.tc-main .tc-co{font-family:'DM Mono',monospace;font-size:7px;color:#8B1A1A;letter-spacing:.1em}
+.tc-side{display:flex;flex-direction:column;gap:4px}
+.tc-mini{background:rgba(255,255,255,.04);border-radius:6px;padding:6px;border:1px solid rgba(255,255,255,.06);cursor:pointer}
+.tc-mini.act{border-color:rgba(139,26,26,.4);background:rgba(139,26,26,.08)}
+.tc-mini .tm-name{font-family:'Bricolage Grotesque',sans-serif;font-size:7px;font-weight:800;color:#fff;margin-bottom:2px}
+.tc-mini .tm-co{font-family:'DM Mono',monospace;font-size:6px;color:rgba(255,255,255,.3);letter-spacing:.08em}
+
+/* ═══════════════ PROCESS MOCKUPS ═══════════════ */
+.proc-a{background:#FAFBFC;border-radius:8px;overflow:hidden}
+.pa-step{display:grid;grid-template-columns:56px 1fr;border-bottom:1px solid rgba(0,0,0,.05)}
+.pa-step:last-child{border-bottom:none}
+.pa-nc{display:flex;align-items:flex-start;justify-content:center;padding-top:14px;position:relative}
+.pa-nc::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:1px;height:calc(100% - 50px);background:rgba(139,26,26,.15)}
+.pa-step:last-child .pa-nc::after{display:none}
+.pa-num{font-family:'Bricolage Grotesque',sans-serif;font-size:2rem;font-weight:900;letter-spacing:-.05em;color:rgba(139,26,26,.12);line-height:1}
+.pa-ct{padding:14px 12px 14px 0}
+.pa-cat-l{font-family:'DM Mono',monospace;font-size:7px;text-transform:uppercase;letter-spacing:.18em;color:#8B1A1A;margin-bottom:3px}
+.pa-title{font-family:'Bricolage Grotesque',sans-serif;font-size:12px;font-weight:800;letter-spacing:-.02em;color:#0F0F0F;margin-bottom:3px}
+.pa-desc{font-size:9px;color:#9CA3AF;line-height:1.5}
+
+.proc-b{background:#fff;border-radius:8px;padding:12px}
+.pb-steps{display:flex;gap:0;position:relative}
+.pb-line{position:absolute;top:18px;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(139,26,26,.2) 15%,rgba(139,26,26,.2) 85%,transparent)}
+.pb-step{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 4px}
+.pb-circle{width:36px;height:36px;border-radius:10px;background:rgba(139,26,26,.08);border:1.5px solid rgba(139,26,26,.15);display:flex;align-items:center;justify-content:center;margin-bottom:8px;font-size:14px;position:relative;z-index:1}
+.pb-num-badge{position:absolute;top:-5px;right:-5px;width:14px;height:14px;background:#8B1A1A;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:6px;color:#fff;font-weight:700}
+.pb-t{font-family:'Bricolage Grotesque',sans-serif;font-size:9px;font-weight:800;letter-spacing:-.01em;color:#0F0F0F;margin-bottom:3px}
+.pb-d{font-size:7px;color:#9CA3AF;line-height:1.4}
+
+.proc-c{background:#0A0A0A;border-radius:8px;padding:12px}
+.pc-steps{display:flex;flex-direction:column;gap:0}
+.pc-step{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05);position:relative}
+.pc-step:last-child{border-bottom:none}
+.pc-idx{width:22px;height:22px;border-radius:6px;background:#8B1A1A;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:8px;font-weight:700;color:#fff;flex-shrink:0;margin-top:2px}
+.pc-title{font-family:'Bricolage Grotesque',sans-serif;font-size:11px;font-weight:800;letter-spacing:-.02em;color:#fff;margin-bottom:2px}
+.pc-desc{font-size:8px;color:rgba(255,255,255,.3);line-height:1.5}
+.pc-arrow{position:absolute;right:0;top:50%;transform:translateY(-50%);font-size:10px;color:rgba(255,255,255,.15)}
+
+/* ═══════════════ ABOUT PAGE MOCKUPS ═══════════════ */
+.about-a{background:#fff;border-radius:8px;padding:12px;display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:start}
+.abt-photo{border-radius:8px;overflow:hidden;aspect-ratio:1;background:#E5E7EB}
+.abt-photo img{width:100%;height:100%;object-fit:cover}
+.abt-text .at-lbl{font-family:'DM Mono',monospace;font-size:7px;text-transform:uppercase;letter-spacing:.18em;color:#8B1A1A;margin-bottom:4px}
+.abt-text .at-h{font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:900;letter-spacing:-.03em;color:#0F0F0F;line-height:1.1;margin-bottom:5px}
+.abt-text .at-p{font-size:8px;color:#9CA3AF;line-height:1.5;margin-bottom:8px}
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:10px}
+.team-card{border-radius:6px;overflow:hidden;position:relative;aspect-ratio:3/4}
+.team-card img{width:100%;height:100%;object-fit:cover}
+.team-card .tc-name-ov{position:absolute;bottom:0;left:0;right:0;padding:5px;background:linear-gradient(to top,rgba(0,0,0,.7),transparent);font-family:'Bricolage Grotesque',sans-serif;font-size:7px;font-weight:800;color:#fff}
+
+.about-b{background:#0A0A0A;border-radius:8px;overflow:hidden;min-height:140px;position:relative}
+.ab-bg{position:absolute;inset:0}
+.ab-bg img{width:100%;height:100%;object-fit:cover;filter:brightness(.25)}
+.ab-ov{position:absolute;inset:0;background:linear-gradient(to right,rgba(5,5,5,.95) 0%,rgba(5,5,5,.5) 60%,transparent 100%)}
+.ab-cnt{position:relative;z-index:1;padding:16px;max-width:60%}
+.ab-cnt .a-lbl{font-family:'DM Mono',monospace;font-size:7px;text-transform:uppercase;letter-spacing:.2em;color:rgba(255,255,255,.3);margin-bottom:4px}
+.ab-cnt .a-h{font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:900;letter-spacing:-.04em;color:#fff;line-height:1.0;margin-bottom:6px}
+.ab-cnt .a-p{font-size:8px;color:rgba(255,255,255,.4);line-height:1.5;margin-bottom:8px;max-width:160px}
+.ab-stats{display:flex;gap:10px}
+.ab-stat{border-left:2px solid #8B1A1A;padding-left:6px}
+.ab-stat-n{font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:900;color:#fff;letter-spacing:-.03em;line-height:1}
+.ab-stat-l{font-family:'DM Mono',monospace;font-size:6px;color:rgba(255,255,255,.3);letter-spacing:.12em;margin-top:1px}
+
+.about-c{background:#FAFBFC;border-radius:8px;padding:12px}
+.ac-timeline{display:flex;flex-direction:column;gap:0}
+.act-row{display:grid;grid-template-columns:50px 1fr;gap:8px;padding:8px 0;border-bottom:1px solid rgba(0,0,0,.05);align-items:start}
+.act-row:last-child{border-bottom:none}
+.act-year{font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:900;letter-spacing:-.04em;color:rgba(139,26,26,.2);line-height:1;padding-top:2px}
+.act-content .act-title{font-family:'Bricolage Grotesque',sans-serif;font-size:11px;font-weight:800;letter-spacing:-.02em;color:#0F0F0F;margin-bottom:2px}
+.act-content .act-desc{font-size:8px;color:#9CA3AF;line-height:1.4}
+
+/* ═══════════════ CONTACT PAGE MOCKUPS ═══════════════ */
+.contact-a{background:#fff;border-radius:8px;padding:12px;display:grid;grid-template-columns:1fr 1.5fr;gap:12px}
+.ca-info .ci-lbl{font-family:'DM Mono',monospace;font-size:7px;text-transform:uppercase;letter-spacing:.18em;color:#8B1A1A;margin-bottom:4px}
+.ca-info .ci-h{font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:900;letter-spacing:-.03em;color:#0F0F0F;line-height:1.1;margin-bottom:6px}
+.ca-info .ci-items{display:flex;flex-direction:column;gap:5px}
+.ca-info .ci-item{display:flex;align-items:center;gap:5px;font-size:8px;color:#6B7280}
+.ca-info .ci-icon{width:16px;height:16px;background:rgba(139,26,26,.08);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:7px;flex-shrink:0;color:#8B1A1A}
+.ca-form .cf-field{background:#F7F9FC;border:1px solid #E5E7EB;border-radius:6px;height:24px;margin-bottom:5px;width:100%}
+.ca-form .cf-textarea{height:44px;border-radius:6px;background:#F7F9FC;border:1px solid #E5E7EB;width:100%;margin-bottom:5px}
+.ca-form .cf-btn{background:#8B1A1A;color:#fff;font-size:8px;font-weight:700;padding:6px 12px;border-radius:20px;display:inline-block}
+
+.contact-b{border-radius:8px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;min-height:140px}
+.cb-left{position:relative}
+.cb-left-bg{position:absolute;inset:0}
+.cb-left-bg img{width:100%;height:100%;object-fit:cover;filter:brightness(.3)}
+.cb-left-ov{position:absolute;inset:0;background:linear-gradient(to right,rgba(5,5,5,.9),rgba(5,5,5,.6))}
+.cb-left-cnt{position:relative;z-index:1;padding:14px}
+.cb-left-cnt .cl-h{font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:900;letter-spacing:-.04em;color:#fff;line-height:1.0;margin-bottom:6px}
+.cb-left-cnt .cl-p{font-size:8px;color:rgba(255,255,255,.35);line-height:1.5;margin-bottom:8px}
+.cb-left-cnt .cl-contacts{display:flex;flex-direction:column;gap:4px}
+.cb-left-cnt .cl-c{display:flex;align-items:center;gap:4px;font-size:7px;color:rgba(255,255,255,.4)}
+.cb-right{background:#fff;padding:12px}
+.cb-right .cr-field{background:#F7F9FC;border:1px solid #E5E7EB;border-radius:5px;height:22px;margin-bottom:4px;width:100%}
+.cb-right .cr-textarea{height:38px;background:#F7F9FC;border:1px solid #E5E7EB;border-radius:5px;width:100%;margin-bottom:4px}
+.cb-right .cr-btn{background:#8B1A1A;color:#fff;font-size:7px;font-weight:700;padding:5px 10px;border-radius:16px;display:inline-block}
+
+.contact-c{background:#0A0A0A;border-radius:8px;padding:16px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.cc-lbl{font-family:'DM Mono',monospace;font-size:7px;text-transform:uppercase;letter-spacing:.2em;color:rgba(255,255,255,.25);margin-bottom:4px}
+.cc-h{font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:900;letter-spacing:-.04em;color:#fff;line-height:1.0;margin-bottom:5px}
+.cc-h span{color:#8B1A1A}
+.cc-p{font-size:8px;color:rgba(255,255,255,.35);max-width:200px;line-height:1.5;margin-bottom:10px}
+.cc-form{width:100%;max-width:240px}
+.cc-field{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;height:24px;margin-bottom:5px;width:100%}
+.cc-ta{height:40px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;width:100%;margin-bottom:5px}
+.cc-btn{background:#8B1A1A;color:#fff;font-size:8px;font-weight:700;padding:6px 16px;border-radius:20px;box-shadow:0 4px 16px rgba(139,26,26,.4);display:inline-block}
+
+/* ═══════════════ SERVICES PAGE ═══════════════ */
+.svc-a{background:#fff;border-radius:8px;padding:12px}
+.sa-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.sa-h{font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:900;letter-spacing:-.03em;color:#0F0F0F}
+.sa-filters{display:flex;gap:4px}
+.sa-f{font-family:'DM Mono',monospace;font-size:7px;text-transform:uppercase;letter-spacing:.14em;padding:3px 7px;border-radius:12px;background:#F3F4F6;color:#6B7280}
+.sa-f.act{background:#8B1A1A;color:#fff}
+.sa-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.sa-card{border-radius:8px;overflow:hidden;position:relative;aspect-ratio:4/3}
+.sa-card img{width:100%;height:100%;object-fit:cover;filter:brightness(.75)}
+.sa-card .sc-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.75),transparent 55%)}
+.sa-card .sc-cat{position:absolute;top:7px;left:7px;font-family:'DM Mono',monospace;font-size:6px;text-transform:uppercase;letter-spacing:.14em;background:rgba(139,26,26,.9);color:#fff;padding:2px 5px;border-radius:10px}
+.sa-card .sc-title{position:absolute;bottom:7px;left:8px;right:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:9px;font-weight:800;letter-spacing:-.015em;color:#fff;line-height:1.2}
+
+.svc-b{background:#fff;border-radius:8px;overflow:hidden}
+.sb-hero{position:relative;height:60px;background:#0A0A0A}
+.sb-hero img{width:100%;height:100%;object-fit:cover;opacity:.35}
+.sb-hero .sb-cnt{position:absolute;inset:0;display:flex;align-items:center;padding:0 12px}
+.sb-hero .sb-h{font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:900;letter-spacing:-.04em;color:#fff}
+.sb-list{padding:8px 10px}
+.sb-item{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid rgba(0,0,0,.06)}
+.sb-item:last-child{border-bottom:none}
+.sb-icon{width:26px;height:26px;border-radius:7px;background:rgba(139,26,26,.08);border:1px solid rgba(139,26,26,.12);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
+.sb-name{font-family:'Bricolage Grotesque',sans-serif;font-size:10px;font-weight:800;letter-spacing:-.015em;color:#0F0F0F;flex:1}
+.sb-arrow{font-size:9px;color:rgba(0,0,0,.2)}
+
+.svc-c{background:#0A0A0A;border-radius:8px;padding:12px}
+.sc-row{display:flex;flex-direction:column;gap:0}
+.sc-item{display:grid;grid-template-columns:16px 1fr auto;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.sc-item:last-child{border-bottom:none}
+.sc-n{font-family:'DM Mono',monospace;font-size:7px;color:rgba(255,255,255,.2);letter-spacing:.14em}
+.sc-title{font-family:'Bricolage Grotesque',sans-serif;font-size:11px;font-weight:800;letter-spacing:-.02em;color:#fff}
+.sc-pill{font-family:'DM Mono',monospace;font-size:7px;background:rgba(255,255,255,.06);color:rgba(255,255,255,.3);padding:2px 6px;border-radius:10px;letter-spacing:.1em}
+
+/* ═══════ STAT BAR MOCKUPS ═══════ */
+.stat-a{background:#F7F9FC;border-radius:8px;padding:12px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center}
+.sta-n{font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:900;letter-spacing:-.04em;color:#8B1A1A;line-height:1}
+.sta-l{font-family:'DM Mono',monospace;font-size:7px;text-transform:uppercase;letter-spacing:.16em;color:#9CA3AF;margin-top:3px}
+
+.stat-b{background:#0A0A0A;border-radius:8px;padding:12px;display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.stb-item{padding:8px 12px;border-right:1px solid rgba(255,255,255,.06)}
+.stb-item:last-child{border-right:none}
+.stb-n{font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:900;letter-spacing:-.045em;color:#fff;line-height:1}
+.stb-n span{color:#8B1A1A}
+.stb-l{font-family:'DM Mono',monospace;font-size:6px;text-transform:uppercase;letter-spacing:.16em;color:rgba(255,255,255,.2);margin-top:2px}
+
+.stat-c{border-radius:8px;overflow:hidden;position:relative;height:55px}
+.stc-bg{position:absolute;inset:0}
+.stc-bg img{width:100%;height:100%;object-fit:cover;filter:brightness(.3)}
+.stc-ov{position:absolute;inset:0;background:rgba(0,0,0,.65)}
+.stc-cnt{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);height:100%;align-items:center;padding:0 12px;gap:0}
+.stc-item{text-align:center;border-right:1px solid rgba(255,255,255,.08)}
+.stc-item:last-child{border-right:none}
+.stc-n{font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:900;letter-spacing:-.04em;color:#fff;line-height:1}
+.stc-l{font-family:'DM Mono',monospace;font-size:6px;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.3);margin-top:1px}
+</style>
+</head>
+<body>
+<div class="ph">
+  <p class="sub">UTS · 2026 Design Options</p>
+  <h1>Toutes les options — Chaque page, chaque composant</h1>
+  <p>Cliquez votre option préférée dans chaque catégorie. Sélectionnez ce qui vous parle le plus.</p>
+</div>
+
+<!-- ══ 01 HERO ══ -->
+<div class="cat">
+  <div class="cat-header"><span class="cat-num">01</span><span class="cat-title">Hero Section</span><span class="cat-page">Toutes les pages principales</span></div>
+  <div class="opts">
+    <div class="opt" data-group="hero" data-choice="hero-a" onclick="pick(this)">
+      <div class="opt-label"><span class="opt-letter">A</span><span class="opt-name">Split blanc + photo</span><div class="opt-check">✓</div></div>
+      <div class="opt-body">
+        <div class="hero-a">
+          <div class="ha-txt"><div class="h-lbl">Goma, RDC</div><div class="h-h1">L'Excellence<br>Électrique</div><div class="h-p">Spécialistes en électrotechnique depuis 2019.</div><div class="h-btn">Devis gratuit →</div></div>
+          <div class="ha-img"><img src="https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=400&q=70" alt=""></div>
+        </div>
+        <p class="opt-desc">Actuel. Propre, professionnel, lisible. Fond blanc, photo dans une carte arrondie à droite.</p>
+      </div>
+    </div>
+    <div class="opt" data-group="hero" data-choice="hero-b" onclick="pick(this)">
+      <div class="opt-label"><span class="opt-letter">B</span><span class="opt-name">Cinématographique full-bleed</span><div class="opt-check">✓</div></div>
+      <div class="opt-body">
+        <div class="hero-b">
+          <div class="hb-bg"><img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=70" alt=""></div>
+          <div class="hb-ov"></div>
+          <div class="hb-cnt">
+            <div class="h-lbl">— Goma, RDC · Depuis 2019</div>
+            <div class="h-h1">L'Excellence<br>au Service<br>de Goma</div>
+            <div class="h-p">Installations, formations, robotique — l'expert électrotechnique des Grands Lacs.</div>
+            <div class="h-btns"><div class="h-btn-p">Devis gratuit</div><div class="h-btn-s">↓ Nos projets</div></div>
+          </div>
+          <div class="hb-stat"><div class="hb-stat-n">500+</div><div class="hb-stat-l">CLIENTS</div></div>
+        </div>
+        <p class="opt-desc">Photo plein cadre, overlay gradient sombre. Texte blanc à gauche. Stat flottante. Immersif, mémorable.</p>
+      </div>
+    </div>
+    <div class="opt" data-group="hero" data-choice="hero-c" onclick="pick(this)">
+      <div class="opt-label"><span class="opt-letter">C</span><span class="opt-name">Dark techno + grille rouge</span><div class="opt-check">✓</div></div>
+      <div class="opt-body">
+        <div class="hero-c">
+          <div class="hc-grid"></div><div class="hc-glow"></div>
+          <div class="hc-cnt">
+            <div class="h-lbl">— UTS · Goma · 2026</div>
+            <div class="hc-h1"><span class="red">Ultra</span><span class="wh"> Tech<br>Solutions</span></div>
+            <div class="hc-p">L'excellence électrotechnique au cœur de Goma.</div>
+            <div class="hc-btns"><div class="hc-btn-p">Devis gratuit</div><div class="hc-btn-s">En savoir plus</div></div>
+            <div class="hc-badges"><span class="hc-badge">5 ANS D'EXP</span><span class="hc-badge">500+ CLIENTS</span><span class="hc-badge">6 SERVICES</span></div>
+          </div>
+        </div>
+        <p class="opt-desc">Fond très sombre, grille SVG rouge subtile, lueur rouge centrale. Typographie centrée. Style tech futuriste, signature unique.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 02 NAVBAR ══ -->
+<div class="cat">
+  <div class="cat-header"><span class="cat-num">02</span><span class="cat-title">Navbar</span><span class="cat-page">Global</span></div>
+  <div class="opts">
+    <div class="opt" data-group="navbar" data-choice="nav-a" onclick="pick(this)">
+      <div class="opt-label"><span class="opt-letter">A</span><span class="opt-name">Actuelle + progress bar</span><div class="opt-check">✓</div></div>
+      <div class="opt-body">
+        <div class="nav-mock"><div class="nm-prog" style="width:55%"></div><div class="nm-logo"><div class="logo-box">UTS</div><div class="logo-text">Ultra Tech</div></div><div class="nm-links"><div class="nm-link">Accueil</div><div class="nm-link active">Services</div><div class="nm-link">Projets</div><div class="nm-link">Contact</div></div><div class="nm-cta">Devis</div></div>
+        <p class="opt-desc">Navbar actuelle améliorée avec une barre rouge de progression au scroll. Subtil, professionnel, très soigné.</p>
+      </div>
+    </div>
+    <div class="opt" data-group="navbar" data-choice="nav-b" onclick="pick(this)">
+      <div class="opt-label"><span class="opt-letter">B</span><span class="opt-name">Transparent au sommet</span><div class="opt-check">✓</div></div>
+      <div class="opt-body">
+        <div class="nav-trans-wrap">
+          <div class="nav-mock nav-trans" style="background:transparent;border-bottom:1px solid rgba(255,255,255,.08)">
+            <div class="nm-logo"><div class="logo-box">UTS</div><div class="logo-text" style="color:#fff">Ultra Tech</div></div>
+            <div class="nm-links"><div class="nm-link" style="color:rgba(255,255,255,.5)">Accueil</div><div class="nm-link active" style="color:#fff">Services</div><div class="nm-link" style="color:rgba(255,255,255,.5)">Projets</div></div>
+            <div class="nm-cta">Devis</div>
+          </div>
+        </div>
+        <div class="nav-mock" style="margin-top:3px"><div class="nm-prog" style="width:55%"></div><div class="nm-logo"><div class="logo-box">UTS</div><div class="logo-text">Ultra Tech</div></div><div class="nm-links"><div class="nm-link">Accueil</div><div class="nm-link active">Services</div><div class="nm-link">Projets</div></div><div class="nm-cta">Devis</div></div>
+        <p class="opt-desc">Transparente au sommet (fonctionne super avec le Hero cinématographique), devient blanche au scroll avec barre de progression.</p>
+      </div>
+    </div>
+    <div class="opt" data-group="navbar" data-choice="nav-c" onclick="pick(this)">
+      <div class="opt-label"><span class="opt-letter">C</span><span class="opt-name">Pill flottante centrée</span><div class="opt-check">✓</div></div>
+      <div class="opt-body">
+        <div style="background:#111;padding:8px;border-radius:8px">
+          <div class="nav-pill-wrap">
+            <div class="nav-pill">
+              <div class="npl-logo">UTS</div>
+              <div class="npl-links"><div class="npl-link">Accueil</div><div class="npl-link active">Services</div><div class="npl-link">Projets</div><div class="npl-link">Contact</div></div>
+              <div class="npl-cta">Devis</div>
+            </div>
+          </div>
+        </div>
+        <p class="opt-desc">Capsule pill flottante centrée, style 2026 très tendance. Fond semi-transparent avec blur. Très élégant sur Hero sombre.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 03 STATSBAR ══ -->
+<div class="cat">
+  <div class="cat-header"><span class="cat-num">03</span><span class="cat-title">Barre de Stats</span><span class="cat-page">Home · À Propos</span></div>
+  <div class="opts">
+    <div class="opt" data-group="stats" data-choice="stats-a" onclick="pick(this)">
+      <div class="opt-label"><span class="opt-letter">A</span><span class="opt-name">Surface claire</span><div class="opt-check">✓</div></div>
+      <div class="opt-body">
+        <div class="stat-a"><div><div class="sta-n">500+</div><div class="sta-l">Clients</div></div><div><div class="sta-n">5</div><div class="sta-l">Années</div></div><div><div class="sta-n">98%</div><div class="sta-l">Satisfaction</div></div><div><div class="sta-n">6</div><div class="sta-l">Services</div></div></div>
+        <p class="opt-desc">Fond surface gris clair. Chiffres rouges. Simple, propre, lisible.</p>
+      </div>
+    </div>
+    <div class="opt" data-group="stats" data-choice="stats-b" onclick="pick(this)">
+      <div class="opt-label"><span class="opt-letter">B</span><span class="opt-name">Bande sombre bold</span><div class="opt-check">✓</div></div>
+      <div class="opt-body">
+        <div class="stat-b"><div class="stb-item"><div class="stb-n">500<span>+</span></div><div class="stb-l">Clients satisfaits</div></div><div class="stb-item"><div class="stb-n">5<span>+</span></div><div class="stb-l">Années d'exp.</div></div><div class="stb-item"><div class="stb-n">98<span>%</span></div><div class="stb-l">Satisfaction</div></div><div class="stb-item"><div class="stb-n">6</div><div class="stb-l">Domaines</div></div></div>
+        <p class="opt-desc">Bande très sombre, chiffres blancs géants avec suffixe rouge. Contraste fort, très impactant entre deux sections claires.</p>
+      </div>
+    </div>
+    <div class="opt" data-group="stats" data-choice="stats-c" onclick="pick(this)">
+      <div class="opt-label"><span class="opt-letter">C</span><span class="opt-name">Photo overlay</span><div class="opt-check">✓</div></div>
+      <div class="opt-body">
+        <div class="stat-c"><div class="stc-bg"><img src="https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=400&q=60" alt=""></div><div class="stc-ov"></div><div class="stc-cnt"><div class="stc-item"><div class="stc-n">500+</div><div class="stc-l">Clients</div></div><div class="stc-item"><div class="stc-n">5+</div><div class="stc-l">Années</div></div><div class="stc-item"><div class="stc-n">98%</div><div class="stc-l">Satisf.</div></div><div class="stc-item"><div class="stc-n">6</div><div class="stc-l">Services</div></div></div></div>
+        <p class="opt-desc">Photo de technicien en fond très sombre avec overlay. Les stats en blanc flottent sur l'image. Vivant, pas générique.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 04 FOOTER ══ -->
+<div class="cat">
+  <div class="cat-header"><span class="cat-num">04</span><span class="cat-title">Footer</span><span class="cat-page">Global</span></div>
+  <div class="opts">
+    <div class="opt" data-group="footer" data-choice="foot-a" onclick="pick(this)">
+      <div class="opt-label"><span class="opt-letter">A</span><span class="opt-name">Sombre + watermark UTS</span><div class="opt-check">✓</div></div>
+      <div class="opt-body">
+        <div class="foot-a">
+          <div class="fa-wm">UTS</div>
+          <div class="fa-grid">
+            <div><div class="fa-brand">Ultra Tech<br>Solutions</div><div class="fa-tag">L'excellence technologique<br>au service de Goma, RDC.</div></div>
+            <div class="fa-col"><h4>Navigation</h4><a>Accueil</a><a>Services</a><a>À Propos</a><a>Projets</a></div>
+            <div class="fa-col"><h4>Services</h4><a>Formations</a><a>Installation</a><a>Robotique</a><a>Maintenance</a></div>
+          </div>
+          <div class="fa-div"></div>
+          <div class="fa-coords">— 1.6592°S 29.2208°E · GOMA, NORD-KIVU, RDC</div>
+          <div class="fa-bot"><span class="fa-copy">© 2026 ULTRA TECH SOLUTIONS</span><span class="fa-copy">GOMA, RDC</span></div>
+        </div>
+        <p class="opt-desc">#060606 fond. Grand nom en fond translucide. Ligne rouge dégradée. Coordonnées GPS en mono. Identité très forte.</p>
+      </div>
+    </div>
+    <div class="opt" data-group="footer" data-choice="foot-b" onclick="pick(this)">
+      <div class="opt-label"><span class="opt-letter">B</span><span class="opt-name">Photo industrielle + liens</span><div class="opt-check">✓</div></div>
+      <div class="opt-body">
+        <div class="foot-b">
+          <div class="fb-photo"><img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=60" alt=""></div>
+          <div class="fb-ov"></div>
+          <div class="fb-cnt">
+            <div class="fb-big">Ultra<span> Tech</span><br>Solutions</div>
+            <div class="fb-sub">L'expert électrotechnique de la région des Grands Lacs.</div>
+            <div class="fb-links"><span class="fb-link">Accueil</span><span class="fb-link">Services</span><span class="fb-link">Projets</span><span class="fb-link">Contact</span></div>
+          </div>
+          <div class="fb-redline"></div>
+        </div>
+        <p class="opt-desc">Photo de chantier très sombre en fond. Nom grand en blanc. Liens en pills. Ligne rouge au bas. Cinématographique.</p>
+      </div>
+    </div>
+    <div class="opt" data-group="footer" data-choice="foot-c" onclick="pick(this)">
+      <div class="opt-label"><span class="opt-letter">C</span><span class="opt-name">Minimal dark + logo géant</span><div class="opt-check">✓</div></div>
+      <div class="opt-body">
+        <div class="foot-c">
+          <div class="fc-top">
+            <div class="fc-logo-big"><span class="r">Ultra</span><br><span class="r">Tech</span><br><span class="w">Solutions</span></div>
+            <div class="fc-nav"><a>Accueil</a><a>Services</a><a>À Propos</a><a>Projets</a><a>Contact</a></div>
+          </div>
+          <div class="fc-div"></div>
+          <div class="fc-bot">
+            <div class="fc-city"><div class="fc-dot"></div><span class="fc-city-text">GOMA, RDC · EN LIGNE</span></div>
+            <span class="fc-copy" style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(255,255,255,.15)">© 2026</span>
+          </div>
+        </div>
+        <p class="opt-desc">Ultra minimaliste. Grand nom typographique rouge/blanc. Dot animé vert signalant "en ligne". Très haut de gamme, très 2026.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 05 TESTIMONIALS ══ -->
+<div class="cat">
+  <div class="cat-header"><span class="cat-num">05</span><span class="cat-title">Témoignages</span><span class="cat-page">Home · À Propos</span></div>
+  <div class="opts">
+    <div class="opt" data-group="testi" data-choice="testi-a" onclick="pick(this)">
+      <div class="opt-label"><span class="opt-letter">A</span><span class="opt-name">Spotlight sombre</span><div class="opt-check">✓</div></div>
+      <div class="opt-body">
+        <div class="testi-a">
+          <div class="ta-qq">"</div>
+          <div class="ta-q">"Excellent travail sur notre système solaire. L'équipe UTS a respecté chaque délai. Un vrai partenaire de confiance."</div>
+          <div class="ta-auth"><div class="ta-av"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=60&q=80"></div><div><div class="ta-name">Jean Mutombo</div><div class="ta-co">DIRECTEUR · HÔTEL GORILLE</div></div></div>
+          <div class="ta-nav"><div class="ta-nb">←</div><div class="ta-nb">→</div></div>
+        </div>
+        <p class="opt-desc">Un seul témoignage à la fois, fond sombre, grand guillemet rouge. Navigation gauche/droite. Signature, aucun site concurrent ne fait ça.</p>
+      </div>
+    </div>
+    <div class="opt" data-group="testi" data-choice="testi-b" onclick="pick(this)">
+      <div class="opt-label"><span class="opt-letter">B</span><span class="opt-name">Marquee défilant</span><div class="opt-check">✓</div></div>
+      <div class="opt-body">
+        <div class="testi-b">
+          <div class="tb-scroll">
+            <div class="tb-card"><div class="tb-stars"><span class="tb-star">★★★★★</span></div><div class="tb-text">"Excellent travail, délais respectés."</div><div class="tb-auth"><div class="tb-aav"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=30&q=80"></div><div><div class="tb-an">Jean M.</div></div></div></div>
+            <div class="tb-card"><div class="tb-stars"><span class="tb-star">★★★★★</span></div><div class="tb-text">"Formation de qualité, étudiants ravis."</div><div class="tb-auth"><div class="tb-aav"><img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=30&q=80"></div><div><div class="tb-an">Marie K.</div></div></div></div>
+            <div class="tb-card"><div class="tb-stars"><span class="tb-star">★★★★★</span></div><div class="tb-text">"Réactivité remarquable, 2h max."</div><div class="tb-auth"><div class="tb-aav"></div><div><div class="tb-an">Paul B.</div></div></div></div>
+          </div>
+          <div class="tb-marquee-hint">↔ DÉFILEMENT AUTOMATIQUE CONTINU</div>
+        </div>
+        <p class="opt-desc">Rangée de cartes en défilement automatique infini. Fond clair. Montre plusieurs témoignages simultanément. Vivant et dynamique.</p>
+      </div>
+    </div>
+    <div class="opt" data-group="testi" data-choice="testi-c" onclick="pick(this)">
+      <div class="opt-label"><span class="opt-letter">C</span><span class="opt-name">Principal + miniatures</span><div class="opt-check">✓</div></div>
+      <div class="opt-body">
+        <div class="testi-c">
+          <div class="tc-main">
+            <div class="tc-stars"><span class="tc-star">★★★★★</span></div>
+            <div class="tc-q">"Excellent travail sur notre système solaire. L'équipe a respecté chaque délai."</div>
+            <div class="tc-auth"><div class="tc-av"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=60&q=80"></div><div><div class="tc-name">Jean Mutombo</div><div class="tc-co">HÔTEL GORILLE</div></div></div>
+          </div>
+          <div class="tc-side">
+            <div class="tc-mini act"><div class="tm-name">Jean Mutombo</div><div class="tm-co">HÔTEL GORILLE</div></div>
+            <div class="tc-mini"><div class="tm-name">Marie Kahindo</div><div class="tm-co">ESCO GOMA</div></div>
+            <div class="tc-mini"><div class="tm-name">Paul Byamungu</div><div class="tm-co">ONG LOCALE</div></div>
+          </div>
+        </div>
+        <p class="opt-desc">Témoignage principal à gauche, miniatures cliquables à droite. Fond sombre. Voir tous sans scroller. Efficace et élégant.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 06 PROCESS STEPS ══ -->
+<div class="cat">
+  <div class="cat-header"><span class="cat-num">06</span><span class="cat-title">Processus / Étapes</span><span class="cat-page">Home · Services</span></div>
+  <div class="opts">
+    <div class="opt" data-group="process" data-choice="proc-a" onclick="pick(this)">
+      <div class="opt-label"><span class="opt-letter">A</span><span class="opt-name">Timeline numérotée</span><div class="opt-check">✓</div></div>
+      <div class="opt-body">
+        <div class="proc-a">
+          <div class="pa-step"><div class="pa-nc"><span class="pa-num">01</span></div><div class="pa-ct"><div class="pa-cat-l">Étape 1</div><div class="pa-title">Consultation initiale</div><div class="pa-desc">Analyse gratuite de vos besoins.</div></div></div>
+          <div class="pa-step"><div class="pa-nc"><span class="pa-num">02</span></div><div class="pa-ct"><div class="pa-cat-l">Étape 2</div><div class="pa-title">Étude & Devis</div><div class="pa-desc">Étude technique, devis sans engagement.</div></div></div>
+          <div class="pa-step"><div class="pa-nc"><span class="pa-num">03</span></div><div class="pa-ct"><div class="pa-cat-l">Étape 3</div><div class="pa-title">Réalisation</div><div class="pa-desc">Techniciens certifiés, délais respectés.</div></div></div>
+          <div class="pa-step"><div class="pa-nc"><span class="pa-num">04</span></div><div class="pa-ct"><div class="pa-cat-l">Étape 4</div><div class="pa-title">Livraison & Suivi</div><div class="pa-desc">Garantie complète, suivi continu.</div></div></div>
+        </div>
+        <p class="opt-desc">Grands numéros transparents verticaux avec ligne rouge. Editorial, texte large. Les numéros s'illuminent au hover.</p>
+      </div>
+    </div>
+    <div class="opt" data-group="process" data-choice="proc-b" onclick="pick(this)">
+      <div class="opt-label"><span class="opt-letter">B</span><span class="opt-name">Icônes horizontales (amélioré)</span><div class="opt-check">✓</div></div>
+      <div class="opt-body">
+        <div class="proc-b">
+          <div class="pb-steps">
+            <div class="pb-line"></div>
+            <div class="pb-step"><div class="pb-circle">💬<span class="pb-num-badge">1</span></div><div class="pb-t">Consultation</div><div class="pb-d">Entretien gratuit, analyse des besoins.</div></div>
+            <div class="pb-step"><div class="pb-circle">🔍<span class="pb-num-badge">2</span></div><div class="pb-t">Étude</div><div class="pb-d">Devis détaillé sans engagement.</div></div>
+            <div class="pb-step"><div class="pb-circle">🔧<span class="pb-num-badge">3</span></div><div class="pb-t">Réalisation</div><div class="pb-d">Techniciens certifiés.</div></div>
+            <div class="pb-step"><div class="pb-circle">✅<span class="pb-num-badge">4</span></div><div class="pb-t">Livraison</div><div class="pb-d">Garantie et suivi continu.</div></div>
+          </div>
+        </div>
+        <p class="opt-desc">Version améliorée du design actuel. Fond blanc, icônes animées, ligne de connexion, badges numérotés. Plus propre qu'aujourd'hui.</p>
+      </div>
+    </div>
+    <div class="opt" data-group="process" data-choice="proc-c" onclick="pick(this)">
+      <div class="opt-label"><span class="opt-letter">C</span><span class="opt-name">Liste dark numérotée</span><div class="opt-check">✓</div></div>
+      <div class="opt-body">
+        <div class="proc-c">
+          <div class="pc-steps">
+            <div class="pc-step"><div class="pc-idx">01</div><div><div class="pc-title">Consultation initiale</div><div class="pc-desc">Analyse gratuite, solution adaptée au contexte local.</div></div><span class="pc-arrow">→</span></div>
+            <div class="pc-step"><div class="pc-idx">02</div><div><div class="pc-title">Étude & Devis</div><div class="pc-desc">Étude technique complète, sans engagement.</div></div><span class="pc-arrow">→</span></div>
+            <div class="pc-step"><div class="pc-idx">03</div><div><div class="pc-title">Réalisation</div><div class="pc-desc">Techniciens certifiés, délais et qualité garantis.</div></div><span class="pc-arrow">→</span></div>
+            <div class="pc-step"><div class="pc-idx">04</div><div><div class="pc-title">Livraison & Suivi</div><div class="pc-desc">Garantie sur tous les travaux, suivi continu.</div></div><span class="pc-arrow">→</span></div>
+          </div>
+        </div>
+        <p class="opt-desc">Fond sombre, badges rouges numérotés, flèches subtiles à droite. Compact et lisible. S'intègre bien entre deux sections claires.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 07 SERVICES PAGE ══ -->
+<div class="cat">
+  <div class="cat-header"><span class="cat-num">07</span><span class="cat-title">Page Services</span><span class="cat-page">/services</span></div>
+  <div class="opts">
+    <div class="opt" data-group="services" data-choice="svc-a" onclick="pick(this)">
+      <div class="opt-label"><span class="opt-letter">A</span><span class="opt-name">Photo cards filtrables</span><div class="opt-check">✓</div></div>
+      <div class="opt-body">
+        <div class="svc-a">
+          <div class="sa-head"><div class="sa-h">Nos Services</div><div class="sa-filters"><span class="sa-f act">Tous</span><span class="sa-f">Élec.</span><span class="sa-f">Robot.</span></div></div>
+          <div class="sa-grid">
+            <div class="sa-card"><img src="https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=200&q=70"><div class="sc-ov"></div><div class="sc-cat">Installation</div><div class="sc-title">Installation Domestique</div></div>
+            <div class="sa-card"><img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=200&q=70"><div class="sc-ov"></div><div class="sc-cat">Formation</div><div class="sc-title">Formations Tech</div></div>
+            <div class="sa-card"><img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=200&q=70"><div class="sc-ov"></div><div class="sc-cat">Robotique</div><div class="sc-title">Robotique</div></div>
+          </div>
+        </div>
+        <p class="opt-desc">Grille 3 colonnes, cartes photo full-bleed avec overlay, filtre catégories en haut. Chaque clic mène au détail du service.</p>
+      </div>
+    </div>
+    <div class="opt" data-group="services" data-choice="svc-b" onclick="pick(this)">
+      <div class="opt-label"><span class="opt-letter">B</span><span class="opt-name">Hero + liste avec icônes</span><div class="opt-check">✓</div></div>
+      <div class="opt-body">
+        <div class="svc-b">
+          <div class="sb-hero"><img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&q=60"><div class="sb-cnt"><div class="sb-h">Nos Services</div></div></div>
+          <div class="sb-list">
+            <div class="sb-item"><div class="sb-icon">⚡</div><div class="sb-name">Installation Domestique</div><span class="sb-arrow">→</span></div>
+            <div class="sb-item"><div class="sb-icon">🎓</div><div class="sb-name">Formations Techniques</div><span class="sb-arrow">→</span></div>
+            <div class="sb-item"><div class="sb-icon">🤖</div><div class="sb-name">Robotique Industrielle</div><span class="sb-arrow">→</span></div>
+            <div class="sb-item"><div class="sb-icon">🔧</div><div class="sb-name">Maintenance & Dépannage</div><span class="sb-arrow">→</span></div>
+          </div>
+        </div>
+        <p class="opt-desc">Hero photo + liste claire dessous. Simple, rapide, très lisible. Idéal mobile. Le hero rappelle le contexte du service.</p>
+      </div>
+    </div>
+    <div class="opt" data-group="services" data-choice="svc-c" onclick="pick(this)">
+      <div class="opt-label"><span class="opt-letter">C</span><span class="opt-name">Liste sombre numérotée</span><div class="opt-check">✓</div></div>
+      <div class="opt-body">
+        <div class="svc-c">
+          <div class="sc-row">
+            <div class="sc-item"><span class="sc-n">01</span><span class="sc-title">Installation Domestique</span><span class="sc-pill">Électricité</span></div>
+            <div class="sc-item"><span class="sc-n">02</span><span class="sc-title">Formations Techniques</span><span class="sc-pill">Formation</span></div>
+            <div class="sc-item"><span class="sc-n">03</span><span class="sc-title">Robotique Industrielle</span><span class="sc-pill">Robotique</span></div>
+            <div class="sc-item"><span class="sc-n">04</span><span class="sc-title">Étude de Projets</span><span class="sc-pill">Conseil</span></div>
+            <div class="sc-item"><span class="sc-n">05</span><span class="sc-title">Maintenance Préventive</span><span class="sc-pill">Maintenance</span></div>
+            <div class="sc-item"><span class="sc-n">06</span><span class="sc-title">Dépannage Urgence 24h</span><span class="sc-pill">Urgence</span></div>
+          </div>
+        </div>
+        <p class="opt-desc">Fond sombre, lignes numérotées, pill de catégorie. Inspiré des agences design haut de gamme. Signature, directif, rapide à scanner.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 08 ABOUT PAGE ══ -->
+<div class="cat">
+  <div class="cat-header"><span class="cat-num">08</span><span class="cat-title">Page À Propos</span><span class="cat-page">/a-propos</span></div>
+  <div class="opts">
+    <div class="opt" data-group="about" data-choice="about-a" onclick="pick(this)">
+      <div class="opt-label"><span class="opt-letter">A</span><span class="opt-name">Split + grille équipe</span><div class="opt-check">✓</div></div>
+      <div class="opt-body">
+        <div class="about-a">
+          <div>
+            <div class="abt-photo"><img src="https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?w=300&q=70"></div>
+            <div class="team-grid" style="margin-top:6px">
+              <div class="team-card"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&q=70"><div class="tc-name-ov">Jean M.</div></div>
+              <div class="team-card"><img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100&q=70"><div class="tc-name-ov">Marie K.</div></div>
+              <div class="team-card"><img src="https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?w=100&q=70"><div class="tc-name-ov">Paul B.</div></div>
+            </div>
+          </div>
+          <div class="abt-text">
+            <div class="at-lbl">Notre histoire</div>
+            <div class="at-h">Experts en électrotechnique depuis 2019</div>
+            <div class="at-p">Fondée à Goma, UTS est née d'une vision : rendre l'excellence technologique accessible à la RDC.</div>
+            <div style="display:flex;gap:8px;margin-top:6px">
+              <div style="border-left:2px solid #8B1A1A;padding-left:6px"><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:900;color:#8B1A1A">500+</div><div style="font-size:7px;color:#9CA3AF">Clients</div></div>
+              <div style="border-left:2px solid #8B1A1A;padding-left:6px"><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:900;color:#8B1A1A">5</div><div style="font-size:7px;color:#9CA3AF">Ans</div></div>
+            </div>
+          </div>
+        </div>
+        <p class="opt-desc">Split blanc classique avec grille équipe en bas à gauche. Propre, complet, structuré. Stats en accent rouge.</p>
+      </div>
+    </div>
+    <div class="opt" data-group="about" data-choice="about-b" onclick="pick(this)">
+      <div class="opt-label"><span class="opt-letter">B</span><span class="opt-name">Hero cinématographique</span><div class="opt-check">✓</div></div>
+      <div class="opt-body">
+        <div class="about-b">
+          <div class="ab-bg"><img src="https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?w=600&q=60"></div>
+          <div class="ab-ov"></div>
+          <div class="ab-cnt">
+            <div class="a-lbl">— Notre histoire · Goma, RDC</div>
+            <div class="a-h">Experts<br>depuis 2019</div>
+            <div class="a-p">Fondée à Goma, UTS est née d'une vision: rendre l'excellence technologique accessible.</div>
+            <div class="ab-stats">
+              <div class="ab-stat"><div class="ab-stat-n">500+</div><div class="ab-stat-l">Clients</div></div>
+              <div class="ab-stat"><div class="ab-stat-n">5+</div><div class="ab-stat-l">Années</div></div>
+              <div class="ab-stat"><div class="ab-stat-n">98%</div><div class="ab-stat-l">Satisf.</div></div>
+            </div>
+          </div>
+        </div>
+        <p class="opt-desc">Photo plein cadre très sombre, texte blanc à gauche, stats avec bordure rouge à gauche. Immersif, émotionnel, premium.</p>
+      </div>
+    </div>
+    <div class="opt" data-group="about" data-choice="about-c" onclick="pick(this)">
+      <div class="opt-label"><span class="opt-letter">C</span><span class="opt-name">Timeline chronologique</span><div class="opt-check">✓</div></div>
+      <div class="opt-body">
+        <div class="about-c">
+          <div class="ac-timeline">
+            <div class="act-row"><span class="act-year">2019</span><div class="act-content"><div class="act-title">Fondation de UTS à Goma</div><div class="act-desc">Création avec 3 techniciens, premiers contrats locaux.</div></div></div>
+            <div class="act-row"><span class="act-year">2021</span><div class="act-content"><div class="act-title">Expansion des services</div><div class="act-desc">Lancement des formations et de la robotique.</div></div></div>
+            <div class="act-row"><span class="act-year">2023</span><div class="act-content"><div class="act-title">500+ clients</div><div class="act-desc">Partenariats avec ONG et institutions internationales.</div></div></div>
+            <div class="act-row"><span class="act-year">2026</span><div class="act-content"><div class="act-title">Leader régional</div><div class="act-desc">6 services, équipe de 15 techniciens certifiés.</div></div></div>
+          </div>
+        </div>
+        <p class="opt-desc">Timeline chronologique avec années géantes en rouge pâle. Raconte l'histoire UTS de manière narrative. Unique, mémorable.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 09 CONTACT PAGE ══ -->
+<div class="cat">
+  <div class="cat-header"><span class="cat-num">09</span><span class="cat-title">Page Contact</span><span class="cat-page">/contact</span></div>
+  <div class="opts">
+    <div class="opt" data-group="contact" data-choice="cont-a" onclick="pick(this)">
+      <div class="opt-label"><span class="opt-letter">A</span><span class="opt-name">Info + formulaire blanc</span><div class="opt-check">✓</div></div>
+      <div class="opt-body">
+        <div class="contact-a">
+          <div class="ca-info"><div class="ci-lbl">Contactez-nous</div><div class="ci-h">Parlons de votre projet</div><div class="ci-items"><div class="ci-item"><div class="ci-icon">📍</div>Goma, Nord-Kivu, RDC</div><div class="ci-item"><div class="ci-icon">📞</div>+243 xx xxx xxxx</div><div class="ci-item"><div class="ci-icon">✉️</div>contact@uts.cd</div><div class="ci-item"><div class="ci-icon">🕐</div>Lun–Sam, 8h–18h</div></div></div>
+          <div class="ca-form"><div class="cf-field"></div><div class="cf-field"></div><div class="cf-textarea"></div><div class="cf-btn">Envoyer →</div></div>
+        </div>
+        <p class="opt-desc">Layout actuel amélioré. Infos de contact à gauche, formulaire à droite. Propre et fonctionnel.</p>
+      </div>
+    </div>
+    <div class="opt" data-group="contact" data-choice="cont-b" onclick="pick(this)">
+      <div class="opt-label"><span class="opt-letter">B</span><span class="opt-name">Photo gauche + form droite</span><div class="opt-check">✓</div></div>
+      <div class="opt-body">
+        <div class="contact-b">
+          <div class="cb-left"><div class="cb-left-bg"><img src="https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=300&q=60"></div><div class="cb-left-ov"></div><div class="cb-left-cnt"><div class="cl-h">Parlons de votre projet</div><div class="cl-p">Devis gratuit sous 24h. Disponible Lun–Sam.</div><div class="cl-contacts"><div class="cl-c">📍 Goma, Nord-Kivu</div><div class="cl-c">📞 +243 xx xxx xxxx</div><div class="cl-c">✉️ contact@uts.cd</div></div></div></div>
+          <div class="cb-right"><div class="cr-field"></div><div class="cr-field"></div><div class="cr-textarea"></div><div class="cr-btn">Envoyer →</div></div>
+        </div>
+        <p class="opt-desc">Photo de technicien très sombre à gauche, formulaire blanc à droite. Split immersif. Très professionnel, très premium.</p>
+      </div>
+    </div>
+    <div class="opt" data-group="contact" data-choice="cont-c" onclick="pick(this)">
+      <div class="opt-label"><span class="opt-letter">C</span><span class="opt-name">Centré minimaliste dark</span><div class="opt-check">✓</div></div>
+      <div class="opt-body">
+        <div class="contact-c">
+          <div class="cc-lbl">— Contactez-nous</div>
+          <div class="cc-h">Parlons de <span>votre</span><br>projet</div>
+          <div class="cc-p">Devis gratuit sous 24h. Notre équipe vous répond rapidement.</div>
+          <div class="cc-form"><div class="cc-field"></div><div class="cc-field"></div><div class="cc-ta"></div><div class="cc-btn">Envoyer le message →</div></div>
+        </div>
+        <p class="opt-desc">Fond sombre, formulaire centré, typo large. Très épuré et haut de gamme. Style agence de luxe. Accrocheur.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── sticky bottom summary ── -->
+<div id="summary" style="display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(8,8,8,.96);border-top:1px solid rgba(139,26,26,.3);padding:10px 20px;backdrop-filter:blur(10px);z-index:99">
+  <div style="max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+    <div id="summary-text" style="font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,.5);letter-spacing:.1em;flex:1"></div>
+    <div style="font-family:'DM Mono',monospace;font-size:9px;color:#8B1A1A;letter-spacing:.14em">↑ VOS SÉLECTIONS · DITES-MOI DANS LE TERMINAL</div>
+  </div>
+</div>
+
+<script>
+const selections = {};
+function pick(el) {
+  const group = el.dataset.group;
+  const choice = el.dataset.choice;
+  document.querySelectorAll(`[data-group="${group}"]`).forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  selections[group] = choice;
+  updateSummary();
+  if (window.__recordChoice) window.__recordChoice(choice, el.querySelector('.opt-name').textContent);
+}
+function updateSummary() {
+  const keys = Object.keys(selections);
+  if (!keys.length) return;
+  document.getElementById('summary').style.display = 'block';
+  const parts = keys.map(k => `${k.toUpperCase()}: ${selections[k].replace(k+'-','').toUpperCase()}`);
+  document.getElementById('summary-text').textContent = parts.join(' · ');
+}
+</script>
+</body>
+</html>

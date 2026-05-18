@@ -1,0 +1,335 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: #FFFFFF;
+    color: #0F0F0F;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    /* Prevent layout shift from scrollbar on desktop */
+    scrollbar-gutter: stable;
+  }
+
+  img, video, iframe {
+    max-width: 100%;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+    color: #0F0F0F;
+  }
+
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: #f1f1f1; }
+  ::-webkit-scrollbar-thumb { background: #8B1A1A; border-radius: 10px; }
+  ::-webkit-scrollbar-thumb:hover { background: #6B1212; }
+
+  ::selection {
+    background: rgba(139,26,26,0.15);
+    color: #0F0F0F;
+  }
+}
+
+@layer components {
+
+  /* ── Layout ─────────────────────────────────────────────────────── */
+  .container-custom {
+    @apply max-w-7xl mx-auto px-5 sm:px-6 lg:px-10;
+  }
+
+  /* ── Buttons ─────────────────────────────────────────────────────── */
+  .btn-primary {
+    @apply inline-flex items-center gap-2.5 px-7 py-3.5
+           bg-primary text-white font-bold rounded-full
+           transition-all duration-250 hover:bg-primary-dark
+           active:scale-[0.97] focus:outline-none focus:ring-2 focus:ring-primary/40
+           text-sm tracking-wide select-none;
+    box-shadow: 0 4px 20px rgba(139,26,26,0.28);
+  }
+  .btn-primary:hover {
+    box-shadow: 0 8px 30px rgba(139,26,26,0.38);
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center gap-2.5 px-7 py-3.5
+           bg-white text-ink font-bold rounded-full border
+           transition-all duration-250
+           active:scale-[0.97] focus:outline-none
+           text-sm tracking-wide select-none;
+    border-color: rgba(0,0,0,0.12);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .btn-secondary:hover {
+    border-color: #8B1A1A;
+    color: #8B1A1A;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 px-5 py-2.5
+           text-muted font-medium rounded-xl
+           transition-all duration-200 hover:text-ink hover:bg-black/5
+           active:scale-[0.97] focus:outline-none text-sm;
+  }
+
+  .btn-icon {
+    @apply w-10 h-10 flex items-center justify-center rounded-xl
+           text-muted transition-all duration-200
+           hover:text-ink hover:bg-black/5 active:scale-95;
+  }
+
+  /* ── Typography ─────────────────────────────────────────────────── */
+  .label-tag {
+    @apply inline-flex items-center gap-2 text-primary
+           font-mono font-semibold text-[11px] uppercase tracking-[0.2em] mb-4;
+  }
+  .label-tag::before {
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 1.5px;
+    background: currentColor;
+    flex-shrink: 0;
+    border-radius: 2px;
+  }
+
+  .display-xl {
+    @apply text-[clamp(2.8rem,7vw,5.5rem)] font-heading font-black;
+    letter-spacing: -0.035em;
+    line-height: 1.04;
+  }
+
+  .display-lg {
+    @apply text-[clamp(2rem,4.5vw,3.8rem)] font-heading font-black;
+    letter-spacing: -0.03em;
+    line-height: 1.06;
+  }
+
+  .display-md {
+    @apply text-[clamp(1.5rem,3vw,2.5rem)] font-heading font-bold;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+  }
+
+  .section-label {
+    @apply label-tag;
+  }
+
+  /* ── Cards ─────────────────────────────────────────────────────── */
+  .card {
+    @apply bg-white rounded-2xl;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+  }
+
+  .card-hover {
+    @apply card transition-all duration-300;
+  }
+  .card-hover:hover {
+    box-shadow: 0 12px 48px rgba(0,0,0,0.1), 0 2px 8px rgba(0,0,0,0.06);
+    transform: translateY(-3px);
+  }
+
+  .card-outlined {
+    @apply bg-white rounded-2xl;
+    border: 1px solid rgba(0,0,0,0.07);
+  }
+
+  /* ── Sections ───────────────────────────────────────────────────── */
+  .section {
+    @apply py-20 sm:py-28 lg:py-32;
+  }
+
+  .section-white {
+    @apply bg-white;
+  }
+
+  .section-surface {
+    background-color: #F7F9FC;
+  }
+
+  .section-surface-2 {
+    background-color: #EEF1F7;
+  }
+
+  .section-primary {
+    background-color: #8B1A1A;
+  }
+
+  /* ── Dividers ───────────────────────────────────────────────────── */
+  .divider {
+    @apply w-full h-px;
+    background: rgba(0,0,0,0.07);
+  }
+
+  .divider-vertical {
+    @apply w-px;
+    background: rgba(0,0,0,0.07);
+  }
+
+  /* ── Badge / Tag ────────────────────────────────────────────────── */
+  .badge {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full
+           text-[11px] font-mono font-semibold uppercase tracking-widest;
+    background: rgba(139,26,26,0.08);
+    color: #8B1A1A;
+    border: 1px solid rgba(139,26,26,0.18);
+  }
+
+  .badge-neutral {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full
+           text-[11px] font-mono font-semibold uppercase tracking-widest;
+    background: rgba(0,0,0,0.05);
+    color: #555;
+    border: 1px solid rgba(0,0,0,0.1);
+  }
+
+  /* ── Inputs ─────────────────────────────────────────────────────── */
+  .input {
+    @apply w-full px-4 py-3.5 rounded-xl text-sm text-ink
+           bg-surface transition-all duration-200
+           focus:outline-none focus:bg-white focus:ring-2 focus:ring-primary/20;
+    border: 1.5px solid rgba(0,0,0,0.1);
+  }
+  .input::placeholder {
+    color: #9CA3AF;
+  }
+
+  .input:focus {
+    border-color: rgba(139,26,26,0.4);
+  }
+
+  .textarea {
+    @apply input resize-none;
+  }
+
+  /* ── Stat number ────────────────────────────────────────────────── */
+  .stat-num {
+    @apply font-heading font-black text-primary;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.04em;
+  }
+}
+
+@layer utilities {
+
+  /* ── Noise grain overlay ────────────────────────────────────────── */
+  .noise {
+    position: relative;
+  }
+  .noise::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.035;
+    pointer-events: none;
+    z-index: 2;
+    mix-blend-mode: overlay;
+  }
+
+  /* ── Diagonal section clip ──────────────────────────────────────── */
+  .clip-wedge-b {
+    clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%);
+  }
+  .clip-wedge-t {
+    clip-path: polygon(0 5%, 100% 0, 100% 100%, 0 100%);
+  }
+
+  /* ── Infinite marquee ───────────────────────────────────────────── */
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 28s linear infinite;
+  }
+  .marquee-track:hover { animation-play-state: paused; }
+
+  /* ── Shimmer animation ──────────────────────────────────────────── */
+  @keyframes shimmer {
+    0%   { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+  }
+
+  /* ── Background patterns ────────────────────────────────────────── */
+  .bg-dots {
+    background-image: radial-gradient(circle, rgba(0,0,0,0.08) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  .bg-grid {
+    background-image:
+      linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .bg-red-glow {
+    background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(139,26,26,0.08) 0%, transparent 70%);
+  }
+
+  /* ── Text gradient red ──────────────────────────────────────────── */
+  .text-red-gradient {
+    background: linear-gradient(135deg, #8B1A1A 0%, #c42b2b 60%, #8B1A1A 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s linear infinite;
+  }
+
+  /* ── GSAP char helper ───────────────────────────────────────────── */
+  .char { display: inline-block; }
+
+  /* ── Hover link underline ────────────────────────────────────────── */
+  .link-hover {
+    position: relative;
+  }
+  .link-hover::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0;
+    height: 1.5px;
+    background: #8B1A1A;
+    border-radius: 2px;
+    transition: width 0.3s ease;
+  }
+  .link-hover:hover::after { width: 100%; }
+
+  /* ── Number tabular ─────────────────────────────────────────────── */
+  .tabular { font-variant-numeric: tabular-nums; }
+
+  /* ── Transition timing ─────────────────────────────────────────── */
+  .duration-250 { transition-duration: 250ms; }
+
+  /* ── Service card hover indicator ──────────────────────────────── */
+  .service-card-line {
+    @apply absolute bottom-0 left-0 h-[3px] w-0 bg-primary rounded-b-2xl;
+    transition: width 0.35s cubic-bezier(0.16,1,0.3,1);
+  }
+  .service-card:hover .service-card-line { width: 100%; }
+}

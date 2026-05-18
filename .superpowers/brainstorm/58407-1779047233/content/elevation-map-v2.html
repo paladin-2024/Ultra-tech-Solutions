@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UTS — Site Elevation Map 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700;800;900&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #080808;
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  padding-bottom: 80px;
+}
+/* ── Page header ── */
+.ph {
+  padding: 2.5rem 2rem 2rem;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  text-align: center;
+}
+.ph .sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .24em;
+  color: #8B1A1A;
+  margin-bottom: 10px;
+}
+.ph h1 {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 900;
+  letter-spacing: -.04em;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.ph p { color: rgba(255,255,255,.4); font-size: 13px; max-width: 500px; margin: 0 auto; }
+
+/* ── Section wrapper ── */
+.section {
+  padding: 2rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.st-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: #8B1A1A;
+  letter-spacing: .18em;
+}
+.st-label {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -.025em;
+  color: #fff;
+}
+.st-status {
+  margin-left: auto;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: .16em;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+.st-status.done { background: rgba(16,185,129,.15); color: #10B981; border: 1px solid rgba(16,185,129,.2); }
+.st-status.new  { background: rgba(139,26,26,.2);  color: #EF6060; border: 1px solid rgba(139,26,26,.25); }
+
+/* ── Split comparison ── */
+.compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+@media (max-width: 640px) { .compare { grid-template-columns: 1fr; } }
+.compare-box {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.07);
+}
+.compare-box .cb-label {
+  padding: 7px 14px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: .18em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.cb-label.before { background: rgba(255,255,255,.04); color: rgba(255,255,255,.3); }
+.cb-label.before::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,.2); }
+.cb-label.after  { background: rgba(139,26,26,.12);  color: #EF8080; }
+.cb-label.after::before  { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #8B1A1A; }
+.compare-box .cb-body { padding: 14px; }
+.desc-text {
+  font-size: 12px;
+  color: rgba(255,255,255,.45);
+  line-height: 1.6;
+  margin-top: 8px;
+}
+
+/* ═══════════════════════════════════
+   GALLERY MOCKUP (Decided ✓)
+══════════════════════════════════ */
+.gallery-done {
+  background: #111;
+  border-radius: 14px;
+  padding: 14px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 160px 140px;
+  gap: 6px;
+}
+.g-card {
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  background: #1a1a1a;
+}
+.g-card img { width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.8); }
+.g-card .glo {
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,.75) 0%,transparent 60%);
+}
+.g-card .gtitle {
+  position:absolute;bottom:10px;left:12px;right:12px;
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:11px;font-weight:800;letter-spacing:-.015em;color:#fff;line-height:1.2;
+}
+.g-card .gcat {
+  position:absolute;top:8px;left:8px;
+  font-family:'DM Mono',monospace;font-size:7px;text-transform:uppercase;letter-spacing:.15em;
+  background:rgba(139,26,26,.9);color:#fff;padding:2px 6px;border-radius:20px;
+}
+.g-card.featured { grid-row: span 2; }
+.g-badge { position:absolute;top:8px;right:8px;
+  font-family:'DM Mono',monospace;font-size:7px;color:rgba(255,255,255,.3);letter-spacing:.15em;
+}
+/* Lightbox overlay indicator */
+.g-overlay-pill {
+  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(139,26,26,.15);
+  border: 1px solid rgba(139,26,26,.25);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: #EF8080;
+  letter-spacing: .14em;
+}
+
+/* ═══════════════════════════════════
+   FOOTER MOCKUP
+══════════════════════════════════ */
+.footer-before {
+  background: #F7F9FC;
+  border-radius: 10px;
+  padding: 16px;
+}
+.fb-row { display:grid;grid-template-columns:repeat(4,1fr);gap:12px; }
+.fb-col h4 { font-family:'Bricolage Grotesque',sans-serif;font-size:10px;font-weight:800;
+  text-transform:uppercase;letter-spacing:.15em;color:#6B7280;margin-bottom:8px; }
+.fb-col p,
+.fb-col a { font-size:11px;color:#9CA3AF;display:block;margin-bottom:4px; }
+.fb-bottom { margin-top:12px;padding-top:10px;border-top:1px solid #E5E7EB;
+  display:flex;justify-content:space-between; }
+.fb-bottom span { font-size:10px;color:#9CA3AF; }
+
+.footer-after {
+  background: #060606;
+  border-radius: 10px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.fa-watermark {
+  position:absolute;bottom:-10px;right:-10px;
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:5rem;font-weight:900;letter-spacing:-.05em;
+  color:rgba(255,255,255,.025);line-height:1;
+  pointer-events:none;
+  white-space:nowrap;
+}
+.fa-top { display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px;margin-bottom:16px; }
+.fa-brand-name { font-family:'Bricolage Grotesque',sans-serif;font-size:20px;font-weight:900;
+  letter-spacing:-.04em;color:#fff;margin-bottom:6px; }
+.fa-tagline { font-size:11px;color:rgba(255,255,255,.35);line-height:1.5; }
+.fa-col h4 { font-family:'DM Mono',monospace;font-size:8px;text-transform:uppercase;
+  letter-spacing:.2em;color:rgba(255,255,255,.25);margin-bottom:8px; }
+.fa-col a { font-size:11px;color:rgba(255,255,255,.4);display:block;margin-bottom:5px;
+  transition:color .2s; }
+.fa-divider {
+  height:1px;background:linear-gradient(90deg,rgba(139,26,26,.4) 0%,rgba(255,255,255,.05) 60%,transparent 100%);
+  margin-bottom:12px;
+}
+.fa-coords {
+  font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,.2);letter-spacing:.16em;
+  margin-bottom:10px;
+}
+.fa-bottom { display:flex;align-items:center;justify-content:space-between; }
+.fa-copy { font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,.2);letter-spacing:.1em; }
+.fa-socials { display:flex;gap:6px; }
+.fa-soc {
+  width:26px;height:26px;border-radius:8px;border:1px solid rgba(255,255,255,.1);
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;color:rgba(255,255,255,.4);
+}
+
+/* ═══════════════════════════════════
+   TESTIMONIALS MOCKUP
+══════════════════════════════════ */
+.testi-before {
+  display:grid;grid-template-columns:repeat(3,1fr);gap:8px;
+  background:#F7F9FC;border-radius:10px;padding:14px;
+}
+.tb-card {
+  background:#fff;border-radius:8px;padding:14px;border:1px solid #E5E7EB;
+}
+.tb-stars { display:flex;gap:2px;margin-bottom:6px; }
+.tb-star { color:#F59E0B;font-size:10px; }
+.tb-text { font-size:10px;color:#6B7280;line-height:1.5;margin-bottom:8px;font-style:italic; }
+.tb-auth { display:flex;align-items:center;gap:6px;padding-top:6px;border-top:1px solid #F3F4F6; }
+.tb-av { width:22px;height:22px;border-radius:50%;background:#E5E7EB;overflow:hidden; }
+.tb-av img { width:100%;height:100%;object-fit:cover; }
+.tb-name { font-family:'Bricolage Grotesque',sans-serif;font-size:10px;font-weight:800;color:#0F0F0F; }
+.tb-co  { font-family:'DM Mono',monospace;font-size:8px;color:#8B1A1A;letter-spacing:.1em; }
+
+.testi-after {
+  background: #0A0A0A;
+  border-radius: 10px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.ta-quote {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 7rem;
+  font-weight: 900;
+  color: rgba(139,26,26,.2);
+  line-height: 1;
+  position: absolute;
+  top: 0; left: 16px;
+  pointer-events:none;
+}
+.ta-text {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.5;
+  letter-spacing: -.015em;
+  font-style: italic;
+  padding-top: 40px;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+.ta-auth { display:flex;align-items:center;gap:12px;position:relative;z-index:1; }
+.ta-av {
+  width: 40px;height: 40px;border-radius:50%;overflow:hidden;
+  border: 2px solid rgba(139,26,26,.4);
+}
+.ta-av img { width:100%;height:100%;object-fit:cover; }
+.ta-name { font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:800;color:#fff;letter-spacing:-.02em; }
+.ta-co   { font-family:'DM Mono',monospace;font-size:9px;color:#8B1A1A;letter-spacing:.12em;margin-top:2px; }
+.ta-nav  { display:flex;align-items:center;gap:8px;margin-top:16px;position:relative;z-index:1; }
+.ta-nav-btn {
+  width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,255,255,.12);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;color:rgba(255,255,255,.4);cursor:pointer;
+}
+.ta-dots { display:flex;gap:4px;margin-left:8px; }
+.ta-dot { width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.15); }
+.ta-dot.active { background:#8B1A1A;width:16px;border-radius:4px; }
+
+/* ═══════════════════════════════════
+   PROCESS MOCKUP
+══════════════════════════════════ */
+.process-before {
+  display:grid;grid-template-columns:repeat(4,1fr);gap:8px;
+  background:#fff;border-radius:10px;padding:14px;
+}
+.pb-step { display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 8px; }
+.pb-icon {
+  width:40px;height:40px;border-radius:12px;
+  background:rgba(139,26,26,.08);border:1.5px solid rgba(139,26,26,.15);
+  display:flex;align-items:center;justify-content:center;margin-bottom:8px;
+  font-size:18px;
+}
+.pb-title { font-family:'Bricolage Grotesque',sans-serif;font-size:11px;font-weight:800;color:#0F0F0F;letter-spacing:-.01em;margin-bottom:4px; }
+.pb-desc  { font-size:9px;color:#9CA3AF;line-height:1.5; }
+
+.process-after {
+  background: #FAFBFC;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.pa-step {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  min-height: 80px;
+  border-bottom: 1px solid rgba(0,0,0,.05);
+  position: relative;
+}
+.pa-step:last-child { border-bottom: none; }
+.pa-num-col {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 18px;
+}
+.pa-num {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 3rem;
+  font-weight: 900;
+  letter-spacing: -.05em;
+  color: rgba(139,26,26,.12);
+  line-height: 1;
+  transition: color .3s;
+}
+.pa-step:hover .pa-num { color: rgba(139,26,26,.35); }
+/* Red vertical connector */
+.pa-num-col::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: calc(100% - 60px);
+  background: rgba(139,26,26,.15);
+}
+.pa-step:last-child .pa-num-col::after { display: none; }
+.pa-content {
+  padding: 18px 16px 18px 0;
+}
+.pa-cat {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: .18em;
+  color: #8B1A1A;
+  margin-bottom: 5px;
+}
+.pa-title {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: -.02em;
+  color: #0F0F0F;
+  margin-bottom: 4px;
+}
+.pa-desc { font-size: 11px; color: #9CA3AF; line-height: 1.6; }
+
+/* ═══════════════════════════════════
+   HERO MOCKUP
+══════════════════════════════════ */
+.hero-before {
+  background: #fff;
+  border-radius: 10px;
+  padding: 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: center;
+  min-height: 160px;
+}
+.hb-text .hb-label { font-family:'DM Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.2em;color:#8B1A1A;margin-bottom:6px; }
+.hb-h1 { font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:900;letter-spacing:-.04em;color:#0F0F0F;line-height:1.1;margin-bottom:8px; }
+.hb-p  { font-size:10px;color:#6B7280;line-height:1.5;margin-bottom:10px; }
+.hb-btn { display:inline-flex;align-items:center;gap:5px;background:#8B1A1A;color:#fff;padding:7px 14px;border-radius:20px;font-size:10px;font-weight:700; }
+.hb-photo { border-radius:12px;overflow:hidden;aspect-ratio:4/5;background:#E5E7EB; }
+.hb-photo img { width:100%;height:100%;object-fit:cover; }
+
+.hero-after {
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  min-height: 180px;
+}
+.ha-bg { position:absolute;inset:0; }
+.ha-bg img { width:100%;height:100%;object-fit:cover;filter:brightness(.45); }
+.ha-overlay {
+  position:absolute;inset:0;
+  background:linear-gradient(110deg, rgba(0,0,0,.85) 0%, rgba(0,0,0,.3) 60%, transparent 100%);
+}
+.ha-content {
+  position:relative;z-index:1;
+  padding:24px 20px;
+  height:100%;
+}
+.ha-label { font-family:'DM Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.22em;color:rgba(255,255,255,.45);margin-bottom:6px; }
+.ha-h1 { font-family:'Bricolage Grotesque',sans-serif;font-size:28px;font-weight:900;letter-spacing:-.045em;color:#fff;line-height:1.0;margin-bottom:10px;max-width:280px; }
+.ha-p  { font-size:10px;color:rgba(255,255,255,.5);line-height:1.5;margin-bottom:14px;max-width:220px; }
+.ha-btns { display:flex;gap:8px; }
+.ha-btn-p { display:inline-flex;align-items:center;gap:5px;background:#8B1A1A;color:#fff;padding:7px 14px;border-radius:20px;font-size:10px;font-weight:700; box-shadow:0 4px 16px rgba(139,26,26,.4); }
+.ha-btn-s { display:inline-flex;align-items:center;gap:5px;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);padding:7px 14px;border-radius:20px;font-size:10px;font-weight:600; }
+.ha-stat {
+  position:absolute;bottom:16px;right:16px;
+  background:rgba(255,255,255,.08);backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:12px;padding:8px 14px;
+}
+.ha-stat-num { font-family:'Bricolage Grotesque',sans-serif;font-size:20px;font-weight:900;color:#fff;letter-spacing:-.04em;line-height:1; }
+.ha-stat-label { font-family:'DM Mono',monospace;font-size:7px;text-transform:uppercase;letter-spacing:.15em;color:rgba(255,255,255,.35);margin-top:2px; }
+
+/* ── Selection state ── */
+.up-block {
+  cursor: pointer;
+  border-radius: 16px;
+  padding: 1.5rem 1.5rem 1rem;
+  border: 2px solid rgba(255,255,255,.06);
+  transition: border-color .25s, transform .25s;
+  margin-bottom: 1.5rem;
+}
+.up-block:hover { border-color: rgba(139,26,26,.5); transform: translateY(-2px); }
+.up-block.selected { border-color: #8B1A1A; box-shadow: 0 0 0 1px #8B1A1A, 0 16px 48px rgba(139,26,26,.15); }
+.up-block.locked  { border-color: #10B981; box-shadow: 0 0 0 1px #10B981; cursor: default; }
+
+.up-block .sel-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .14em;
+  margin-top: 10px;
+}
+.up-block.selected .sel-indicator { color: #EF8080; }
+.up-block.locked   .sel-indicator { color: #10B981; }
+.sel-dot {
+  width: 6px;height:6px;border-radius:50%;
+}
+.selected .sel-dot { background: #8B1A1A; }
+.locked   .sel-dot { background: #10B981; }
+</style>
+</head>
+<body>
+
+<div class="ph">
+  <p class="sub">UTS Website · Elevation Plan 2026</p>
+  <h1>Tout ce qu'on peut élever</h1>
+  <p>Chaque zone du site avec l'état actuel et la direction proposée. Cliquez pour sélectionner ce que vous voulez.</p>
+</div>
+
+<div class="section">
+
+  <!-- ── 01 Gallery (locked) ── -->
+  <div class="up-block locked" id="block-gallery">
+    <div class="section-title">
+      <span class="st-num">01</span>
+      <span class="st-label">Galerie Projets — Bento Mosaic + Lightbox</span>
+      <span class="st-status done">Décidé ✓</span>
+    </div>
+    <div class="gallery-done">
+      <div class="g-card featured">
+        <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&q=80" alt="">
+        <div class="glo"></div><span class="gcat">Installation</span><span class="g-badge">01/08</span>
+        <div class="gtitle">Système Solaire — Hôtel Gorille<br><span style="font-weight:400;font-size:9px;color:rgba(255,255,255,.45)">Hôtel Gorille · 2024</span></div>
+      </div>
+      <div class="g-card"><img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=300&q=80" alt=""><div class="glo"></div><span class="gcat">Formation</span><span class="g-badge">02/08</span><div class="gtitle">Formation Robotique</div></div>
+      <div class="g-card"><img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=300&q=80" alt=""><div class="glo"></div><span class="gcat">Réseau</span><span class="g-badge">03/08</span><div class="gtitle">Infrastructure ONG</div></div>
+      <div class="g-card"><img src="https://images.unsplash.com/photo-1558002038-1055907df827?w=300&q=80" alt=""><div class="glo"></div><span class="gcat">Domotique</span><span class="g-badge">04/08</span><div class="gtitle">Résidence Privée</div></div>
+      <div class="g-card"><img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=300&q=80" alt=""><div class="glo"></div><span class="gcat">Robotique</span><span class="g-badge">05/08</span><div class="gtitle">Robots Éducatifs</div></div>
+    </div>
+    <div class="g-overlay-pill">↳ Clic = lightbox fullscreen avec détails du projet · 3D tilt · clip-path reveal</div>
+    <div class="sel-indicator"><div class="sel-dot"></div>SÉLECTIONNÉ — PRÊT À CONSTRUIRE</div>
+  </div>
+
+  <!-- ── 02 Footer ── -->
+  <div class="up-block" data-choice="footer" onclick="toggle(this)" id="block-footer">
+    <div class="section-title">
+      <span class="st-num">02</span>
+      <span class="st-label">Footer — De fade à signature</span>
+      <span class="st-status new">À élever</span>
+    </div>
+    <div class="compare">
+      <div class="compare-box">
+        <div class="cb-label before">Actuel</div>
+        <div class="cb-body">
+          <div class="footer-before">
+            <div class="fb-row">
+              <div class="fb-col">
+                <h4>Ultra Tech</h4>
+                <p style="font-size:9px;color:#9CA3AF">L'excellence technologique...</p>
+                <div style="display:flex;gap:4px;margin-top:6px">
+                  <div style="width:18px;height:18px;background:#E5E7EB;border-radius:4px"></div>
+                  <div style="width:18px;height:18px;background:#E5E7EB;border-radius:4px"></div>
+                  <div style="width:18px;height:18px;background:#E5E7EB;border-radius:4px"></div>
+                </div>
+              </div>
+              <div class="fb-col"><h4>Navigation</h4><a>Accueil</a><a>Services</a><a>À Propos</a><a>Contact</a></div>
+              <div class="fb-col"><h4>Services</h4><a>Formations</a><a>Installation</a><a>Robotique</a></div>
+              <div class="fb-col"><h4>Contact</h4><a>Goma, RDC</a><a>+243 ...</a><a>contact@...</a></div>
+            </div>
+            <div class="fb-bottom"><span>© 2025 Ultra Tech Solutions</span><span>Goma, RDC</span></div>
+          </div>
+          <p class="desc-text">Fond gris clair. Standard. Aucune personnalité. Ressemble à n'importe quel site.</p>
+        </div>
+      </div>
+      <div class="compare-box">
+        <div class="cb-label after">Proposé</div>
+        <div class="cb-body">
+          <div class="footer-after">
+            <div class="fa-watermark">UTS</div>
+            <div class="fa-top">
+              <div>
+                <div class="fa-brand-name">Ultra Tech<br>Solutions</div>
+                <div class="fa-tagline">L'excellence technologique<br>au service de Goma, RDC.</div>
+                <div class="fa-socials" style="margin-top:10px">
+                  <div class="fa-soc">f</div>
+                  <div class="fa-soc">in</div>
+                  <div class="fa-soc">▶</div>
+                </div>
+              </div>
+              <div class="fa-col"><h4>Navigation</h4><a>Accueil</a><a>Services</a><a>À Propos</a><a>Projets</a><a>Contact</a></div>
+              <div class="fa-col"><h4>Services</h4><a>Formations</a><a>Installation</a><a>Robotique</a><a>Étude</a><a>Maintenance</a></div>
+            </div>
+            <div class="fa-divider"></div>
+            <div class="fa-coords">— 1.6592°S 29.2208°E · GOMA, RDC · AFRIQUE CENTRALE</div>
+            <div class="fa-bottom">
+              <span class="fa-copy">© 2026 ULTRA TECH SOLUTIONS · TOUS DROITS RÉSERVÉS</span>
+              <span class="fa-copy">CONÇU À GOMA, RDC</span>
+            </div>
+          </div>
+          <p class="desc-text">Fond très sombre (#060606). Grand nom en watermark. Ligne rouge dégradée. Coordonnées GPS de Goma en mono. Identité forte, mémorable.</p>
+        </div>
+      </div>
+    </div>
+    <div class="sel-indicator"><div class="sel-dot"></div>CLIQUER POUR SÉLECTIONNER</div>
+  </div>
+
+  <!-- ── 03 Testimonials ── -->
+  <div class="up-block" data-choice="testimonials" onclick="toggle(this)" id="block-testi">
+    <div class="section-title">
+      <span class="st-num">03</span>
+      <span class="st-label">Témoignages — De cartes génériques à editorial sombre</span>
+      <span class="st-status new">À élever</span>
+    </div>
+    <div class="compare">
+      <div class="compare-box">
+        <div class="cb-label before">Actuel</div>
+        <div class="cb-body">
+          <div class="testi-before">
+            <div class="tb-card">
+              <div class="tb-stars"><span class="tb-star">★</span><span class="tb-star">★</span><span class="tb-star">★</span><span class="tb-star">★</span><span class="tb-star">★</span></div>
+              <p class="tb-text">"Excellent travail, délais respectés, équipe très professionnelle."</p>
+              <div class="tb-auth"><div class="tb-av"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=50&q=80"></div><div><div class="tb-name">Jean Mutombo</div><div class="tb-co">HÔTEL GORILLE</div></div></div>
+            </div>
+            <div class="tb-card">
+              <div class="tb-stars"><span class="tb-star">★</span><span class="tb-star">★</span><span class="tb-star">★</span><span class="tb-star">★</span><span class="tb-star">★</span></div>
+              <p class="tb-text">"Formation de qualité, les étudiants sont très satisfaits."</p>
+              <div class="tb-auth"><div class="tb-av"><img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=50&q=80"></div><div><div class="tb-name">Marie Kahindo</div><div class="tb-co">ESCO GOMA</div></div></div>
+            </div>
+            <div class="tb-card">
+              <div class="tb-stars"><span class="tb-star">★</span><span class="tb-star">★</span><span class="tb-star">★</span><span class="tb-star">★</span><span class="tb-star">★</span></div>
+              <p class="tb-text">"Réactivité remarquable, problème résolu en moins de 2h."</p>
+              <div class="tb-auth"><div class="tb-av"></div><div><div class="tb-name">Paul Byamungu</div><div class="tb-co">ONG LOCALE</div></div></div>
+            </div>
+          </div>
+          <p class="desc-text">3 cartes blanches côte à côte. Étoiles, quote italique, avatar. Tout le monde fait ça.</p>
+        </div>
+      </div>
+      <div class="compare-box">
+        <div class="cb-label after">Proposé</div>
+        <div class="cb-body">
+          <div class="testi-after">
+            <div class="ta-quote">"</div>
+            <div class="ta-text">
+              "Excellent travail sur notre système solaire. L'équipe UTS a respecté chaque délai, chaque détail. Un vrai partenaire technologique de confiance à Goma."
+            </div>
+            <div class="ta-auth">
+              <div class="ta-av"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=80&q=80"></div>
+              <div>
+                <div class="ta-name">Jean Mutombo</div>
+                <div class="ta-co">DIRECTEUR · HÔTEL GORILLE</div>
+              </div>
+            </div>
+            <div class="ta-nav">
+              <div class="ta-nav-btn">←</div>
+              <div class="ta-nav-btn">→</div>
+              <div class="ta-dots">
+                <div class="ta-dot active"></div>
+                <div class="ta-dot"></div>
+                <div class="ta-dot"></div>
+              </div>
+            </div>
+          </div>
+          <p class="desc-text">Fond sombre. Un seul témoignage à la fois. Grand guillemet rouge décoratif. Citation en gros, lisible, avec navigation gauche/droite. Signature et mémorable.</p>
+        </div>
+      </div>
+    </div>
+    <div class="sel-indicator"><div class="sel-dot"></div>CLIQUER POUR SÉLECTIONNER</div>
+  </div>
+
+  <!-- ── 04 Process Steps ── -->
+  <div class="up-block" data-choice="process" onclick="toggle(this)" id="block-process">
+    <div class="section-title">
+      <span class="st-num">04</span>
+      <span class="st-label">Processus — De 4 icônes basiques à timeline numérotée</span>
+      <span class="st-status new">À élever</span>
+    </div>
+    <div class="compare">
+      <div class="compare-box">
+        <div class="cb-label before">Actuel</div>
+        <div class="cb-body">
+          <div class="process-before">
+            <div class="pb-step"><div class="pb-icon">💬</div><div class="pb-title">Consultation</div><div class="pb-desc">Nous analysons vos besoins lors d'un entretien gratuit...</div></div>
+            <div class="pb-step"><div class="pb-icon">🔍</div><div class="pb-title">Étude & Devis</div><div class="pb-desc">Étude technique et devis sans engagement...</div></div>
+            <div class="pb-step"><div class="pb-icon">🔧</div><div class="pb-title">Réalisation</div><div class="pb-desc">Techniciens certifiés, résultats garantis...</div></div>
+            <div class="pb-step"><div class="pb-icon">✅</div><div class="pb-title">Livraison</div><div class="pb-desc">Suivi et garantie sur tous les travaux...</div></div>
+          </div>
+          <p class="desc-text">4 boîtes identiques avec icônes, ligne horizontale. Très générique, vu partout.</p>
+        </div>
+      </div>
+      <div class="compare-box">
+        <div class="cb-label after">Proposé</div>
+        <div class="cb-body">
+          <div class="process-after">
+            <div class="pa-step">
+              <div class="pa-num-col"><span class="pa-num">01</span></div>
+              <div class="pa-content"><div class="pa-cat">Étape 1</div><div class="pa-title">Consultation initiale</div><div class="pa-desc">Analyse gratuite de vos besoins, proposition de solution adaptée au contexte local.</div></div>
+            </div>
+            <div class="pa-step">
+              <div class="pa-num-col"><span class="pa-num">02</span></div>
+              <div class="pa-content"><div class="pa-cat">Étape 2</div><div class="pa-title">Étude & Devis</div><div class="pa-desc">Étude technique complète avec devis détaillé, sans engagement.</div></div>
+            </div>
+            <div class="pa-step">
+              <div class="pa-num-col"><span class="pa-num">03</span></div>
+              <div class="pa-content"><div class="pa-cat">Étape 3</div><div class="pa-title">Réalisation</div><div class="pa-desc">Nos techniciens certifiés interviennent avec précision dans les délais.</div></div>
+            </div>
+            <div class="pa-step">
+              <div class="pa-num-col"><span class="pa-num">04</span></div>
+              <div class="pa-content"><div class="pa-cat">Étape 4</div><div class="pa-title">Livraison & Suivi</div><div class="pa-desc">Garantie complète, suivi continu, votre satisfaction est notre priorité.</div></div>
+            </div>
+          </div>
+          <p class="desc-text">Grands numéros transparents avec ligne verticale rouge. Editorial, lisible, distinctif. Les numéros s'illuminent au hover/scroll.</p>
+        </div>
+      </div>
+    </div>
+    <div class="sel-indicator"><div class="sel-dot"></div>CLIQUER POUR SÉLECTIONNER</div>
+  </div>
+
+  <!-- ── 05 Hero ── -->
+  <div class="up-block" data-choice="hero" onclick="toggle(this)" id="block-hero">
+    <div class="section-title">
+      <span class="st-num">05</span>
+      <span class="st-label">Hero — De split basique à cinématographique full-bleed</span>
+      <span class="st-status new">À élever</span>
+    </div>
+    <div class="compare">
+      <div class="compare-box">
+        <div class="cb-label before">Actuel</div>
+        <div class="cb-body">
+          <div class="hero-before">
+            <div class="hb-text">
+              <div class="hb-label">Goma, RDC</div>
+              <div class="hb-h1">L'Excellence<br>Électrique</div>
+              <div class="hb-p">Installation, formation, maintenance — spécialistes à Goma depuis 5 ans.</div>
+              <div class="hb-btn">Devis gratuit →</div>
+            </div>
+            <div class="hb-photo"><img src="https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=400&q=70" alt=""></div>
+          </div>
+          <p class="desc-text">Split 50/50. Photo à droite dans une carte arrondie. Blanc à gauche. Correct mais pas mémorable.</p>
+        </div>
+      </div>
+      <div class="compare-box">
+        <div class="cb-label after">Proposé</div>
+        <div class="cb-body">
+          <div class="hero-after">
+            <div class="ha-bg"><img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=75" alt=""></div>
+            <div class="ha-overlay"></div>
+            <div class="ha-content">
+              <div class="ha-label">— Goma, RDC · Depuis 2019</div>
+              <div class="ha-h1">L'Excellence<br>au Service de<br>Goma</div>
+              <div class="ha-p">Installation, formation, robotique — l'expert électrotechnique de la région des Grands Lacs.</div>
+              <div class="ha-btns">
+                <div class="ha-btn-p">Devis gratuit →</div>
+                <div class="ha-btn-s">↓ Voir nos projets</div>
+              </div>
+            </div>
+            <div class="ha-stat">
+              <div class="ha-stat-num">500+</div>
+              <div class="ha-stat-label">CLIENTS SATISFAITS</div>
+            </div>
+          </div>
+          <p class="desc-text">Photo plein écran en fond avec overlay gradient. Texte blanc à gauche. Stat flottante en bas à droite. Cinématographique, immersif, mémorable.</p>
+        </div>
+      </div>
+    </div>
+    <div class="sel-indicator"><div class="sel-dot"></div>CLIQUER POUR SÉLECTIONNER</div>
+  </div>
+
+  <!-- ── 06 Navbar ── -->
+  <div class="up-block" data-choice="navbar" onclick="toggle(this)" id="block-navbar">
+    <div class="section-title">
+      <span class="st-num">06</span>
+      <span class="st-label">Navbar — Barre de progression + logo amélioré</span>
+      <span class="st-status new">Upgrade mineur</span>
+    </div>
+    <p style="font-size:13px;color:rgba(255,255,255,.4);line-height:1.6;margin-bottom:12px">
+      La navbar est déjà bonne. Deux petites additions qui font une vraie différence :
+    </p>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="background:rgba(255,255,255,.04);border-radius:10px;padding:14px;border:1px solid rgba(255,255,255,.07)">
+        <div style="display:flex;align-items:center;justify-content:space-between;height:40px;background:#fff;border-radius:8px;padding:0 12px;position:relative">
+          <!-- Progress bar at top -->
+          <div style="position:absolute;top:0;left:0;width:65%;height:2px;background:linear-gradient(90deg,#8B1A1A,rgba(139,26,26,.3));border-radius:2px 0 0 0"></div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="width:24px;height:24px;background:#8B1A1A;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#fff;font-weight:900">UTS</div>
+            <div><div style="font-size:11px;font-weight:800;color:#0F0F0F">Ultra Tech</div><div style="font-size:7px;color:#9CA3AF;letter-spacing:.15em">SOLUTIONS · GOMA</div></div>
+          </div>
+          <div style="display:flex;gap:16px">
+            <div style="font-size:10px;color:#6B7280">Accueil</div>
+            <div style="font-size:10px;color:#8B1A1A;font-weight:700;border-bottom:1.5px solid #8B1A1A">Services</div>
+            <div style="font-size:10px;color:#6B7280">Projets</div>
+            <div style="font-size:10px;color:#6B7280">Contact</div>
+          </div>
+          <div style="background:#8B1A1A;color:#fff;font-size:9px;font-weight:700;padding:5px 10px;border-radius:20px">Devis gratuit</div>
+        </div>
+        <p style="font-size:11px;color:rgba(255,255,255,.3);margin-top:8px">↑ Barre rouge en haut qui progresse au scroll. Indique où l'utilisateur en est sur la page. Subtil mais très soigné.</p>
+      </div>
+    </div>
+    <div class="sel-indicator"><div class="sel-dot"></div>CLIQUER POUR SÉLECTIONNER</div>
+  </div>
+
+</div>
+
+<script>
+function toggle(el) {
+  const wasSelected = el.classList.contains('selected');
+  el.classList.toggle('selected', !wasSelected);
+  const choice = el.dataset.choice;
+  const label  = el.querySelector('.st-label').textContent.trim();
+  if (window.__recordChoice) window.__recordChoice(choice, label);
+}
+// Keep gallery locked
+document.getElementById('block-gallery').onclick = null;
+</script>
+</body>
+</html>
