@@ -81,25 +81,3 @@ export const heroTextVariants = {
   }),
 }
 
-// GSAP helpers
-export function splitIntoChars(el) {
-  const words = el.textContent.trim().split(' ')
-  el.innerHTML = words
-    .map(
-      (word) =>
-        `<span class="inline-block overflow-hidden"><span class="char inline-block">${word}</span></span>`,
-    )
-    .join(' ')
-  return el.querySelectorAll('.char')
-}
-
-export const gsapCounterConfig = (trigger) => ({
-  duration: 2,
-  ease: 'power2.out',
-  snap: { textContent: 1 },
-  scrollTrigger: {
-    trigger,
-    start: 'top 85%',
-    once: true,
-  },
-})
