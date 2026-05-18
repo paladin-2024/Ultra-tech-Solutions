@@ -6,7 +6,6 @@ import Footer from '@/components/layout/Footer'
 import WhatsAppButton from '@/components/layout/WhatsAppButton'
 import SplashScreen from '@/components/layout/SplashScreen'
 import ScrollToTop from '@/components/layout/ScrollToTop'
-import MobileContactBar from '@/components/layout/MobileContactBar'
 import CursorSpotlight from '@/components/layout/CursorSpotlight'
 import ExitIntentPopup from '@/components/layout/ExitIntentPopup'
 
@@ -36,7 +35,7 @@ export default function App() {
     <>
       <SplashScreen />
       <CursorSpotlight />
-      <div className="min-h-screen flex flex-col pb-14 lg:pb-0">
+      <div className="min-h-screen flex flex-col">
         <Navbar />
         <main className="flex-1">
           <Suspense fallback={<PageLoader />}>
@@ -59,8 +58,7 @@ export default function App() {
         <Footer />
         <WhatsAppButton />
         <ScrollToTop />
-        <MobileContactBar />
-      <ExitIntentPopup />
+<ExitIntentPopup />
       </div>
     </>
   )
