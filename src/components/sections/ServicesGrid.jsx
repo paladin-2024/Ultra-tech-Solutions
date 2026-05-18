@@ -16,7 +16,7 @@ export default function ServicesGrid({ limit, showCTA = true }) {
         {/* Header */}
         <motion.div
           initial={{ y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-14"
@@ -36,7 +36,7 @@ export default function ServicesGrid({ limit, showCTA = true }) {
           {/* Left — photo with gradient overlay */}
           <motion.div
             initial={{ x: -28 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            whileInView={{ x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-2 relative rounded-2xl overflow-hidden"
@@ -88,7 +88,7 @@ export default function ServicesGrid({ limit, showCTA = true }) {
           {/* Right — accordion list */}
           <motion.div
             initial={{ x: 28 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            whileInView={{ x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.65, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-3 flex flex-col justify-center"
@@ -179,7 +179,7 @@ export default function ServicesGrid({ limit, showCTA = true }) {
             {showCTA && (
               <motion.div
                 initial={{ opacity: 1 }}
-                whileInView={{ opacity: 1 }}
+                whileInView={{}}
                 viewport={{ once: true }}
                 transition={{ delay: 0.35 }}
                 className="mt-8 pt-8 border-t border-black/[0.06]"

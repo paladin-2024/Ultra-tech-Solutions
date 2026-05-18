@@ -42,7 +42,7 @@ const stagger = {
 }
 const item = {
   initial: { y: 18 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
+  animate: { y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
 }
 
 export default function CoreValues() {
@@ -54,7 +54,7 @@ export default function CoreValues() {
           {/* Photo — large, immersive */}
           <motion.div
             initial={{ x: -28 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            whileInView={{ x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
             className="relative rounded-2xl overflow-hidden"
@@ -88,7 +88,7 @@ export default function CoreValues() {
           <div>
             <motion.div
               initial={{ y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              whileInView={{ y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
               className="mb-10"

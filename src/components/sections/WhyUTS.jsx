@@ -29,7 +29,7 @@ const stagger = {
 }
 const item = {
   initial: { y: 24 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } },
+  animate: { y: 0, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } },
 }
 
 export default function WhyUTS() {
@@ -41,7 +41,7 @@ export default function WhyUTS() {
           {/* Left: text + cards + CTA */}
           <motion.div
             initial={{ x: -32 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            whileInView={{ x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
@@ -100,7 +100,7 @@ export default function WhyUTS() {
           {/* Right: image + overlay badge */}
           <motion.div
             initial={{ x: 32 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            whileInView={{ x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
             className="relative"
@@ -122,7 +122,7 @@ export default function WhyUTS() {
             {/* WhatsApp badge — bottom */}
             <motion.div
               initial={{ y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              whileInView={{ y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.4, duration: 0.5 }}
               className="absolute -bottom-5 left-5 right-5 bg-white rounded-2xl p-4 shadow-card-hover border border-black/6"
@@ -146,7 +146,7 @@ export default function WhyUTS() {
             {/* Small feature chips */}
             <motion.div
               initial={{ x: -16 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              whileInView={{ x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.5, duration: 0.5 }}
               className="absolute top-5 -left-4 bg-white rounded-xl px-4 py-2.5 shadow-card border border-black/6 hidden lg:flex items-center gap-2"
@@ -157,7 +157,7 @@ export default function WhyUTS() {
 
             <motion.div
               initial={{ x: 16 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              whileInView={{ x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.6, duration: 0.5 }}
               className="absolute top-5 -right-4 bg-white rounded-xl px-4 py-2.5 shadow-card border border-black/6 hidden lg:flex items-center gap-2"

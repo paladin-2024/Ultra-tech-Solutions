@@ -247,7 +247,7 @@ export default function ProjectsGallery({ limit, showFilter = true, title = 'Pro
           {/* Header */}
           <motion.div
             initial={{ y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55 }}
             className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12"
@@ -274,7 +274,7 @@ export default function ProjectsGallery({ limit, showFilter = true, title = 'Pro
           {showFilter && (
             <motion.div
               initial={{ y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              whileInView={{ y: 0 }}
               viewport={{ once: true }}
               className="flex flex-wrap gap-2 mb-10"
             >
@@ -322,7 +322,7 @@ export default function ProjectsGallery({ limit, showFilter = true, title = 'Pro
           {limit && (
             <motion.div
               initial={{ y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              whileInView={{ y: 0 }}
               viewport={{ once: true }}
               className="mt-12"
             >

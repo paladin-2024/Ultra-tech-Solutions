@@ -11,16 +11,16 @@ const tripled = [...PARTNERS, ...PARTNERS, ...PARTNERS, ...PARTNERS]
 function PartnerLogo({ p }) {
   return (
     <div
-      className="flex items-center justify-center mx-6 shrink-0"
-      style={{ height: '48px', width: '120px' }}
+      className="flex items-center justify-center mx-10 shrink-0"
+      style={{ height: '80px', width: '180px' }}
     >
       <img
         src={p.logo}
         alt={p.name}
-        className="max-h-full max-w-full object-contain transition-all duration-300 grayscale hover:grayscale-0"
-        style={{ opacity: 0.55, filter: 'grayscale(1) contrast(1.1)' }}
-        onMouseEnter={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.filter = 'none' }}
-        onMouseLeave={e => { e.currentTarget.style.opacity = '0.55'; e.currentTarget.style.filter = 'grayscale(1) contrast(1.1)' }}
+        className="max-h-full max-w-full object-contain transition-all duration-300"
+        style={{ opacity: 0.85 }}
+        onMouseEnter={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.transform = 'scale(1.06)' }}
+        onMouseLeave={e => { e.currentTarget.style.opacity = '0.85'; e.currentTarget.style.transform = 'scale(1)' }}
       />
     </div>
   )
@@ -28,11 +28,11 @@ function PartnerLogo({ p }) {
 
 export default function PartnersStrip() {
   return (
-    <section className="py-10 border-t border-black/[0.05] overflow-hidden" style={{ background: '#FAFBFC' }}>
+    <section className="py-14 border-t border-black/[0.05] overflow-hidden" style={{ background: '#FAFBFC' }}>
       <div className="container-custom mb-7">
         <motion.p
           initial={{ opacity: 1 }}
-          whileInView={{ opacity: 1 }}
+          whileInView={{}}
           viewport={{ once: true }}
           className="text-center font-mono text-[10px] uppercase tracking-[0.28em]"
           style={{ color: '#9CA3AF' }}

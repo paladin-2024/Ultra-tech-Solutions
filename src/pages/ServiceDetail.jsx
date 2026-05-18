@@ -29,7 +29,7 @@ const stagger = {
 }
 const item = {
   initial: { opacity: 0, y: 24 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } },
+  animate: { y: 0, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } },
 }
 
 function FAQItem({ q, a, index }) {
@@ -37,7 +37,7 @@ function FAQItem({ q, a, index }) {
   return (
     <motion.div
       initial={{ y: 12 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      whileInView={{ y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.05 }}
       className="card overflow-hidden group"
@@ -179,7 +179,7 @@ export default function ServiceDetail() {
         <div className="container-custom">
           <motion.div
             initial={{ y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55 }}
             className="mb-14"
@@ -230,7 +230,7 @@ export default function ServiceDetail() {
             {/* Left */}
             <motion.div
               initial={{ x: -32 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              whileInView={{ x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             >
@@ -273,7 +273,7 @@ export default function ServiceDetail() {
             {/* Right */}
             <motion.div
               initial={{ x: 32 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              whileInView={{ x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
               className="relative"
@@ -315,7 +315,7 @@ export default function ServiceDetail() {
         <div className="container-custom">
           <motion.div
             initial={{ y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55 }}
             className="text-center mb-16"
@@ -377,7 +377,7 @@ export default function ServiceDetail() {
           <div className="container-custom">
             <motion.div
               initial={{ y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              whileInView={{ y: 0 }}
               viewport={{ once: true }}
               className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12"
             >
@@ -442,7 +442,7 @@ export default function ServiceDetail() {
         <div className="container-custom">
           <motion.div
             initial={{ y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
             className="text-center mb-12"
           >

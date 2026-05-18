@@ -77,7 +77,7 @@ export default function About() {
             {/* Photo side */}
             <motion.div
               initial={{ x: -24 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              whileInView={{ x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
               className="relative rounded-2xl overflow-hidden"
@@ -103,10 +103,10 @@ export default function About() {
                   <div className="flex items-center gap-2.5">
                     <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
                       style={{ background: 'rgba(139,26,26,0.5)', border: '1.5px solid rgba(139,26,26,0.4)' }}>
-                      <span className="font-heading font-black text-white text-[10px]">JP</span>
+                      <span className="font-heading font-black text-white text-[10px]">GN</span>
                     </div>
                     <div>
-                      <p className="font-heading font-bold text-white text-[11px]">Jean-Pierre Nkurunziza</p>
+                      <p className="font-heading font-bold text-white text-[11px]">Gedeon Ndele</p>
                       <p className="font-mono text-primary text-[8px] uppercase tracking-[0.14em] mt-0.5">Fondateur & DG</p>
                     </div>
                   </div>
@@ -117,7 +117,7 @@ export default function About() {
             {/* Text side */}
             <motion.div
               initial={{ x: 24 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              whileInView={{ x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
@@ -150,7 +150,7 @@ export default function About() {
       {/* Values */}
       <section className="section section-surface">
         <div className="container-custom">
-          <motion.div initial={{ y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-14">
+          <motion.div initial={{ y: 20 }} whileInView={{ y: 0 }} viewport={{ once: true }} className="text-center mb-14">
             <p className="label-tag justify-center">Ce qui nous guide</p>
             <h2 className="display-lg text-ink mt-1">Nos Valeurs</h2>
           </motion.div>

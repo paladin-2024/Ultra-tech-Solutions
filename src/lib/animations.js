@@ -1,28 +1,29 @@
-// Framer Motion variants
+// Framer Motion variants — opacity is intentionally excluded from whileInView variants
+// to prevent Framer Motion from ever setting elements invisible during scroll.
 export const fadeInUp = {
   initial: { y: 40 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+  animate: { y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
   exit: { opacity: 0, y: -20, transition: { duration: 0.3 } },
 }
 
 export const fadeInDown = {
   initial: { y: -30 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+  animate: { y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
 }
 
 export const fadeInLeft = {
   initial: { x: -50 },
-  animate: { opacity: 1, x: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+  animate: { x: 0, transition: { duration: 0.6, ease: 'easeOut' } },
 }
 
 export const fadeInRight = {
   initial: { x: 50 },
-  animate: { opacity: 1, x: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+  animate: { x: 0, transition: { duration: 0.6, ease: 'easeOut' } },
 }
 
 export const scaleIn = {
   initial: { scale: 0.85 },
-  animate: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: 'easeOut' } },
+  animate: { scale: 1, transition: { duration: 0.5, ease: 'easeOut' } },
 }
 
 export const staggerContainer = {
@@ -37,13 +38,12 @@ export const staggerContainer = {
 
 export const staggerItem = {
   initial: { y: 30 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+  animate: { y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
 }
 
 export const cardVariants = {
   initial: { y: 30, scale: 0.96 },
   animate: {
-    opacity: 1,
     y: 0,
     scale: 1,
     transition: { duration: 0.5, ease: 'easeOut' },
@@ -56,7 +56,7 @@ export const cardVariants = {
 
 export const pageTransition = {
   initial: { opacity: 0, y: 24 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.45, ease: 'easeOut' } },
+  animate: { y: 0, transition: { duration: 0.45, ease: 'easeOut' } },
   exit: { opacity: 0, y: -16, transition: { duration: 0.3, ease: 'easeIn' } },
 }
 
@@ -76,7 +76,6 @@ export const navMenuVariants = {
 export const heroTextVariants = {
   initial: { y: 60 },
   animate: (i) => ({
-    opacity: 1,
     y: 0,
     transition: { duration: 0.7, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] },
   }),

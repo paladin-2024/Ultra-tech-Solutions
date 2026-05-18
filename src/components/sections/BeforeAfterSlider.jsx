@@ -98,7 +98,7 @@ export default function BeforeAfterSlider() {
       <div className="container-custom">
         <motion.div
           initial={{ y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-12"
         >
@@ -114,7 +114,7 @@ export default function BeforeAfterSlider() {
             <motion.div
               key={i}
               initial={{ y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              whileInView={{ y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
             >

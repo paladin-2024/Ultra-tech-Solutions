@@ -13,7 +13,7 @@ export default function VideoSection() {
           {/* Text side */}
           <motion.div
             initial={{ x: -24 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            whileInView={{ x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
           >
@@ -51,7 +51,7 @@ export default function VideoSection() {
           {/* Video thumbnail */}
           <motion.div
             initial={{ x: 24 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            whileInView={{ x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.65, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="relative rounded-2xl overflow-hidden cursor-pointer group"

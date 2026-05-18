@@ -96,7 +96,7 @@ export default function Contact() {
       {/* Directions */}
       <section className="section section-white">
         <div className="container-custom">
-          <motion.div initial={{ y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
+          <motion.div initial={{ y: 20 }} whileInView={{ y: 0 }} viewport={{ once: true }} className="text-center mb-12">
             <p className="label-tag justify-center">Comment nous trouver</p>
             <h2 className="display-md text-ink mt-1">Instructions d'Accès</h2>
           </motion.div>
@@ -107,7 +107,7 @@ export default function Contact() {
           >
             {DIRECTIONS.map((d) => (
               <motion.div key={d.step}
-                variants={{ initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
+                variants={{ initial: { y: 20 }, animate: { y: 0, transition: { duration: 0.5 } } }}
                 className="card p-6 group hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300"
               >
                 <span className="inline-flex items-center justify-center w-10 h-10 rounded-xl text-primary font-heading font-bold text-sm mb-4 font-mono"
@@ -126,14 +126,14 @@ export default function Contact() {
       {/* FAQ */}
       <section className="section section-surface">
         <div className="container-custom">
-          <motion.div initial={{ y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
+          <motion.div initial={{ y: 20 }} whileInView={{ y: 0 }} viewport={{ once: true }} className="text-center mb-12">
             <p className="label-tag justify-center">Questions fréquentes</p>
             <h2 className="display-md text-ink mt-1">FAQ</h2>
           </motion.div>
           <div className="max-w-3xl mx-auto space-y-2.5">
             {FAQ.map((item, i) => (
               <motion.details key={i}
-                initial={{ y: 12 }} whileInView={{ opacity: 1, y: 0 }}
+                initial={{ y: 12 }} whileInView={{ y: 0 }}
                 viewport={{ once: true }} transition={{ delay: i * 0.05 }}
                 className="card overflow-hidden group"
               >

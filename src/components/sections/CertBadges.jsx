@@ -16,7 +16,7 @@ export default function CertBadges() {
       <div className="container-custom">
         <motion.p
           initial={{ opacity: 1 }}
-          whileInView={{ opacity: 1 }}
+          whileInView={{}}
           viewport={{ once: true }}
           className="text-center text-muted font-mono text-[10px] uppercase tracking-[0.25em] mb-8"
         >
@@ -34,7 +34,7 @@ export default function CertBadges() {
             return (
               <motion.div
                 key={cert.label}
-                variants={{ initial: { y: 16 }, animate: { opacity: 1, y: 0, transition: { duration: 0.45 } } }}
+                variants={{ initial: { y: 16 }, animate: { y: 0, transition: { duration: 0.45 } } }}
                 className="card p-4 text-center hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300"
               >
                 <div className="w-10 h-10 rounded-xl bg-primary/8 flex items-center justify-center mx-auto mb-3">

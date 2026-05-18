@@ -38,7 +38,7 @@ export default function CTAStrip({
 
           <motion.div
             initial={{ y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
             className="max-w-2xl"
@@ -58,7 +58,7 @@ export default function CTAStrip({
 
           <motion.div
             initial={{ y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.65, delay: 0.13, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0 w-full lg:w-auto"

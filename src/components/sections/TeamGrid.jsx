@@ -8,7 +8,7 @@ export default function TeamGrid() {
       <div className="container-custom">
         <motion.div
           initial={{ y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.55 }}
           className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-14"

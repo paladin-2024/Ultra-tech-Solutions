@@ -39,7 +39,7 @@ export default function GuaranteeSection() {
           {/* Left — visual */}
           <motion.div
             initial={{ x: -24 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            whileInView={{ x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
             className="relative"
@@ -79,7 +79,7 @@ export default function GuaranteeSection() {
             {/* Floating stat */}
             <motion.div
               initial={{ x: 20, y: -10 }}
-              whileInView={{ opacity: 1, x: 0, y: 0 }}
+              whileInView={{ x: 0, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3, duration: 0.5 }}
               className="absolute -top-4 -right-4 bg-white rounded-2xl p-4 shadow-lg hidden sm:block"
@@ -98,7 +98,7 @@ export default function GuaranteeSection() {
           {/* Right — guarantees list */}
           <motion.div
             initial={{ x: 24 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            whileInView={{ x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.65, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
@@ -117,7 +117,7 @@ export default function GuaranteeSection() {
                   <motion.div
                     key={g.title}
                     initial={{ y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    whileInView={{ y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.15 + i * 0.08, duration: 0.5 }}
                     className="flex gap-4 p-5 rounded-2xl group hover:-translate-y-0.5 transition-all duration-300"
@@ -146,7 +146,7 @@ export default function GuaranteeSection() {
 
             <motion.div
               initial={{ opacity: 1 }}
-              whileInView={{ opacity: 1 }}
+              whileInView={{}}
               viewport={{ once: true }}
               transition={{ delay: 0.5 }}
               className="mt-8"
