@@ -11,11 +11,7 @@ export default function VideoSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
           {/* Text side */}
-          <motion.div
-            initial={{ x: -24 }}
-            animate={{ x: 0 }}
-            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-          >
+          <div>
             <p className="label-tag">Qui sommes-nous</p>
             <h2 className="display-md text-ink mt-1 mb-5">
               Découvrez UTS en action
@@ -45,13 +41,10 @@ export default function VideoSection() {
               <Play size={16} className="fill-white" />
               Voir la vidéo
             </button>
-          </motion.div>
+          </div>
 
           {/* Video thumbnail */}
-          <motion.div
-            initial={{ x: 24 }}
-            animate={{ x: 0 }}
-            transition={{ duration: 0.65, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          <div
             className="relative rounded-2xl overflow-hidden cursor-pointer group"
             style={{ aspectRatio: '16/10' }}
             onClick={() => setPlaying(true)}
@@ -93,10 +86,10 @@ export default function VideoSection() {
               <p className="font-mono text-[9px] uppercase tracking-[0.2em] mb-1"
                 style={{ color: 'rgba(255,255,255,0.55)' }}>Ultra Tech Solutions · 2024</p>
               <p className="font-heading font-bold text-white text-[15px]" style={{ letterSpacing: '-0.02em' }}>
-                UTS — Présentation officielle
+                UTS : Présentation officielle
               </p>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
 
@@ -121,7 +114,7 @@ export default function VideoSection() {
             >
               <iframe
                 src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0"
-                title="Ultra Tech Solutions — Présentation"
+                title="Ultra Tech Solutions : Présentation"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 className="w-full h-full"

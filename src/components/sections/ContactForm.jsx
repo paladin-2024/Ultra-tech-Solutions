@@ -282,7 +282,7 @@ export default function ContactForm({ defaultService }) {
         </button>
 
         <p className="text-center text-xs text-muted-2">
-          Réponse garantie sous 24h — ou contactez-nous directement sur{' '}
+          Réponse garantie sous 24h. Contactez-nous directement sur{' '}
           <a href="https://wa.me/243970838062" className="text-primary hover:underline">WhatsApp</a>
         </p>
       </form>

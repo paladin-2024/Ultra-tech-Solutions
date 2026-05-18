@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { MessageSquare, Search, Wrench, CheckCircle2 } from 'lucide-react'
 
 const steps = [
@@ -13,28 +12,17 @@ export default function ProcessSteps() {
     <section className="section" style={{ background: '#FAFBFC' }}>
       <div className="container-custom">
         {/* Header */}
-        <motion.div
-          initial={{ y: 20 }}
-          animate={{ y: 0 }}
-          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-14"
-        >
+        <div className="mb-14">
           <p className="label-tag">Comment nous travaillons</p>
           <h2 className="display-lg text-ink mt-1">Notre Processus</h2>
-        </motion.div>
+        </div>
 
         {/* Vertical editorial list */}
         <div className="max-w-3xl">
           {steps.map((step, i) => {
             const Icon = step.icon
             return (
-              <motion.div
-                key={step.num}
-                initial={{ x: -24 }}
-                animate={{ x: 0 }}
-                transition={{ duration: 0.55, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                className="group relative"
-              >
+              <div key={step.num} className="group relative">
                 <div className="grid items-start" style={{ gridTemplateColumns: '64px 1fr' }}>
                   {/* Left: ghost number + connector */}
                   <div className="relative flex flex-col items-center pt-3">
@@ -87,7 +75,7 @@ export default function ProcessSteps() {
                     </p>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             )
           })}
         </div>

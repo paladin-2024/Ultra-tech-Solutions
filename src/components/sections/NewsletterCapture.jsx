@@ -26,11 +26,7 @@ export default function NewsletterCapture() {
 
       <div className="container-custom relative z-10 py-20 lg:py-24">
         <div className="max-w-xl mx-auto text-center">
-          <motion.div
-            initial={{ y: 20 }}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.55 }}
-          >
+          <div>
             <p className="font-mono text-[9px] uppercase tracking-[0.28em] mb-4"
               style={{ color: 'rgba(255,255,255,0.45)' }}>
               Restez informé
@@ -116,7 +112,7 @@ export default function NewsletterCapture() {
                 </p>
               </>
             )}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

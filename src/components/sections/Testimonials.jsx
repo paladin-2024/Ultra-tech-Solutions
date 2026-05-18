@@ -31,12 +31,7 @@ export default function Testimonials() {
 
       <div className="container-custom relative z-10">
         {/* Header */}
-        <motion.div
-          initial={{ y: 20 }}
-          animate={{ y: 0 }}
-          transition={{ duration: 0.55 }}
-          className="text-center mb-16"
-        >
+        <div className="text-center mb-16">
           <p className="font-mono text-[9px] uppercase tracking-[0.24em] mb-3"
             style={{ color: 'rgba(255,255,255,0.55)' }}>
             Ce que disent nos clients
@@ -45,7 +40,7 @@ export default function Testimonials() {
             style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', letterSpacing: '-0.04em' }}>
             Témoignages
           </h2>
-        </motion.div>
+        </div>
 
         {/* Spotlight card */}
         <div className="max-w-3xl mx-auto">

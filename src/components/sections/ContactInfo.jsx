@@ -42,7 +42,7 @@ const ACCESS_ICONS = [
   {
     icon: Bus,
     label: 'Bus',
-    desc: 'Ligne 12 — Arrêt Mabanga Nord',
+    desc: 'Ligne 12, Arrêt Mabanga Nord',
   },
   {
     icon: Car,

@@ -241,7 +241,7 @@ export default function ServiceDetail() {
                 Votre partenaire tech de confiance à Goma
               </h2>
               <p className="text-white/50 text-[15px] leading-relaxed mb-10">
-                5 ans d'expérience, des techniciens certifiés et une connaissance approfondie des réalités locales — UTS est le partenaire technologique de référence au Nord-Kivu.
+                5 ans d'expérience, des techniciens certifiés et une connaissance approfondie des réalités locales. UTS est le partenaire technologique de référence au Nord-Kivu.
               </p>
 
               <div className="space-y-4 mb-10">

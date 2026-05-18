@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
 import { ArrowRight, Phone } from 'lucide-react'
 import { siteConfig } from '@/data/siteConfig'
 
@@ -36,12 +35,7 @@ export default function CTAStrip({
       <div className="container-custom relative z-10 py-24 sm:py-32">
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-12">
 
-          <motion.div
-            initial={{ y: 24 }}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-            className="max-w-2xl"
-          >
+          <div className="max-w-2xl">
             <p className="inline-flex items-center gap-2 text-white/40 font-mono text-[10px] uppercase tracking-[0.22em] mb-5">
               <span className="inline-block w-4 h-px bg-white/30" />
               Travaillons ensemble
@@ -53,14 +47,9 @@ export default function CTAStrip({
               {title}
             </h2>
             <p className="text-white/50 text-[15px] leading-relaxed max-w-lg">{subtitle}</p>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ y: 24 }}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.65, delay: 0.13, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0 w-full lg:w-auto"
-          >
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0 w-full lg:w-auto">
             <Link
               to="/contact"
               className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 bg-primary text-white font-bold rounded-full text-sm transition-all duration-250 hover:bg-primary-dark hover:-translate-y-0.5"
@@ -76,7 +65,7 @@ export default function CTAStrip({
               <Phone size={14} />
               {siteConfig.phones[0]}
             </a>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

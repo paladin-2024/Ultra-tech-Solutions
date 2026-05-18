@@ -33,7 +33,7 @@ export const serviceDetails = {
   'installation-domestique': {
     heroImage: '/images/tech-wiring-construction.jpg',
     tagline: 'Des Installations aux Normes, Durables et Intelligentes',
-    intro: "Câblage électrique, systèmes solaires, domotique, vidéosurveillance — UTS prend en charge l'intégralité de vos installations résidentielles et commerciales avec des matériaux de qualité et une exécution irréprochable.",
+    intro: "Câblage électrique, systèmes solaires, domotique, vidéosurveillance : UTS prend en charge l'intégralité de vos installations résidentielles et commerciales avec des matériaux de qualité et une exécution irréprochable.",
     stats: [
       { value: '200+', label: 'Installations réalisées' },
       { value: '100%', label: 'Conformité aux normes' },
@@ -49,7 +49,7 @@ export const serviceDetails = {
     ],
     processSteps: [
       { num: '01', title: 'Visite technique', desc: "Un technicien UTS visite votre site pour évaluer les travaux à réaliser et établir un plan." },
-      { num: '02', title: 'Devis détaillé', desc: "Devis complet avec matériaux, main-d'œuvre, délais et garantie — sans surprise." },
+      { num: '02', title: 'Devis détaillé', desc: "Devis complet avec matériaux, main-d'œuvre, délais et garantie, sans surprise." },
       { num: '03', title: 'Installation', desc: 'Exécution par nos techniciens certifiés, avec protection de vos locaux et respect des délais.' },
       { num: '04', title: 'Réception & garantie', desc: 'Tests complets, remise du dossier technique et activation de la garantie 2 ans.' },
     ],
@@ -93,7 +93,7 @@ export const serviceDetails = {
   'etude-projets': {
     heroImage: '/images/tech-conduit-slab.jpg',
     tagline: 'Vos Projets Technologiques entre de Bonnes Mains',
-    intro: "De la faisabilité au lancement, UTS accompagne vos projets technologiques avec rigueur et expertise. Analyse technique, estimation budgétaire précise, suivi de réalisation — votre investissement est sécurisé.",
+    intro: "De la faisabilité au lancement, UTS accompagne vos projets technologiques avec rigueur et expertise. Analyse technique, estimation budgétaire précise, suivi de réalisation. Votre investissement est sécurisé.",
     stats: [
       { value: '50+', label: 'Études réalisées' },
       { value: '98%', label: 'Projets livrés dans les délais' },
@@ -123,7 +123,7 @@ export const serviceDetails = {
   'maintenance': {
     heroImage: '/images/solar-inverter-system.jpg',
     tagline: 'Vos Équipements Toujours Opérationnels',
-    intro: "Un contrat de maintenance UTS, c'est la tranquillité d'esprit. Inspections régulières, interventions préventives et rapport détaillé — nous maintenons vos équipements au niveau de performance optimal.",
+    intro: "Un contrat de maintenance UTS, c'est la tranquillité d'esprit. Inspections régulières, interventions préventives et rapport détaillé. Nous maintenons vos équipements au niveau de performance optimal.",
     stats: [
       { value: '120+', label: 'Contrats actifs' },
       { value: '99.2%', label: 'Taux de disponibilité' },
@@ -144,7 +144,7 @@ export const serviceDetails = {
       { num: '04', title: 'Bilan annuel', desc: "Rapport annuel complet, révision du contrat et planification de l'année suivante." },
     ],
     faq: [
-      { q: 'Quels types d\'équipements maintenez-vous ?', a: 'Systèmes informatiques, électriques, solaires, climatisation, réseau — tous les équipements tech.' },
+      { q: 'Quels types d\'équipements maintenez-vous ?', a: 'Systèmes informatiques, électriques, solaires, climatisation, réseau : tous les équipements tech.' },
       { q: "Y a-t-il un engagement minimum de durée ?", a: 'Nos contrats sont de minimum 3 mois. Des tarifs dégressifs s\'appliquent pour les contrats annuels.' },
       { q: 'Que se passe-t-il en cas de panne en dehors des horaires ?', a: "Notre équipe de dépannage est disponible 24h/24 pour les urgences, même hors contrat." },
       { q: 'Peut-on inclure plusieurs sites dans un même contrat ?', a: 'Oui, nous proposons des contrats multi-sites avec tarif préférentiel.' },

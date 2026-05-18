@@ -20,13 +20,10 @@ function BentoCard({ project, featured, onClick }) {
   const handleLeave = () => { mx.set(0); my.set(0) }
 
   return (
-    <motion.div
+    <div
       className={cn('relative rounded-2xl overflow-hidden cursor-pointer group',
         featured ? 'lg:col-span-2 lg:row-span-2' : '')}
       style={{ minHeight: featured ? '320px' : '200px' }}
-      initial={{ y: 20 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
     >
       <motion.div
         className="relative w-full h-full"
@@ -98,7 +95,7 @@ function BentoCard({ project, featured, onClick }) {
           </div>
         </div>
       </motion.div>
-    </motion.div>
+    </div>
   )
 }
 
@@ -244,12 +241,7 @@ export default function ProjectsGallery({ limit, showFilter = true, title = 'Pro
 
         <div className="container-custom">
           {/* Header */}
-          <motion.div
-            initial={{ y: 20 }}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.55 }}
-            className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12"
-          >
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
             <div>
               <p className="font-mono text-[9px] uppercase tracking-[0.24em] mb-3"
                 style={{ color: 'rgba(255,255,255,0.55)' }}>
@@ -266,15 +258,11 @@ export default function ProjectsGallery({ limit, showFilter = true, title = 'Pro
               style={{ color: 'rgba(255,255,255,0.62)' }}>
               Nos réalisations à Goma et dans la région des Grands Lacs.
             </p>
-          </motion.div>
+          </div>
 
           {/* Filter pills */}
           {showFilter && (
-            <motion.div
-              initial={{ y: 12 }}
-              animate={{ y: 0 }}
-              className="flex flex-wrap gap-2 mb-10"
-            >
+            <div className="flex flex-wrap gap-2 mb-10">
               {projectCategories.map((c) => (
                 <button
                   key={c}
@@ -290,7 +278,7 @@ export default function ProjectsGallery({ limit, showFilter = true, title = 'Pro
                   {c}
                 </button>
               ))}
-            </motion.div>
+            </div>
           )}
 
           {/* Bento grid */}
@@ -316,11 +304,7 @@ export default function ProjectsGallery({ limit, showFilter = true, title = 'Pro
 
           {/* CTA */}
           {limit && (
-            <motion.div
-              initial={{ y: 14 }}
-              animate={{ y: 0 }}
-              className="mt-12"
-            >
+            <div className="mt-12">
               <Link
                 to="/projets"
                 className="inline-flex items-center gap-2.5 font-heading font-bold text-[13.5px] text-white px-6 py-3 rounded-full group transition-all duration-200"
@@ -331,7 +315,7 @@ export default function ProjectsGallery({ limit, showFilter = true, title = 'Pro
                 Voir tous les projets
                 <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </Link>
-            </motion.div>
+            </div>
           )}
         </div>
       </section>

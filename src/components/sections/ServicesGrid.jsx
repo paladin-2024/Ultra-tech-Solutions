@@ -14,12 +14,7 @@ export default function ServicesGrid({ limit, showCTA = true }) {
     <section className="section section-white">
       <div className="container-custom">
         {/* Header */}
-        <motion.div
-          initial={{ y: 20 }}
-          animate={{ y: 0 }}
-          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-14"
-        >
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-14">
           <div>
             <p className="label-tag">Ce que nous faisons</p>
             <h2 className="display-lg text-ink mt-1">Nos Services</h2>
@@ -27,19 +22,13 @@ export default function ServicesGrid({ limit, showCTA = true }) {
           <p className="text-muted text-[15px] leading-relaxed max-w-sm sm:text-right">
             Six domaines d'expertise pour accompagner votre transformation technologique.
           </p>
-        </motion.div>
+        </div>
 
         {/* Split: photo left + accordion right */}
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-14 items-stretch">
 
           {/* Left — photo with gradient overlay */}
-          <motion.div
-            initial={{ x: -28 }}
-            animate={{ x: 0 }}
-            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-2 relative rounded-2xl overflow-hidden"
-            style={{ minHeight: '420px' }}
-          >
+          <div className="lg:col-span-2 relative rounded-2xl overflow-hidden" style={{ minHeight: '420px' }}>
             <img
               src="/images/tech-solar-rooftop.jpg"
               alt="Technicien UTS en intervention"
@@ -81,15 +70,10 @@ export default function ServicesGrid({ limit, showCTA = true }) {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Right — accordion list */}
-          <motion.div
-            initial={{ x: 28 }}
-            animate={{ x: 0 }}
-            transition={{ duration: 0.65, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-3 flex flex-col justify-center"
-          >
+          <div className="lg:col-span-3 flex flex-col justify-center">
             <div className="divide-y divide-black/[0.06]">
               {displayed.map((svc, idx) => {
                 const Icon = iconMap[svc.icon] || Zap
@@ -174,19 +158,14 @@ export default function ServicesGrid({ limit, showCTA = true }) {
             </div>
 
             {showCTA && (
-              <motion.div
-                initial={{ opacity: 1 }}
-                animate={{}}
-                transition={{ delay: 0.35 }}
-                className="mt-8 pt-8 border-t border-black/[0.06]"
-              >
+              <div className="mt-8 pt-8 border-t border-black/[0.06]">
                 <Link to="/services" className="btn-primary gap-2.5 group">
                   Voir tous nos services
                   <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                 </Link>
-              </motion.div>
+              </div>
             )}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

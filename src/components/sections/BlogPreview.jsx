@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
 import { ArrowRight, Clock, ArrowUpRight } from 'lucide-react'
 import { blogPosts } from '@/data/blog'
 
@@ -15,11 +14,7 @@ export default function BlogPreview() {
     <section className="section section-white">
       <div className="container-custom">
         {/* Header */}
-        <motion.div
-          initial={{ y: 20 }}
-          animate={{ y: 0 }}
-          className="flex flex-col sm:flex-row sm:items-end justify-between gap-5 mb-12"
-        >
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-5 mb-12">
           <div>
             <p className="label-tag">Nos actualités</p>
             <h2 className="display-md text-ink mt-1">Le Blog UTS</h2>
@@ -28,17 +23,12 @@ export default function BlogPreview() {
             className="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all duration-200">
             Tous les articles <ArrowRight size={14} />
           </Link>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-5">
           {/* Featured post */}
           {featured && (
-            <motion.div
-              initial={{ y: 24 }}
-              animate={{ y: 0 }}
-              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-              className="lg:col-span-3"
-            >
+            <div className="lg:col-span-3">
               <Link to={`/blog/${featured.slug}`} className="group block h-full">
                 <div className="relative rounded-2xl overflow-hidden mb-5" style={{ aspectRatio: '16/10' }}>
                   <img
@@ -70,18 +60,13 @@ export default function BlogPreview() {
                 </div>
                 <p className="text-muted text-[14px] leading-relaxed">{featured.excerpt}</p>
               </Link>
-            </motion.div>
+            </div>
           )}
 
           {/* Secondary posts */}
           <div className="lg:col-span-2 flex flex-col gap-5">
             {secondary.map((post, i) => (
-              <motion.div
-                key={post.id}
-                initial={{ y: 24 }}
-                animate={{ y: 0 }}
-                transition={{ delay: 0.1 + i * 0.1, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-              >
+              <div key={post.id}>
                 <Link to={`/blog/${post.slug}`} className="group flex gap-4 items-start card p-4 hover:shadow-card-hover hover:-translate-y-0.5 transition-all duration-300">
                   <div className="relative w-24 h-20 rounded-xl overflow-hidden shrink-0">
                     <img
@@ -106,20 +91,16 @@ export default function BlogPreview() {
                   </div>
                   <ArrowUpRight size={14} className="text-muted group-hover:text-primary shrink-0 mt-0.5 transition-colors duration-200" />
                 </Link>
-              </motion.div>
+              </div>
             ))}
 
-            <motion.div
-              initial={{ opacity: 1 }}
-              animate={{}}
-              transition={{ delay: 0.35 }}
-            >
+            <div>
               <Link to="/blog"
                 className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl font-semibold text-[13px] text-primary transition-all duration-200 hover:bg-red-50"
                 style={{ border: '1px solid rgba(139,26,26,0.15)' }}>
                 Voir tous les articles <ArrowRight size={13} />
               </Link>
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>

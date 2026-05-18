@@ -19,11 +19,7 @@ export default function CoverageMap() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
           {/* Text side */}
-          <motion.div
-            initial={{ x: -24 }}
-            animate={{ x: 0 }}
-            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-          >
+          <div>
             <p className="label-tag">Zone d'intervention</p>
             <h2 className="display-md text-ink mt-1 mb-5">
               Nous intervenons dans tout le Nord-Kivu
@@ -49,15 +45,10 @@ export default function CoverageMap() {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </div>
 
           {/* Map side */}
-          <motion.div
-            initial={{ x: 24 }}
-            animate={{ x: 0 }}
-            transition={{ duration: 0.65, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="relative"
-          >
+          <div className="relative">
             <div
               className="relative rounded-2xl overflow-hidden"
               style={{
@@ -147,7 +138,7 @@ export default function CoverageMap() {
                 </span>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

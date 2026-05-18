@@ -103,7 +103,7 @@ export default function Pricing() {
           <motion.p initial={{ y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
             className="max-w-xl text-base sm:text-[17px] leading-relaxed"
             style={{ color: 'rgba(255,255,255,0.72)' }}>
-            Pas de surprise sur la facture. Voici nos fourchettes de prix indicatives — le devis précis est toujours gratuit.
+            Pas de surprise sur la facture. Voici nos fourchettes de prix indicatives. Le devis précis est toujours gratuit.
           </motion.p>
         </div>
       </section>
@@ -211,7 +211,7 @@ export default function Pricing() {
             <p className="label-tag">Prestations ponctuelles</p>
             <h2 className="display-md text-ink mt-1 mb-4">Tarifs indicatifs</h2>
             <p className="text-muted text-[15px] leading-relaxed max-w-lg">
-              Ces fourchettes sont données à titre indicatif. Chaque projet est unique — le devis précis est établi après visite ou échange téléphonique.
+              Ces fourchettes sont données à titre indicatif. Chaque projet est unique. Le devis précis est établi après visite ou échange téléphonique.
             </p>
           </motion.div>
 
@@ -254,8 +254,7 @@ export default function Pricing() {
               <strong className="text-ink">Besoin d'un chiffre exact ?</strong> Appelez-nous au{' '}
               <a href={`tel:${siteConfig.phones[0].replace(/\s/g,'')}`} className="text-primary font-semibold hover:underline">
                 {siteConfig.phones[0]}
-              </a>{' '}
-              — nous vous donnons une estimation en 5 minutes.
+              </a>. Nous vous donnons une estimation en 5 minutes.
             </p>
             <Link to="/devis" className="btn-primary gap-2 shrink-0 group">
               Calculateur rapide <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />

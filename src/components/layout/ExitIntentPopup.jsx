@@ -91,7 +91,7 @@ export default function ExitIntentPopup() {
               </h2>
               <p className="text-[14px] leading-relaxed mb-7"
                 style={{ color: 'rgba(255,255,255,0.62)' }}>
-                Répondez à 4 questions et recevez une fourchette de prix instantanément — sans engagement, sans spam.
+                Répondez à 4 questions et recevez une fourchette de prix instantanément, sans engagement ni spam.
               </p>
 
               {/* Trust chips */}

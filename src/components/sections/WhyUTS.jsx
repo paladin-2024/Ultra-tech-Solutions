@@ -39,11 +39,7 @@ export default function WhyUTS() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
           {/* Left: text + cards + CTA */}
-          <motion.div
-            initial={{ x: -32 }}
-            animate={{ x: 0 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          >
+          <div>
             <p className="label-tag">Notre différence</p>
             <h2 className="display-lg text-ink mt-1 mb-4">
               Pourquoi Choisir UTS ?
@@ -93,15 +89,10 @@ export default function WhyUTS() {
               Nous contacter
               <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
             </Link>
-          </motion.div>
+          </div>
 
           {/* Right: image + overlay badge */}
-          <motion.div
-            initial={{ x: 32 }}
-            animate={{ x: 0 }}
-            transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-            className="relative"
-          >
+          <div className="relative">
             {/* Main image */}
             <div className="relative rounded-2xl overflow-hidden aspect-[5/6]">
               <img
@@ -117,12 +108,7 @@ export default function WhyUTS() {
             </div>
 
             {/* WhatsApp badge — bottom */}
-            <motion.div
-              initial={{ y: 16 }}
-              animate={{ y: 0 }}
-              transition={{ delay: 0.4, duration: 0.5 }}
-              className="absolute -bottom-5 left-5 right-5 bg-white rounded-2xl p-4 shadow-card-hover border border-black/6"
-            >
+            <div className="absolute -bottom-5 left-5 right-5 bg-white rounded-2xl p-4 shadow-card-hover border border-black/6">
               <div className="flex items-center gap-3">
                 <div className="w-11 h-11 rounded-full bg-[#25D366] flex items-center justify-center shrink-0 shadow-md">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
@@ -137,29 +123,19 @@ export default function WhyUTS() {
                 </div>
                 <div className="w-2.5 h-2.5 rounded-full bg-[#25D366] shrink-0 shadow-sm animate-pulse" />
               </div>
-            </motion.div>
+            </div>
 
             {/* Small feature chips */}
-            <motion.div
-              initial={{ x: -16 }}
-              animate={{ x: 0 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-              className="absolute top-5 -left-4 bg-white rounded-xl px-4 py-2.5 shadow-card border border-black/6 hidden lg:flex items-center gap-2"
-            >
+            <div className="absolute top-5 -left-4 bg-white rounded-xl px-4 py-2.5 shadow-card border border-black/6 hidden lg:flex items-center gap-2">
               <span className="text-primary text-lg font-black font-heading">500+</span>
               <span className="text-muted text-xs leading-tight">clients<br />satisfaits</span>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ x: 16 }}
-              animate={{ x: 0 }}
-              transition={{ delay: 0.6, duration: 0.5 }}
-              className="absolute top-5 -right-4 bg-white rounded-xl px-4 py-2.5 shadow-card border border-black/6 hidden lg:flex items-center gap-2"
-            >
+            <div className="absolute top-5 -right-4 bg-white rounded-xl px-4 py-2.5 shadow-card border border-black/6 hidden lg:flex items-center gap-2">
               <span className="text-primary text-lg font-black font-heading">5</span>
               <span className="text-muted text-xs leading-tight">ans<br />d'expérience</span>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
         </div>
       </div>

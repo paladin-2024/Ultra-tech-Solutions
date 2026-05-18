@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { Star, Quote } from 'lucide-react'
 
 const REVIEWS = [
@@ -76,11 +75,7 @@ export default function ReviewsWidget() {
       <div className="container-custom">
 
         {/* Header + aggregate */}
-        <motion.div
-          initial={{ y: 20 }}
-          animate={{ y: 0 }}
-          className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12"
-        >
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
           <div>
             <p className="label-tag">Ce que disent nos clients</p>
             <h2 className="display-md text-ink mt-1">Avis Vérifiés</h2>
@@ -111,16 +106,13 @@ export default function ReviewsWidget() {
               })}
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Review cards grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {REVIEWS.map((r, i) => (
-            <motion.div
+            <div
               key={r.name}
-              initial={{ y: 24 }}
-              animate={{ y: 0 }}
-              transition={{ delay: i * 0.07, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className="card p-6 flex flex-col gap-4 hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300"
             >
               {/* Quote + stars */}
@@ -159,16 +151,12 @@ export default function ReviewsWidget() {
                 </div>
                 <span className="font-mono text-[9px] uppercase tracking-[0.1em] text-muted/60 shrink-0">{r.date}</span>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* Google badge */}
-        <motion.div
-          initial={{ y: 12 }}
-          animate={{ y: 0 }}
-          className="flex items-center justify-center gap-3 mt-10"
-        >
+        <div className="flex items-center justify-center gap-3 mt-10">
           <div className="flex items-center gap-2 px-5 py-2.5 bg-white rounded-full"
             style={{ border: '1px solid rgba(0,0,0,0.08)', boxShadow: '0 1px 8px rgba(0,0,0,0.05)' }}>
             <svg width="16" height="16" viewBox="0 0 24 24">
@@ -181,7 +169,7 @@ export default function ReviewsWidget() {
             <Stars count={5} />
             <span className="font-heading font-bold text-ink text-[13px]">{avg}/5</span>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   )

@@ -52,13 +52,7 @@ export default function CoreValues() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
           {/* Photo — large, immersive */}
-          <motion.div
-            initial={{ x: -28 }}
-            animate={{ x: 0 }}
-            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-            className="relative rounded-2xl overflow-hidden"
-            style={{ aspectRatio: '4/5' }}
-          >
+          <div className="relative rounded-2xl overflow-hidden" style={{ aspectRatio: '4/5' }}>
             <img
               src="/images/team-rooftop.jpg"
               alt="Réalisation UTS — qualité et expertise"
@@ -81,16 +75,11 @@ export default function CoreValues() {
                 Nos valeurs<br />fondamentales
               </p>
             </div>
-          </motion.div>
+          </div>
 
           {/* Text + value cards */}
           <div>
-            <motion.div
-              initial={{ y: 16 }}
-              animate={{ y: 0 }}
-              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-              className="mb-10"
-            >
+            <div className="mb-10">
               <p className="label-tag">Pourquoi nous choisir</p>
               <h2 className="display-lg text-ink mt-1 mb-3">
                 L'Excellence à chaque projet
@@ -98,7 +87,7 @@ export default function CoreValues() {
               <p className="text-muted text-[15px] leading-relaxed max-w-md">
                 Quatre piliers qui guident chacune de nos interventions à Goma et dans toute la région.
               </p>
-            </motion.div>
+            </div>
 
             <motion.div
               variants={stagger}

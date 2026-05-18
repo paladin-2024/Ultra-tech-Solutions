@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { ShieldCheck, Clock, RefreshCw, Award } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
@@ -7,7 +6,7 @@ const GUARANTEES = [
   {
     icon: ShieldCheck,
     title: 'Satisfaction garantie',
-    desc: "Si vous n'êtes pas satisfait du résultat dans les 30 jours suivant l'intervention, nous revenons corriger gratuitement — sans discussion.",
+    desc: "Si vous n'êtes pas satisfait du résultat dans les 30 jours suivant l'intervention, nous revenons corriger gratuitement, sans discussion.",
     highlight: '30 jours',
   },
   {
@@ -37,12 +36,7 @@ export default function GuaranteeSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
           {/* Left — visual */}
-          <motion.div
-            initial={{ x: -24 }}
-            animate={{ x: 0 }}
-            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-            className="relative"
-          >
+          <div className="relative">
             {/* Main shield visual */}
             <div className="relative rounded-2xl overflow-hidden" style={{ aspectRatio: '4/4.5' }}>
               <img
@@ -76,13 +70,7 @@ export default function GuaranteeSection() {
             </div>
 
             {/* Floating stat */}
-            <motion.div
-              initial={{ x: 20, y: -10 }}
-              animate={{ x: 0, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.5 }}
-              className="absolute -top-4 -right-4 bg-white rounded-2xl p-4 shadow-lg hidden sm:block"
-              style={{ border: '1px solid rgba(0,0,0,0.07)' }}
-            >
+            <div className="absolute -top-4 -right-4 bg-white rounded-2xl p-4 shadow-lg hidden sm:block" style={{ border: '1px solid rgba(0,0,0,0.07)' }}>
               <p className="font-heading font-black text-ink text-3xl leading-none" style={{ letterSpacing: '-0.05em' }}>98%</p>
               <p className="font-mono text-[8px] uppercase tracking-[0.16em] text-muted mt-1">Clients satisfaits</p>
               <div className="flex gap-0.5 mt-1.5">
@@ -90,32 +78,25 @@ export default function GuaranteeSection() {
                   <span key={i} className="w-2.5 h-2.5 rounded-sm" style={{ background: '#F59E0B' }} />
                 ))}
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
           {/* Right — guarantees list */}
-          <motion.div
-            initial={{ x: 24 }}
-            animate={{ x: 0 }}
-            transition={{ duration: 0.65, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          >
+          <div>
             <p className="label-tag">Notre engagement</p>
             <h2 className="display-md text-ink mt-1 mb-3">
               Nous ne faisons pas que promettre.
             </h2>
             <p className="text-muted text-[15px] leading-relaxed mb-10">
-              Ces garanties sont écrites dans chaque contrat. Pas du marketing — des engagements légaux que vous pouvez invoquer.
+              Ces garanties sont écrites dans chaque contrat. Pas du marketing : des engagements légaux que vous pouvez invoquer.
             </p>
 
             <div className="space-y-5">
               {GUARANTEES.map((g, i) => {
                 const Icon = g.icon
                 return (
-                  <motion.div
+                  <div
                     key={g.title}
-                    initial={{ y: 16 }}
-                    animate={{ y: 0 }}
-                    transition={{ delay: 0.15 + i * 0.08, duration: 0.5 }}
                     className="flex gap-4 p-5 rounded-2xl group hover:-translate-y-0.5 transition-all duration-300"
                     style={{ border: '1.5px solid rgba(0,0,0,0.07)', background: '#FAFBFC' }}
                   >
@@ -135,23 +116,18 @@ export default function GuaranteeSection() {
                       </div>
                       <p className="text-muted text-[13px] leading-relaxed">{g.desc}</p>
                     </div>
-                  </motion.div>
+                  </div>
                 )
               })}
             </div>
 
-            <motion.div
-              initial={{ opacity: 1 }}
-              animate={{}}
-              transition={{ delay: 0.5 }}
-              className="mt-8"
-            >
+            <div className="mt-8">
               <Link to="/contact" className="btn-primary gap-2.5 group">
                 Demander une intervention garantie
                 <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </Link>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

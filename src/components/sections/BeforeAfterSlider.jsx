@@ -1,12 +1,11 @@
 import { useState, useRef, useCallback } from 'react'
-import { motion } from 'framer-motion'
 import { MoveHorizontal } from 'lucide-react'
 
 const PAIRS = [
   {
     before: '/images/tech-conduit-slab.jpg',
     after:  '/images/interior-stone-lighting.jpg',
-    label:  'Installation électrique — résidence complète',
+    label:  'Installation électrique · résidence complète',
   },
   {
     before: '/images/team-rebar-rooftop.jpg',
@@ -96,29 +95,20 @@ export default function BeforeAfterSlider() {
   return (
     <section className="section section-surface">
       <div className="container-custom">
-        <motion.div
-          initial={{ y: 20 }}
-          animate={{ y: 0 }}
-          className="text-center mb-12"
-        >
+        <div className="text-center mb-12">
           <p className="label-tag justify-center">Nos transformations</p>
           <h2 className="display-md text-ink mt-1">Avant / Après</h2>
           <p className="text-muted text-[15px] mt-3 max-w-md mx-auto leading-relaxed">
             Glissez le curseur pour découvrir l'impact de nos interventions.
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {PAIRS.map((pair, i) => (
-            <motion.div
-              key={i}
-              initial={{ y: 24 }}
-              animate={{ y: 0 }}
-              transition={{ delay: i * 0.1, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-            >
+            <div key={i}>
               <Slider pair={pair} />
               <p className="text-muted text-[13px] font-medium mt-3 text-center">{pair.label}</p>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

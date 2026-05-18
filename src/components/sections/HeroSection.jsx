@@ -102,7 +102,7 @@ export default function HeroSection() {
             className="max-w-[490px] mb-10 leading-relaxed"
             style={{ fontSize: '16px', color: 'rgba(255,255,255,0.76)', lineHeight: 1.72 }}
           >
-            Installations, formations, robotique — l'expert électrotechnique des Grands Lacs au service de la RDC.
+            Installations, formations, robotique : l'expert électrotechnique des Grands Lacs au service de la RDC.
           </motion.p>
 
           {/* CTAs — plain Links, no magnetic spring overhead */}
