@@ -82,8 +82,7 @@ export default function BlogPost() {
               <motion.p
                 key={i}
                 initial={{ y: 16 }}
-                whileInView={{ y: 0 }}
-                viewport={{ once: true }}
+                animate={{ y: 0 }}
                 transition={{ delay: i * 0.04 }}
                 className="text-ink/80 text-[16px] leading-[1.85] mb-6"
               >
@@ -94,8 +93,7 @@ export default function BlogPost() {
             {/* CTA inline */}
             <motion.div
               initial={{ y: 16 }}
-              whileInView={{ y: 0 }}
-              viewport={{ once: true }}
+              animate={{ y: 0 }}
               className="mt-12 p-7 rounded-2xl"
               style={{ background: 'rgba(139,26,26,0.05)', border: '1px solid rgba(139,26,26,0.12)' }}
             >
@@ -123,8 +121,7 @@ export default function BlogPost() {
                 <motion.div
                   key={p.id}
                   initial={{ y: 20 }}
-                  whileInView={{ y: 0 }}
-                  viewport={{ once: true }}
+                  animate={{ y: 0 }}
                   transition={{ delay: i * 0.1 }}
                 >
                   <Link to={`/blog/${p.slug}`} className="group flex gap-4 card p-4 hover:shadow-card-hover hover:-translate-y-0.5 transition-all duration-300">

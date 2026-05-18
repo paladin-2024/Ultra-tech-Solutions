@@ -21,8 +21,7 @@ export default function CoverageMap() {
           {/* Text side */}
           <motion.div
             initial={{ x: -24 }}
-            whileInView={{ x: 0 }}
-            viewport={{ once: true }}
+            animate={{ x: 0 }}
             transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
           >
             <p className="label-tag">Zone d'intervention</p>
@@ -55,8 +54,7 @@ export default function CoverageMap() {
           {/* Map side */}
           <motion.div
             initial={{ x: 24 }}
-            whileInView={{ x: 0 }}
-            viewport={{ once: true }}
+            animate={{ x: 0 }}
             transition={{ duration: 0.65, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="relative"
           >
@@ -106,8 +104,7 @@ export default function CoverageMap() {
                 <motion.div
                   key={z.name}
                   initial={{ scale: 0 }}
-                  whileInView={{ scale: 1 }}
-                  viewport={{ once: true }}
+                  animate={{ scale: 1 }}
                   transition={{ delay: 0.3 + i * 0.08, type: 'spring', stiffness: 300, damping: 20 }}
                   className="absolute group"
                   style={{ left: `${z.x}%`, top: `${z.y}%`, transform: 'translate(-50%, -50%)' }}

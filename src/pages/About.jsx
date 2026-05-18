@@ -77,8 +77,7 @@ export default function About() {
             {/* Photo side */}
             <motion.div
               initial={{ x: -24 }}
-              whileInView={{ x: 0 }}
-              viewport={{ once: true }}
+              animate={{ x: 0 }}
               transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
               className="relative rounded-2xl overflow-hidden"
               style={{ aspectRatio: '4/5' }}
@@ -117,8 +116,7 @@ export default function About() {
             {/* Text side */}
             <motion.div
               initial={{ x: 24 }}
-              whileInView={{ x: 0 }}
-              viewport={{ once: true }}
+              animate={{ x: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
               <p className="label-tag">Notre mission</p>
@@ -150,15 +148,14 @@ export default function About() {
       {/* Values */}
       <section className="section section-surface">
         <div className="container-custom">
-          <motion.div initial={{ y: 20 }} whileInView={{ y: 0 }} viewport={{ once: true }} className="text-center mb-14">
+          <motion.div initial={{ y: 20 }} animate={{ y: 0 }} className="text-center mb-14">
             <p className="label-tag justify-center">Ce qui nous guide</p>
             <h2 className="display-lg text-ink mt-1">Nos Valeurs</h2>
           </motion.div>
           <motion.div
             variants={staggerContainer}
             initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
+            animate="animate"
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
           >
             {values.map((v) => {

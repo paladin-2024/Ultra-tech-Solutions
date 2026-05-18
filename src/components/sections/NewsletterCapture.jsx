@@ -28,8 +28,7 @@ export default function NewsletterCapture() {
         <div className="max-w-xl mx-auto text-center">
           <motion.div
             initial={{ y: 20 }}
-            whileInView={{ y: 0 }}
-            viewport={{ once: true }}
+            animate={{ y: 0 }}
             transition={{ duration: 0.55 }}
           >
             <p className="font-mono text-[9px] uppercase tracking-[0.28em] mb-4"

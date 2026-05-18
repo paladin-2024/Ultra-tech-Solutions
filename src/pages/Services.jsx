@@ -76,8 +76,7 @@ export default function Services() {
           <motion.div
             variants={staggerContainer}
             initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
+            animate="animate"
             className="space-y-6"
           >
             {services.map((service, i) => {

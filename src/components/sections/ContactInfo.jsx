@@ -66,8 +66,7 @@ export default function ContactInfo() {
     <motion.div
       variants={fadeInRight}
       initial="initial"
-      whileInView="animate"
-      viewport={{ once: true }}
+      animate="animate"
       className="space-y-6"
     >
       {/* Header */}
@@ -86,8 +85,7 @@ export default function ContactInfo() {
       <motion.div
         variants={staggerContainer}
         initial="initial"
-        whileInView="animate"
-        viewport={{ once: true }}
+        animate="animate"
         className="grid grid-cols-1 sm:grid-cols-2 gap-3"
       >
         {INFO_BLOCKS.map((info) => {

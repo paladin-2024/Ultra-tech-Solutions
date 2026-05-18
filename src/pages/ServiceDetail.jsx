@@ -37,8 +37,7 @@ function FAQItem({ q, a, index }) {
   return (
     <motion.div
       initial={{ y: 12 }}
-      whileInView={{ y: 0 }}
-      viewport={{ once: true }}
+      animate={{ y: 0 }}
       transition={{ delay: index * 0.05 }}
       className="card overflow-hidden group"
     >
@@ -179,8 +178,7 @@ export default function ServiceDetail() {
         <div className="container-custom">
           <motion.div
             initial={{ y: 20 }}
-            whileInView={{ y: 0 }}
-            viewport={{ once: true }}
+            animate={{ y: 0 }}
             transition={{ duration: 0.55 }}
             className="mb-14"
           >
@@ -191,8 +189,7 @@ export default function ServiceDetail() {
           <motion.div
             variants={stagger}
             initial="initial"
-            whileInView="animate"
-            viewport={{ once: true, margin: '-40px' }}
+            animate="animate"
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
           >
             {details.features.map((feat) => {
@@ -230,8 +227,7 @@ export default function ServiceDetail() {
             {/* Left */}
             <motion.div
               initial={{ x: -32 }}
-              whileInView={{ x: 0 }}
-              viewport={{ once: true }}
+              animate={{ x: 0 }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             >
               <p className="inline-flex items-center gap-2 text-white/40 font-mono text-[10px] uppercase tracking-[0.22em] mb-5">
@@ -273,8 +269,7 @@ export default function ServiceDetail() {
             {/* Right */}
             <motion.div
               initial={{ x: 32 }}
-              whileInView={{ x: 0 }}
-              viewport={{ once: true }}
+              animate={{ x: 0 }}
               transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
               className="relative"
             >
@@ -315,8 +310,7 @@ export default function ServiceDetail() {
         <div className="container-custom">
           <motion.div
             initial={{ y: 20 }}
-            whileInView={{ y: 0 }}
-            viewport={{ once: true }}
+            animate={{ y: 0 }}
             transition={{ duration: 0.55 }}
             className="text-center mb-16"
           >
@@ -327,8 +321,7 @@ export default function ServiceDetail() {
           <motion.div
             variants={stagger}
             initial="initial"
-            whileInView="animate"
-            viewport={{ once: true, margin: '-40px' }}
+            animate="animate"
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-0 relative"
           >
             {/* Connector line */}
@@ -377,8 +370,7 @@ export default function ServiceDetail() {
           <div className="container-custom">
             <motion.div
               initial={{ y: 20 }}
-              whileInView={{ y: 0 }}
-              viewport={{ once: true }}
+              animate={{ y: 0 }}
               className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12"
             >
               <div>
@@ -393,8 +385,7 @@ export default function ServiceDetail() {
             <motion.div
               variants={stagger}
               initial="initial"
-              whileInView="animate"
-              viewport={{ once: true }}
+              animate="animate"
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
             >
               {relatedProjects.map((proj) => (
@@ -442,8 +433,7 @@ export default function ServiceDetail() {
         <div className="container-custom">
           <motion.div
             initial={{ y: 20 }}
-            whileInView={{ y: 0 }}
-            viewport={{ once: true }}
+            animate={{ y: 0 }}
             className="text-center mb-12"
           >
             <p className="label-tag justify-center">Questions fréquentes</p>

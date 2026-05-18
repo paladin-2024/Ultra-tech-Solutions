@@ -96,12 +96,12 @@ export default function Contact() {
       {/* Directions */}
       <section className="section section-white">
         <div className="container-custom">
-          <motion.div initial={{ y: 20 }} whileInView={{ y: 0 }} viewport={{ once: true }} className="text-center mb-12">
+          <motion.div initial={{ y: 20 }} animate={{ y: 0 }} className="text-center mb-12">
             <p className="label-tag justify-center">Comment nous trouver</p>
             <h2 className="display-md text-ink mt-1">Instructions d'Accès</h2>
           </motion.div>
           <motion.div
-            initial="initial" whileInView="animate" viewport={{ once: true }}
+            initial="initial" animate="animate"
             variants={{ initial: {}, animate: { transition: { staggerChildren: 0.09 } } }}
             className="grid grid-cols-1 md:grid-cols-3 gap-5"
           >
@@ -126,15 +126,14 @@ export default function Contact() {
       {/* FAQ */}
       <section className="section section-surface">
         <div className="container-custom">
-          <motion.div initial={{ y: 20 }} whileInView={{ y: 0 }} viewport={{ once: true }} className="text-center mb-12">
+          <motion.div initial={{ y: 20 }} animate={{ y: 0 }} className="text-center mb-12">
             <p className="label-tag justify-center">Questions fréquentes</p>
             <h2 className="display-md text-ink mt-1">FAQ</h2>
           </motion.div>
           <div className="max-w-3xl mx-auto space-y-2.5">
             {FAQ.map((item, i) => (
               <motion.details key={i}
-                initial={{ y: 12 }} whileInView={{ y: 0 }}
-                viewport={{ once: true }} transition={{ delay: i * 0.05 }}
+                initial={{ y: 12 }} animate={{ y: 0 }} transition={{ delay: i * 0.05 }}
                 className="card overflow-hidden group"
               >
                 <summary className="px-5 sm:px-6 py-4 cursor-pointer font-heading font-semibold text-ink text-sm hover:text-primary transition-colors flex items-center justify-between list-none">

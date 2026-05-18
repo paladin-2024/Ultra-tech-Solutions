@@ -32,8 +32,7 @@ export default function PartnersStrip() {
       <div className="container-custom mb-7">
         <motion.p
           initial={{ opacity: 1 }}
-          whileInView={{}}
-          viewport={{ once: true }}
+          animate={{}}
           className="text-center font-mono text-[10px] uppercase tracking-[0.28em]"
           style={{ color: '#9CA3AF' }}
         >

@@ -98,8 +98,7 @@ export default function BeforeAfterSlider() {
       <div className="container-custom">
         <motion.div
           initial={{ y: 20 }}
-          whileInView={{ y: 0 }}
-          viewport={{ once: true }}
+          animate={{ y: 0 }}
           className="text-center mb-12"
         >
           <p className="label-tag justify-center">Nos transformations</p>
@@ -114,8 +113,7 @@ export default function BeforeAfterSlider() {
             <motion.div
               key={i}
               initial={{ y: 24 }}
-              whileInView={{ y: 0 }}
-              viewport={{ once: true }}
+              animate={{ y: 0 }}
               transition={{ delay: i * 0.1, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
             >
               <Slider pair={pair} />

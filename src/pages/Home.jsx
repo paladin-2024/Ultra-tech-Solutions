@@ -19,21 +19,27 @@ import BlogPreview from '@/components/sections/BlogPreview'
 import NewsletterCapture from '@/components/sections/NewsletterCapture'
 import CTAStrip from '@/components/sections/CTAStrip'
 
-// Defers mounting a section until it's 400px from the viewport.
-// Prevents all 18 sections from rendering simultaneously on page load.
+// Defers mounting a section until near viewport. Falls back to mounting
+// after 2s in case IntersectionObserver doesn't fire (e.g. overflow:clip edge cases).
 function LazySection({ children, minHeight = 500 }) {
   const [mounted, setMounted] = useState(false)
   const ref = useRef(null)
 
   useEffect(() => {
+    const mount = () => setMounted(true)
+
+    // Fallback: always mount after 2 seconds regardless
+    const timer = setTimeout(mount, 2000)
+
     const el = ref.current
-    if (!el) return
+    if (!el) return () => clearTimeout(timer)
+
     const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setMounted(true); obs.disconnect() } },
+      ([entry]) => { if (entry.isIntersecting) { mount(); obs.disconnect(); clearTimeout(timer) } },
       { rootMargin: '400px 0px' }
     )
     obs.observe(el)
-    return () => obs.disconnect()
+    return () => { obs.disconnect(); clearTimeout(timer) }
   }, [])
 
   return (

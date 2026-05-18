@@ -54,8 +54,7 @@ export default function CoreValues() {
           {/* Photo — large, immersive */}
           <motion.div
             initial={{ x: -28 }}
-            whileInView={{ x: 0 }}
-            viewport={{ once: true }}
+            animate={{ x: 0 }}
             transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
             className="relative rounded-2xl overflow-hidden"
             style={{ aspectRatio: '4/5' }}
@@ -88,8 +87,7 @@ export default function CoreValues() {
           <div>
             <motion.div
               initial={{ y: 16 }}
-              whileInView={{ y: 0 }}
-              viewport={{ once: true }}
+              animate={{ y: 0 }}
               transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
               className="mb-10"
             >
@@ -105,8 +103,7 @@ export default function CoreValues() {
             <motion.div
               variants={stagger}
               initial="initial"
-              whileInView="animate"
-              viewport={{ once: true }}
+              animate="animate"
               className="grid grid-cols-1 sm:grid-cols-2 gap-4"
             >
               {VALUES.map((v) => {

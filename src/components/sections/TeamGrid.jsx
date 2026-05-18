@@ -8,8 +8,7 @@ export default function TeamGrid() {
       <div className="container-custom">
         <motion.div
           initial={{ y: 20 }}
-          whileInView={{ y: 0 }}
-          viewport={{ once: true }}
+          animate={{ y: 0 }}
           transition={{ duration: 0.55 }}
           className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-14"
         >
@@ -25,8 +24,7 @@ export default function TeamGrid() {
         <motion.div
           variants={staggerContainer}
           initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
+          animate="animate"
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
         >
           {team.map((member) => (

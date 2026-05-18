@@ -78,8 +78,7 @@ export default function ReviewsWidget() {
         {/* Header + aggregate */}
         <motion.div
           initial={{ y: 20 }}
-          whileInView={{ y: 0 }}
-          viewport={{ once: true }}
+          animate={{ y: 0 }}
           className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12"
         >
           <div>
@@ -120,8 +119,7 @@ export default function ReviewsWidget() {
             <motion.div
               key={r.name}
               initial={{ y: 24 }}
-              whileInView={{ y: 0 }}
-              viewport={{ once: true }}
+              animate={{ y: 0 }}
               transition={{ delay: i * 0.07, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className="card p-6 flex flex-col gap-4 hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300"
             >
@@ -168,8 +166,7 @@ export default function ReviewsWidget() {
         {/* Google badge */}
         <motion.div
           initial={{ y: 12 }}
-          whileInView={{ y: 0 }}
-          viewport={{ once: true }}
+          animate={{ y: 0 }}
           className="flex items-center justify-center gap-3 mt-10"
         >
           <div className="flex items-center gap-2 px-5 py-2.5 bg-white rounded-full"

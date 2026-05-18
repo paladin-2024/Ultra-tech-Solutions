@@ -15,8 +15,7 @@ export default function ProcessSteps() {
         {/* Header */}
         <motion.div
           initial={{ y: 20 }}
-          whileInView={{ y: 0 }}
-          viewport={{ once: true }}
+          animate={{ y: 0 }}
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
           className="mb-14"
         >
@@ -32,8 +31,7 @@ export default function ProcessSteps() {
               <motion.div
                 key={step.num}
                 initial={{ x: -24 }}
-                whileInView={{ x: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
+                animate={{ x: 0 }}
                 transition={{ duration: 0.55, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
                 className="group relative"
               >

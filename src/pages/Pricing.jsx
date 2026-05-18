@@ -111,7 +111,7 @@ export default function Pricing() {
       {/* Maintenance contracts */}
       <section className="section section-surface">
         <div className="container-custom">
-          <motion.div initial={{ y: 20 }} whileInView={{ y: 0 }} viewport={{ once: true }}
+          <motion.div initial={{ y: 20 }} animate={{ y: 0 }}
             className="text-center mb-14">
             <p className="label-tag justify-center">Contrats récurrents</p>
             <h2 className="display-md text-ink mt-1">Plans de Maintenance</h2>
@@ -123,8 +123,7 @@ export default function Pricing() {
           <motion.div
             variants={staggerContainer}
             initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
+            animate="animate"
             className="grid grid-cols-1 md:grid-cols-3 gap-5 items-start"
           >
             {PLANS.map((plan) => (
@@ -207,7 +206,7 @@ export default function Pricing() {
       {/* One-off services table */}
       <section className="section section-white">
         <div className="container-custom">
-          <motion.div initial={{ y: 20 }} whileInView={{ y: 0 }} viewport={{ once: true }}
+          <motion.div initial={{ y: 20 }} animate={{ y: 0 }}
             className="mb-12">
             <p className="label-tag">Prestations ponctuelles</p>
             <h2 className="display-md text-ink mt-1 mb-4">Tarifs indicatifs</h2>
@@ -218,8 +217,7 @@ export default function Pricing() {
 
           <motion.div
             initial={{ y: 20 }}
-            whileInView={{ y: 0 }}
-            viewport={{ once: true }}
+            animate={{ y: 0 }}
             className="rounded-2xl overflow-hidden"
             style={{ border: '1px solid rgba(0,0,0,0.08)' }}
           >
@@ -247,8 +245,7 @@ export default function Pricing() {
 
           <motion.div
             initial={{ opacity: 1 }}
-            whileInView={{}}
-            viewport={{ once: true }}
+            animate={{}}
             className="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-4 p-5 rounded-2xl"
             style={{ background: 'rgba(139,26,26,0.04)', border: '1px solid rgba(139,26,26,0.10)' }}
           >

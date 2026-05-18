@@ -17,8 +17,7 @@ export default function BlogPreview() {
         {/* Header */}
         <motion.div
           initial={{ y: 20 }}
-          whileInView={{ y: 0 }}
-          viewport={{ once: true }}
+          animate={{ y: 0 }}
           className="flex flex-col sm:flex-row sm:items-end justify-between gap-5 mb-12"
         >
           <div>
@@ -36,8 +35,7 @@ export default function BlogPreview() {
           {featured && (
             <motion.div
               initial={{ y: 24 }}
-              whileInView={{ y: 0 }}
-              viewport={{ once: true }}
+              animate={{ y: 0 }}
               transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
               className="lg:col-span-3"
             >
@@ -81,8 +79,7 @@ export default function BlogPreview() {
               <motion.div
                 key={post.id}
                 initial={{ y: 24 }}
-                whileInView={{ y: 0 }}
-                viewport={{ once: true }}
+                animate={{ y: 0 }}
                 transition={{ delay: 0.1 + i * 0.1, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
               >
                 <Link to={`/blog/${post.slug}`} className="group flex gap-4 items-start card p-4 hover:shadow-card-hover hover:-translate-y-0.5 transition-all duration-300">
@@ -114,8 +111,7 @@ export default function BlogPreview() {
 
             <motion.div
               initial={{ opacity: 1 }}
-              whileInView={{}}
-              viewport={{ once: true }}
+              animate={{}}
               transition={{ delay: 0.35 }}
             >
               <Link to="/blog"

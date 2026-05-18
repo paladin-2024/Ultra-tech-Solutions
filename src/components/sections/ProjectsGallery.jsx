@@ -25,8 +25,7 @@ function BentoCard({ project, featured, onClick }) {
         featured ? 'lg:col-span-2 lg:row-span-2' : '')}
       style={{ minHeight: featured ? '320px' : '200px' }}
       initial={{ y: 20 }}
-      whileInView={{ y: 0 }}
-      viewport={{ once: true, margin: '-40px' }}
+      animate={{ y: 0 }}
       transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
     >
       <motion.div
@@ -247,8 +246,7 @@ export default function ProjectsGallery({ limit, showFilter = true, title = 'Pro
           {/* Header */}
           <motion.div
             initial={{ y: 20 }}
-            whileInView={{ y: 0 }}
-            viewport={{ once: true }}
+            animate={{ y: 0 }}
             transition={{ duration: 0.55 }}
             className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12"
           >
@@ -274,8 +272,7 @@ export default function ProjectsGallery({ limit, showFilter = true, title = 'Pro
           {showFilter && (
             <motion.div
               initial={{ y: 12 }}
-              whileInView={{ y: 0 }}
-              viewport={{ once: true }}
+              animate={{ y: 0 }}
               className="flex flex-wrap gap-2 mb-10"
             >
               {projectCategories.map((c) => (
@@ -321,8 +318,7 @@ export default function ProjectsGallery({ limit, showFilter = true, title = 'Pro
           {limit && (
             <motion.div
               initial={{ y: 14 }}
-              whileInView={{ y: 0 }}
-              viewport={{ once: true }}
+              animate={{ y: 0 }}
               className="mt-12"
             >
               <Link

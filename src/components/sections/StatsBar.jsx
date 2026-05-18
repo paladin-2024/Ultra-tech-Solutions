@@ -73,8 +73,7 @@ function StatItem({ stat, index }) {
     <motion.div
       ref={ref}
       initial={{ y: 16 }}
-      whileInView={{ y: 0 }}
-      viewport={{ once: true }}
+      animate={{ y: 0 }}
       transition={{ delay: index * 0.08, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       className={`flex flex-col items-center justify-center text-center py-8 px-4 ${
         index < 3 ? 'lg:border-r' : ''

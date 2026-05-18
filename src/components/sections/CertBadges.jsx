@@ -16,16 +16,14 @@ export default function CertBadges() {
       <div className="container-custom">
         <motion.p
           initial={{ opacity: 1 }}
-          whileInView={{}}
-          viewport={{ once: true }}
+          animate={{}}
           className="text-center text-muted font-mono text-[10px] uppercase tracking-[0.25em] mb-8"
         >
           Reconnaissances & Accréditations
         </motion.p>
         <motion.div
           initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
+          animate="animate"
           variants={{ initial: {}, animate: { transition: { staggerChildren: 0.06 } } }}
           className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3"
         >

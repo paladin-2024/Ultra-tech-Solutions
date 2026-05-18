@@ -131,8 +131,7 @@ export default function ContactForm({ defaultService }) {
     <motion.div
       variants={fadeInLeft}
       initial="initial"
-      whileInView="animate"
-      viewport={{ once: true }}
+      animate="animate"
       className="card p-6 sm:p-8"
     >
       <div className="mb-6">
